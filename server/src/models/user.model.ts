@@ -10,7 +10,7 @@ export interface IUser extends Document {
 	}[];
 }
 
-export interface ICreateUserInput {
+export interface IRegisterUserInput {
 	name: IUser['name'];
 	email: IUser['email'];
 	password: IUser['password'];

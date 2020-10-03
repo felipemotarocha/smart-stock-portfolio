@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import User, { ICreateUserInput } from '../../models/user.model';
+import User, { IRegisterUserInput } from '../../models/user.model';
 import bcrypt from 'bcryptjs';
 import { default as UserType } from '../types/user.types';
 
@@ -16,7 +16,7 @@ class UserResolver {
 		@Arg('name') name: string,
 		@Arg('email') email: string,
 		@Arg('password') password: string
-	): Promise<ICreateUserInput> {
+	): Promise<IRegisterUserInput> {
 		const hashedPassword = await bcrypt.hash(password, 8);
 
 		const user = new User({ name, email, password: hashedPassword });
