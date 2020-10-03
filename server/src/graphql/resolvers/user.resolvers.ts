@@ -1,9 +1,17 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import {
+	Resolver,
+	Query,
+	Mutation,
+	Arg,
+	FieldResolver,
+	Root,
+} from 'type-graphql';
 import User, { IRegisterUserInput } from '../../models/user.model';
+import { default as StockModel } from '../../models/stock.model';
 import bcrypt from 'bcryptjs';
 import { default as UserType } from '../types/user.types';
 
-@Resolver()
+@Resolver((_of) => UserType)
 class UserResolver {
 	@Query(() => UserType)
 	async user(@Arg('id') id: string) {
@@ -17,6 +25,15 @@ class UserResolver {
 		return users;
 	}
 
+	@FieldResolver()
+	async stocks(@Root() user: any) {
+		console.log(user._id);
+		const stocks = await StockModel.find({
+			'buyers.buyerId': user._id,
+		});
+		return stocks;
+	}
+
 	@Mutation(() => UserType)
 	async register(
 		@Arg('name') name: string,
@@ -27,6 +44,20 @@ class UserResolver {
 
 		const user = new User({ name, email, password: hashedPassword });
 		await user.save();
+
+		return user;
+	}
+
+	@Mutation(() => UserType)
+	async addNewStock(
+		@Arg('userId') userId: string,
+		@Arg('symbol') symbol: string
+	) {
+		const stock = await StockModel.findOne({ symbol });
+		const user = await User.findOne({ _id: userId });
+		user!.stocks.push({ stockId: stock!._id, quantity: 0 });
+
+		await user?.save();
 
 		return user;
 	}

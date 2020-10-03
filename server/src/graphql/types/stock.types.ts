@@ -4,7 +4,7 @@ import User from './user.types';
 @ObjectType()
 class Stock {
 	@Field((_type) => ID)
-	id: string;
+	_id: string;
 
 	@Field()
 	companyName: string;
@@ -16,7 +16,7 @@ class Stock {
 	price: number;
 
 	@Field(() => [User])
-	owners: [User];
+	buyers: [User];
 }
 
 export default Stock;

@@ -1,13 +1,34 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import {
+	Resolver,
+	Query,
+	Mutation,
+	Arg,
+	FieldResolver,
+	Root,
+} from 'type-graphql';
 import Stock from '../../models/stock.model';
+import User from '../../models/user.model';
 import { default as StockType } from '../types/stock.types';
 
-@Resolver()
+@Resolver((_of) => StockType)
 class StockResolver {
 	@Query(() => [StockType])
 	async stocks() {
 		const stocks = await Stock.find({});
 		return stocks;
+	}
+
+	@Query(() => StockType)
+	async stock(@Arg('symbol') symbol: string) {
+		const stock = await Stock.findOne({ symbol });
+		return stock;
+	}
+
+	@FieldResolver()
+	async buyers(@Root() stock: any) {
+		console.log(stock._doc._id);
+		const users = await User.find({ 'stocks.stockId': stock._doc._id });
+		return users;
 	}
 
 	@Mutation(() => StockType)

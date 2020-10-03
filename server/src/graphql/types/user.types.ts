@@ -5,7 +5,7 @@ import Stock from './stock.types';
 @ObjectType()
 class User {
 	@Field((_type) => ID)
-	id: string;
+	_id: string;
 
 	@Field()
 	name: string;

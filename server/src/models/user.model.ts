@@ -5,7 +5,7 @@ export interface IUser extends Document {
 	email: string;
 	password: string;
 	stocks: {
-		symbol: string;
+		stockId: string;
 		quantity: number;
 	}[];
 }
