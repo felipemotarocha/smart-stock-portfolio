@@ -3,12 +3,13 @@ import express from 'express';
 import { buildSchema } from 'type-graphql';
 import 'reflect-metadata';
 import UserResolver from './graphql/resolvers/user.resolvers';
+import StockResolver from './graphql/resolvers/stock.resolvers';
 require('dotenv').config();
 require('./config/database');
 
 const main = async () => {
 	const schema = await buildSchema({
-		resolvers: [UserResolver],
+		resolvers: [UserResolver, StockResolver],
 	});
 
 	const apolloServer = new ApolloServer({ schema });

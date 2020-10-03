@@ -16,6 +16,12 @@ class User {
 	@Field()
 	password: string;
 
+	@Field()
+	availableBalance: number;
+
+	@Field()
+	investedBalance: number;
+
 	@Field((_type) => [Stock])
 	stocks: Stock[];
 }

@@ -5,6 +5,12 @@ import { default as UserType } from '../types/user.types';
 
 @Resolver()
 class UserResolver {
+	@Query(() => UserType)
+	async user(@Arg('id') id: string) {
+		const user = await User.findById(id);
+		return user;
+	}
+
 	@Query(() => [UserType])
 	async users() {
 		const users = await User.find({});

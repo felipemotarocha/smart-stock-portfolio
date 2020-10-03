@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, Types, model } from 'mongoose';
 
 export interface IUser extends Document {
 	name: string;
@@ -16,17 +16,6 @@ export interface IRegisterUserInput {
 	password: IUser['password'];
 }
 
-const stockSchema: Schema = new Schema({
-	symbol: {
-		type: String,
-		required: true,
-	},
-	quantity: {
-		type: Number,
-		required: true,
-	},
-});
-
 const userSchema: Schema = new Schema({
 	name: {
 		type: String,
@@ -40,7 +29,20 @@ const userSchema: Schema = new Schema({
 		type: String,
 		required: true,
 	},
-	stocks: [stockSchema],
+	availableBalance: {
+		type: Number,
+		default: 0,
+	},
+	investedBalance: {
+		type: Number,
+		default: 0,
+	},
+	stocks: [
+		{
+			stockId: Types.ObjectId,
+			quantity: Number,
+		},
+	],
 });
 
 const User = model<IUser>('User', userSchema);
