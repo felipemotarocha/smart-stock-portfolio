@@ -26,7 +26,6 @@ class StockResolver {
 
 	@FieldResolver()
 	async buyers(@Root() stock: any) {
-		console.log(stock._doc._id);
 		const users = await User.find({ 'stocks.stockId': stock._doc._id });
 		return users;
 	}

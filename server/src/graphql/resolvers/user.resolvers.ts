@@ -14,8 +14,8 @@ import { default as UserType } from '../types/user.types';
 @Resolver((_of) => UserType)
 class UserResolver {
 	@Query(() => UserType)
-	async user(@Arg('id') id: string) {
-		const user = await User.findById(id);
+	async user(@Arg('_id') _id: string) {
+		const user = await User.findById(_id);
 		return user;
 	}
 
@@ -51,13 +51,17 @@ class UserResolver {
 	@Mutation(() => UserType)
 	async addNewStock(
 		@Arg('userId') userId: string,
-		@Arg('symbol') symbol: string
+		@Arg('symbol') symbol: string,
+		@Arg('quantity') quantity: number
 	) {
 		const stock = await StockModel.findOne({ symbol });
 		const user = await User.findOne({ _id: userId });
-		user!.stocks.push({ stockId: stock!._id, quantity: 0 });
 
-		await user?.save();
+		stock!.buyers.push({ buyerId: user!._id });
+		user!.stocks.push({ stockId: stock!._id, quantity });
+
+		await stock!.save();
+		await user!.save();
 
 		return user;
 	}
