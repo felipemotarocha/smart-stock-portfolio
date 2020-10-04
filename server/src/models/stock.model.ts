@@ -7,6 +7,7 @@ export interface IStock extends Document {
 	buyers: {
 		buyerId: string;
 	}[];
+	quantity?: number;
 }
 
 const stockSchema: Schema = new Schema({

@@ -17,6 +17,9 @@ class Stock {
 
 	@Field(() => [User])
 	buyers: [User];
+
+	@Field()
+	quantity: number;
 }
 
 export default Stock;

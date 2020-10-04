@@ -4,6 +4,8 @@ export interface IUser extends Document {
 	name: string;
 	email: string;
 	password: string;
+	availableBalance: number;
+	investedBalance: number;
 	stocks: {
 		stockId: string;
 		quantity: number;
