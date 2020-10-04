@@ -42,20 +42,31 @@ class UserResolver {
 				'buyers.buyerId': user._id,
 			});
 
-			// adding the quantity that the user has of each stock
+			// adding the quantity and the total invested field to each stock
 			for (let stock of stocks) {
 				for (const userStock of user.stocks) {
 					if (userStock.stockId.toString() === stock._id.toString()) {
 						stock.quantity = userStock.quantity;
 						stock.totalInvested = stock.quantity * stock.price;
-						stock.percentageOfThePortfolio =
-							Math.round(
-								((stock.totalInvested * 100) /
-									user.investedBalance) *
-									100
-							) / 100;
 					}
 				}
+			}
+
+			// updating the user's total invested balance according to the total invested in each stock
+			user.investedBalance = stocks.reduce(
+				(accumulator, currentStock) =>
+					accumulator + currentStock.totalInvested!,
+				0
+			);
+			await user.save();
+
+			// calculating the percentage of each stock in the portfolio
+			for (let stock of stocks) {
+				stock.percentageOfThePortfolio =
+					Math.round(
+						((stock.totalInvested! * 100) / user.investedBalance) *
+							100
+					) / 100;
 			}
 
 			return stocks;
