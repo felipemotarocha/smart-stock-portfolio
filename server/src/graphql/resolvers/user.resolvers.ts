@@ -47,6 +47,13 @@ class UserResolver {
 				for (const userStock of user.stocks) {
 					if (userStock.stockId.toString() === stock._id.toString()) {
 						stock.quantity = userStock.quantity;
+						stock.totalInvested = stock.quantity * stock.price;
+						stock.percentageOfThePortfolio =
+							Math.round(
+								((stock.totalInvested * 100) /
+									user.investedBalance) *
+									100
+							) / 100;
 					}
 				}
 			}

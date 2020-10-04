@@ -18,8 +18,16 @@ class Stock {
 	@Field(() => [User])
 	buyers: [User];
 
-	@Field()
+	// buyer's fields
+	@Field({ nullable: true })
 	quantity: number;
+
+	@Field({ nullable: true })
+	totalInvested: number;
+
+	@Field({ nullable: true })
+	percentageOfThePortfolio: number;
+	// end of buyer's fields
 }
 
 export default Stock;

@@ -8,6 +8,8 @@ export interface IStock extends Document {
 		buyerId: string;
 	}[];
 	quantity?: number;
+	totalInvested?: number;
+	percentageOfThePortfolio?: number;
 }
 
 const stockSchema: Schema = new Schema({
