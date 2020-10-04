@@ -1,3 +1,4 @@
+import { IUser } from './../../models/user.model';
 import {
 	Resolver,
 	Query,
@@ -10,37 +11,50 @@ import User, { IRegisterUserInput } from '../../models/user.model';
 import { default as StockModel } from '../../models/stock.model';
 import bcrypt from 'bcryptjs';
 import { default as UserType } from '../types/user.types';
+import { ApolloError } from 'apollo-server-express';
 
 @Resolver((_of) => UserType)
 class UserResolver {
 	@Query(() => UserType)
 	async user(@Arg('_id') _id: string) {
-		const user = await User.findById(_id);
-		return user;
+		try {
+			const user = await User.findById(_id);
+			return user;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
 	}
 
 	@Query(() => [UserType])
 	async users() {
-		const users = await User.find({});
-		return users;
+		try {
+			const users = await User.find({});
+			return users;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
 	}
 
 	@FieldResolver()
-	async stocks(@Root() user: any) {
-		const stocks = await StockModel.find({
-			'buyers.buyerId': user._id,
-		});
+	async stocks(@Root() user: IUser) {
+		try {
+			const stocks = await StockModel.find({
+				'buyers.buyerId': user._id,
+			});
 
-		// adding the quantity that the user has of each stock
-		for (let stock of stocks) {
-			for (const userStock of user.stocks) {
-				if (userStock.stockId.toString() == stock._id) {
-					stock.quantity = userStock.quantity;
+			// adding the quantity that the user has of each stock
+			for (let stock of stocks) {
+				for (const userStock of user.stocks) {
+					if (userStock.stockId.toString() === stock._id.toString()) {
+						stock.quantity = userStock.quantity;
+					}
 				}
 			}
-		}
 
-		return stocks;
+			return stocks;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
 	}
 
 	@Mutation(() => UserType)
@@ -48,13 +62,17 @@ class UserResolver {
 		@Arg('name') name: string,
 		@Arg('email') email: string,
 		@Arg('password') password: string
-	): Promise<IRegisterUserInput> {
-		const hashedPassword = await bcrypt.hash(password, 8);
+	): Promise<IRegisterUserInput | ApolloError> {
+		try {
+			const hashedPassword = await bcrypt.hash(password, 8);
 
-		const user = new User({ name, email, password: hashedPassword });
-		await user.save();
+			const user = new User({ name, email, password: hashedPassword });
+			await user.save();
 
-		return user;
+			return user;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
 	}
 
 	@Mutation(() => UserType)
@@ -63,16 +81,20 @@ class UserResolver {
 		@Arg('symbol') symbol: string,
 		@Arg('quantity') quantity: number
 	) {
-		const stock = await StockModel.findOne({ symbol });
-		const user = await User.findOne({ _id: userId });
+		try {
+			const stock = await StockModel.findOne({ symbol });
+			const user = await User.findOne({ _id: userId });
 
-		stock!.buyers.push({ buyerId: user!._id });
-		user!.stocks.push({ stockId: stock!._id, quantity });
+			stock!.buyers.push({ buyerId: user!._id });
+			user!.stocks.push({ stockId: stock!._id, quantity });
 
-		await stock!.save();
-		await user!.save();
+			await stock!.save();
+			await user!.save();
 
-		return user;
+			return user;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
 	}
 
 	@Mutation(() => UserType)
@@ -88,36 +110,35 @@ class UserResolver {
 			const { price } = stock!;
 
 			// checking if the user has enough balance to buy the stock
-			if (user!.availableBalance >= price * quantity) {
-				user!.availableBalance =
-					user!.availableBalance - price * quantity;
+			if (user && stock && user!.availableBalance >= price * quantity) {
+				user.availableBalance =
+					user.availableBalance - price * quantity;
 
-				user!.investedBalance += price * quantity;
+				user.investedBalance += price * quantity;
 
 				// check if the user already has the stock
-				const userAlreadyHasTheStock = user!.stocks.findIndex(
-					(userStock) => userStock.stockId.toString() == stock!._id
+				const userAlreadyHasTheStock = user.stocks.findIndex(
+					(userStock) => userStock.stockId.toString() == stock._id
 				);
-
-				// if he has, add to the quantity, if he not, add to the stocks list
+				// if he has, add to the quantity, if he not, add to the his stocks list
 				if (userAlreadyHasTheStock !== -1) {
-					user!.stocks[userAlreadyHasTheStock].quantity += quantity;
+					user.stocks[userAlreadyHasTheStock].quantity += quantity;
 				} else {
-					user!.stocks.push({ stockId: stock!._id, quantity });
-					stock!.buyers.push({ buyerId: user!._id });
+					user.stocks.push({ stockId: stock._id, quantity });
+					stock.buyers.push({ buyerId: user._id });
 				}
 
-				await user!.save();
-				await stock!.save();
+				await user.save();
+				await stock.save();
 
 				return user;
-			} else {
-				throw new Error(
-					'You do not have enough balance to make this transaction.'
-				);
 			}
-		} catch (err) {
-			return err.message;
+
+			return new ApolloError(
+				'You do not have enough balance to make this transaction.'
+			);
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
 		}
 	}
 }
