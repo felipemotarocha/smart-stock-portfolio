@@ -13,6 +13,7 @@ import axios from 'axios';
 import Stock from '../../models/stock.model';
 import User from '../../models/user.model';
 import { default as StockType } from '../types/stock.types';
+import { StockData } from 'src/helpers/stock.helpers';
 // import { StockPriceResponse } from '../types/axios.types';
 
 @Resolver((_of) => StockType)
@@ -65,21 +66,7 @@ class StockResolver {
 			);
 			if (!results) throw new ApolloError('This stock was not found.');
 
-			const stockData: {
-				symbol: string;
-				name: string;
-				region: string;
-				currency: string;
-				market_time: {
-					open: string;
-					close: string;
-					timezone: number;
-				};
-				market_cap: number;
-				price: number;
-				change_percent: number;
-				updated_at: Date;
-			} = results[symbol.toUpperCase()];
+			const stockData: StockData = results[symbol.toUpperCase()];
 
 			const {
 				name,

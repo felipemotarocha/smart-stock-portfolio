@@ -1,3 +1,4 @@
+import { updateUserStocksData } from './../../helpers/user.helpers';
 import { IUser } from './../../models/user.model';
 import {
 	Resolver,
@@ -42,32 +43,7 @@ class UserResolver {
 				'buyers.buyerId': user._id,
 			});
 
-			// adding the quantity and the total invested field to each stock
-			for (let stock of stocks) {
-				user.stocks.forEach((userStock) => {
-					if (userStock.stockId.toString() === stock._id.toString()) {
-						stock.quantity = userStock.quantity;
-						stock.totalInvested = stock.quantity * stock.price;
-					}
-				});
-			}
-
-			// updating the user's total invested balance according to the total invested in each stock
-			user.investedBalance = stocks.reduce(
-				(accumulator, currentStock) =>
-					accumulator + currentStock.totalInvested!,
-				0
-			);
-			await user.save();
-
-			// calculating the percentage of each stock in the portfolio
-			for (let stock of stocks) {
-				stock.percentageOfThePortfolio =
-					Math.round(
-						((stock.totalInvested! * 100) / user.investedBalance) *
-							100
-					) / 100;
-			}
+			await updateUserStocksData(stocks, user);
 
 			return stocks;
 		} catch (_err) {
