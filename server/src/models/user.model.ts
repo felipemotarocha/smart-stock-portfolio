@@ -42,6 +42,7 @@ const userSchema: Schema = new Schema({
 	},
 	stocks: [
 		{
+			_id: false,
 			stockId: Types.ObjectId,
 			quantity: Number,
 		},

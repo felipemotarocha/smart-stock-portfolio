@@ -7,13 +7,22 @@ class Stock {
 	_id: string;
 
 	@Field()
-	companyName: string;
+	name: string;
 
 	@Field()
 	symbol: string;
 
 	@Field()
 	price: number;
+
+	@Field()
+	marketCap: number;
+
+	@Field()
+	changePercent: number;
+
+	@Field()
+	updatedAt: Date;
 
 	@Field(() => [User])
 	buyers: [User];

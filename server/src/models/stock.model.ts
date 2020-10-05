@@ -1,9 +1,12 @@
 import { Document, Schema, Types, model } from 'mongoose';
 
 export interface IStock extends Document {
-	companyName: string;
+	name: string;
 	symbol: string;
 	price: number;
+	marketCap: number;
+	changePercent: number;
+	updatedAt: Date;
 	buyers: {
 		buyerId: string;
 	}[];
@@ -13,7 +16,7 @@ export interface IStock extends Document {
 }
 
 const stockSchema: Schema = new Schema({
-	companyName: {
+	name: {
 		type: String,
 		required: true,
 	},
@@ -25,8 +28,21 @@ const stockSchema: Schema = new Schema({
 		type: Number,
 		required: true,
 	},
+	marketCap: {
+		type: Number,
+		required: true,
+	},
+	changePercent: {
+		type: Number,
+		required: true,
+	},
+	updatedAt: {
+		type: Date,
+		required: true,
+	},
 	buyers: [
 		{
+			_id: false,
 			buyerId: Types.ObjectId,
 		},
 	],

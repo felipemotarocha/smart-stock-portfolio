@@ -44,12 +44,12 @@ class UserResolver {
 
 			// adding the quantity and the total invested field to each stock
 			for (let stock of stocks) {
-				for (const userStock of user.stocks) {
+				user.stocks.forEach((userStock) => {
 					if (userStock.stockId.toString() === stock._id.toString()) {
 						stock.quantity = userStock.quantity;
 						stock.totalInvested = stock.quantity * stock.price;
 					}
-				}
+				});
 			}
 
 			// updating the user's total invested balance according to the total invested in each stock

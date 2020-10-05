@@ -7,10 +7,13 @@ import {
 	FieldResolver,
 	Root,
 } from 'type-graphql';
+import { ApolloError } from 'apollo-server-express';
+import axios from 'axios';
+
 import Stock from '../../models/stock.model';
 import User from '../../models/user.model';
 import { default as StockType } from '../types/stock.types';
-import { ApolloError } from 'apollo-server-express';
+// import { StockPriceResponse } from '../types/axios.types';
 
 @Resolver((_of) => StockType)
 class StockResolver {
@@ -45,16 +48,53 @@ class StockResolver {
 	}
 
 	@Mutation(() => StockType)
-	async addStock(
-		@Arg('companyName') companyName: string,
-		@Arg('symbol') symbol: string,
-		@Arg('price') price: number
-	) {
+	async addStockToTheDatabase(@Arg('symbol') symbol: string) {
 		try {
-			const stock = new Stock({
-				companyName,
-				symbol,
+			const stockAlreadyExists = await Stock.findOne({
+				symbol: symbol.toUpperCase(),
+			});
+			if (stockAlreadyExists)
+				return new ApolloError(
+					'This stock already exists in the database.'
+				);
+
+			const {
+				data: { results },
+			} = await axios.get(
+				`https://api.hgbrasil.com/finance/stock_price?key=${process.env.HG_FINANCE_KEY}&symbol=${symbol}`
+			);
+			if (!results) throw new ApolloError('This stock was not found.');
+
+			const stockData: {
+				symbol: string;
+				name: string;
+				region: string;
+				currency: string;
+				market_time: {
+					open: string;
+					close: string;
+					timezone: number;
+				};
+				market_cap: number;
+				price: number;
+				change_percent: number;
+				updated_at: Date;
+			} = results[symbol.toUpperCase()];
+
+			const {
+				name,
 				price,
+				market_cap,
+				change_percent,
+				updated_at,
+			} = stockData;
+			const stock = new Stock({
+				name,
+				symbol: stockData.symbol,
+				price,
+				marketCap: market_cap,
+				changePercent: change_percent,
+				updatedAt: updated_at,
 			});
 			await stock.save();
 
