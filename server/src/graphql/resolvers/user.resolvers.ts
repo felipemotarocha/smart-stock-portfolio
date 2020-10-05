@@ -1,16 +1,18 @@
+import { updateStocksData } from './../../helpers/user.helpers';
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import User, { IRegisterUserInput } from '../../models/user.model';
 import bcrypt from 'bcryptjs';
-import { default as UserType } from '../types/user.types';
 import { ApolloError } from 'apollo-server-express';
+
+import User, { IRegisterUserInput } from '../../models/user.model';
+import { default as UserType } from '../types/user.types';
 
 @Resolver((_of) => UserType)
 class UserResolver {
 	@Query(() => UserType)
 	async user(@Arg('_id') _id: string) {
 		try {
-			const user = await User.findById(_id);
-
+			const user = await User.findOne({ _id });
+			await updateStocksData(user!);
 			return user;
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');

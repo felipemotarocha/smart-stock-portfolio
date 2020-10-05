@@ -1,6 +1,7 @@
-import { addStock } from './../helpers/user.helpers';
 import { Document, Schema, model } from 'mongoose';
 import { ApolloError } from 'apollo-server-express';
+
+import { addStock } from './../helpers/user.helpers';
 
 export interface IUser extends Document {
 	_id: string;
@@ -21,6 +22,8 @@ export interface IUser extends Document {
 		percentageOfThePortfolio?: number;
 	}[];
 	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
+	calculateInvestedBalance: () => IUser;
+	calculatePercentageOfThePortfolioOfEachStock: () => IUser;
 }
 
 export interface IRegisterUserInput {
@@ -74,6 +77,41 @@ userSchema.methods.addStock = async function (
 ) {
 	try {
 		const user = await addStock(withCost, this as any, symbol, quantity);
+		return user;
+	} catch (_err) {
+		return new ApolloError('Something went wrong.');
+	}
+};
+
+userSchema.methods.calculateInvestedBalance = async function () {
+	try {
+		const user: IUser = this as any;
+		user.investedBalance = 0;
+
+		const { stocks } = user;
+		for (const stock of stocks) {
+			user.investedBalance += stock.totalInvested!;
+		}
+
+		await user.save();
+		return user;
+	} catch (_err) {
+		return new ApolloError('Something went wrong.');
+	}
+};
+
+userSchema.methods.calculatePercentageOfThePortfolioOfEachStock = async function () {
+	try {
+		const user: IUser = this as any;
+
+		for (let stock of user.stocks) {
+			stock.percentageOfThePortfolio =
+				Math.round(
+					((stock.totalInvested! * 100) / user.investedBalance) * 100
+				) / 100;
+		}
+
+		await user.save();
 		return user;
 	} catch (_err) {
 		return new ApolloError('Something went wrong.');
