@@ -1,11 +1,23 @@
-import { ObjectType, Field, ID } from 'type-graphql';
-import User from './user.types';
+import { ObjectType, Field } from 'type-graphql';
+
+export type StockData = {
+	symbol: string;
+	name: string;
+	region: string;
+	currency: string;
+	market_time: {
+		open: string;
+		close: string;
+		timezone: number;
+	};
+	market_cap: number;
+	price: number;
+	change_percent: number;
+	updated_at: Date;
+};
 
 @ObjectType()
 class Stock {
-	@Field((_type) => ID)
-	_id: string;
-
 	@Field()
 	name: string;
 
@@ -24,10 +36,6 @@ class Stock {
 	@Field()
 	updatedAt: Date;
 
-	@Field(() => [User])
-	buyers: [User];
-
-	// buyer's fields
 	@Field({ nullable: true })
 	quantity: number;
 
@@ -36,7 +44,6 @@ class Stock {
 
 	@Field({ nullable: true })
 	percentageOfThePortfolio: number;
-	// end of buyer's fields
 }
 
 export default Stock;

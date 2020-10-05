@@ -1,15 +1,5 @@
-import { updateUserStocksData } from './../../helpers/user.helpers';
-import { IUser } from './../../models/user.model';
-import {
-	Resolver,
-	Query,
-	Mutation,
-	Arg,
-	FieldResolver,
-	Root,
-} from 'type-graphql';
+import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import User, { IRegisterUserInput } from '../../models/user.model';
-import { default as StockModel } from '../../models/stock.model';
 import bcrypt from 'bcryptjs';
 import { default as UserType } from '../types/user.types';
 import { ApolloError } from 'apollo-server-express';
@@ -20,6 +10,7 @@ class UserResolver {
 	async user(@Arg('_id') _id: string) {
 		try {
 			const user = await User.findById(_id);
+
 			return user;
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');
@@ -31,21 +22,6 @@ class UserResolver {
 		try {
 			const users = await User.find({});
 			return users;
-		} catch (_err) {
-			return new ApolloError('Something went wrong.');
-		}
-	}
-
-	@FieldResolver()
-	async stocks(@Root() user: IUser) {
-		try {
-			const stocks = await StockModel.find({
-				'buyers.buyerId': user._id,
-			});
-
-			await updateUserStocksData(stocks, user);
-
-			return stocks;
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');
 		}
@@ -70,67 +46,15 @@ class UserResolver {
 	}
 
 	@Mutation(() => UserType)
-	async addStockWithNoCost(
+	async addStock(
+		@Arg('withCost') withCost: boolean,
 		@Arg('userId') userId: string,
 		@Arg('symbol') symbol: string,
 		@Arg('quantity') quantity: number
 	) {
 		try {
-			const stock = await StockModel.findOne({ symbol });
 			const user = await User.findOne({ _id: userId });
-
-			stock!.buyers.push({ buyerId: user!._id });
-			user!.stocks.push({ stockId: stock!._id, quantity });
-
-			await stock!.save();
-			await user!.save();
-
-			return user;
-		} catch (_err) {
-			return new ApolloError('Something went wrong.');
-		}
-	}
-
-	@Mutation(() => UserType)
-	async addStockWithCost(
-		@Arg('userId') userId: string,
-		@Arg('symbol') symbol: string,
-		@Arg('quantity') quantity: number
-	) {
-		try {
-			const stock = await StockModel.findOne({ symbol });
-			const user = await User.findOne({ _id: userId })!;
-
-			const { price } = stock!;
-
-			// checking if the user has enough balance to buy the stock
-			if (user && stock && user!.availableBalance >= price * quantity) {
-				user.availableBalance =
-					user.availableBalance - price * quantity;
-
-				user.investedBalance += price * quantity;
-
-				// check if the user already has the stock
-				const userAlreadyHasTheStock = user.stocks.findIndex(
-					(userStock) => userStock.stockId.toString() == stock._id
-				);
-				// if he has, add to the quantity, if he not, add to the his stocks list
-				if (userAlreadyHasTheStock !== -1) {
-					user.stocks[userAlreadyHasTheStock].quantity += quantity;
-				} else {
-					user.stocks.push({ stockId: stock._id, quantity });
-					stock.buyers.push({ buyerId: user._id });
-				}
-
-				await user.save();
-				await stock.save();
-
-				return user;
-			}
-
-			return new ApolloError(
-				'You do not have enough balance to make this transaction.'
-			);
+			return user!.addStock(withCost, symbol, quantity);
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');
 		}

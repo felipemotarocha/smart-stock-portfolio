@@ -8,10 +8,10 @@ import cors from 'cors';
 import { buildSchema } from 'type-graphql';
 
 import UserResolver from './graphql/resolvers/user.resolvers';
-import StockResolver from './graphql/resolvers/stock.resolvers';
+
 const main = async () => {
 	const schema = await buildSchema({
-		resolvers: [UserResolver, StockResolver],
+		resolvers: [UserResolver],
 	});
 
 	const apolloServer = new ApolloServer({ schema });
