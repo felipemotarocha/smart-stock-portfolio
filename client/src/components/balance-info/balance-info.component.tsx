@@ -28,6 +28,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = () => {
 					prefix='R$'
 					type='text'
 					size='large'
+					color="primary"
 					onChange={handleChange}
 					value={availableBalance}
 				/>
@@ -40,8 +41,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = () => {
 					width={30}
 					prefix='R$'
 					size='large'
-					backgroundColor='#1488cc'
-					borderColor='#1488cc'
+					backgroundColor="#1488cc"
 					readOnly
 				/>
 			</InputContainer>
@@ -53,8 +53,8 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = () => {
 					prefix='R$'
 					type='text'
 					size='large'
-					backgroundColor='#1488cc'
-					borderColor='#1488cc'
+					color="primary"
+					backgroundColor="#1488cc"
 					readOnly
 				/>
 			</InputContainer>

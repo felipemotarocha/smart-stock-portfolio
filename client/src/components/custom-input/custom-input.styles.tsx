@@ -19,9 +19,7 @@ export const GlobalStyled = createGlobalStyle`
   input {
 	background: rgba(0, 0, 0, 0) !important;
 	color: #eee !important;
-	border-color: rgba(159, 159, 159, 0.5) !important;
   }
-
   
 `;
 
