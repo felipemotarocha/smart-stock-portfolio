@@ -32,7 +32,7 @@ export const addStock = async (
 				'You do not have enough money to make this transaction.'
 			);
 
-		user.investedBalance += price * quantity;
+		// user.investedBalance += price * quantity;
 		if (withCost) user.availableBalance -= price * quantity;
 
 		const userAlreadyHasTheStock = user.stocks.findIndex(
@@ -40,8 +40,13 @@ export const addStock = async (
 		);
 		if (userAlreadyHasTheStock !== -1) {
 			user.stocks[userAlreadyHasTheStock].quantity! += quantity;
+
 			user.stocks[userAlreadyHasTheStock].totalInvested =
 				user.stocks[userAlreadyHasTheStock].quantity! * price;
+			user.stocks[userAlreadyHasTheStock].totalInvested = +user.stocks[
+				userAlreadyHasTheStock
+			].totalInvested!.toFixed(2);
+
 			user.stocks[userAlreadyHasTheStock].price = price;
 			user.stocks[userAlreadyHasTheStock].marketCap = market_cap;
 			user.stocks[userAlreadyHasTheStock].updatedAt = updated_at;
@@ -58,7 +63,7 @@ export const addStock = async (
 				totalInvested: quantity * price,
 			});
 		}
-
+		await user.calculateTotalAndInvestedBalance();
 		await user.calculatePercentageOfThePortfolioOfEachStock();
 
 		return user;
@@ -100,7 +105,6 @@ export const updateStocksData = async (
 			stock.updatedAt = updated_at;
 			stock.totalInvested = stock.price * stock.quantity!;
 
-			await user.calculateInvestedBalance();
 			await user.calculatePercentageOfThePortfolioOfEachStock();
 		}
 	}

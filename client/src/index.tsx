@@ -14,13 +14,11 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-	<React.StrictMode>
+	<ThemeProvider theme={{ primaryBlue: '#1488cc' }}>
 		<GlobalStyle />
-		<ThemeProvider theme={{ primaryBlue: '#1488cc' }}>
-			<ApolloProvider client={client}>
-				<App />
-			</ApolloProvider>
-		</ThemeProvider>
-	</React.StrictMode>,
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>
+	</ThemeProvider>,
 	document.getElementById('root')
 );

@@ -15,14 +15,14 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = () => {
 					type='text'
 					size='large'
 					placeholder='Add the purchase of a stock'
-					width={40}
+					width='40%'
 				/>
 				<CustomInput
 					type='number'
 					size='large'
 					min={1}
 					max={999999}
-					width={15}
+					width='15%'
 					placeholder='Quantity'
 				/>
 				<Button size='large' type='primary' icon={<PlusOutlined />} />

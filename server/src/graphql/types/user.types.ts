@@ -5,7 +5,7 @@ import Stock from './stock.types';
 @ObjectType()
 class User {
 	@Field((_type) => ID)
-	_id: string;
+	id: string;
 
 	@Field()
 	name: string;
@@ -21,6 +21,9 @@ class User {
 
 	@Field()
 	investedBalance: number;
+
+	@Field()
+	totalBalance: number;
 
 	@Field((_type) => [Stock])
 	stocks: Stock[];

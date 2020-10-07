@@ -1,36 +1,44 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { SaveOutlined } from '@ant-design/icons';
 
 import { Container, InputContainer, Headline } from './balance-info.styles';
+
 import CustomInput from '../custom-input/custom-input.component';
 
-export interface BalanceInfoProps {}
-
-const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = () => {
-	const [availableBalance, setAvailableBalance] = useState<number>(0);
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const re = /^[0-9\b]+$/;
-
-		if (e.target.value === '') {
-			setAvailableBalance(0);
-		} else if (re.test(e.target.value)) {
-			setAvailableBalance(parseInt(e.target.value));
-		}
-	};
-
+export interface BalanceInfoProps {
+	availableBalanceInput: number;
+	availableBalance: number;
+	investedBalance: number;
+	totalBalance: number;
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	handleSubmit: () => void;
+}
+const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
+	availableBalance,
+	investedBalance,
+	totalBalance,
+	handleChange,
+	handleSubmit,
+	availableBalanceInput,
+}) => {
 	return (
 		<Container>
 			<InputContainer>
 				<Headline>Available balance</Headline>
 				<CustomInput
-					width={30}
+					width='300px'
 					prefix='R$'
 					type='text'
 					size='large'
-					color="primary"
+					color='primary'
+					allowClear
 					onChange={handleChange}
-					value={availableBalance}
+					value={availableBalanceInput}
+					addonAfter={
+						availableBalanceInput !== availableBalance ? (
+							<SaveOutlined onClick={handleSubmit} />
+						) : null
+					}
 				/>
 			</InputContainer>
 
@@ -38,24 +46,26 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = () => {
 				<Headline>Invested balance</Headline>
 				<CustomInput
 					type='text'
-					width={30}
+					width='300px'
 					prefix='R$'
 					size='large'
-					backgroundColor="#1488cc"
+					backgroundcolor='#1488cc'
 					readOnly
+					value={investedBalance}
 				/>
 			</InputContainer>
 
 			<InputContainer>
 				<Headline>Total balance</Headline>
 				<CustomInput
-					width={30}
+					width='300px'
 					prefix='R$'
 					type='text'
 					size='large'
-					color="primary"
-					backgroundColor="#1488cc"
+					color='primary'
+					backgroundcolor='#1488cc'
 					readOnly
+					value={totalBalance}
 				/>
 			</InputContainer>
 		</Container>

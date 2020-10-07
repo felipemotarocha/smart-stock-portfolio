@@ -10,6 +10,7 @@ export interface IUser extends Document {
 	password: string;
 	availableBalance: number;
 	investedBalance: number;
+	totalBalance: number;
 	stocks: {
 		name: string;
 		symbol: string;
@@ -22,7 +23,7 @@ export interface IUser extends Document {
 		percentageOfThePortfolio?: number;
 	}[];
 	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
-	calculateInvestedBalance: () => IUser;
+	calculateTotalAndInvestedBalance: () => IUser;
 	calculatePercentageOfThePortfolioOfEachStock: () => IUser;
 }
 
@@ -47,10 +48,13 @@ const userSchema: Schema = new Schema({
 	},
 	availableBalance: {
 		type: Number,
-
 		default: 0,
 	},
 	investedBalance: {
+		type: Number,
+		default: 0,
+	},
+	totalBalance: {
 		type: Number,
 		default: 0,
 	},
@@ -70,6 +74,26 @@ const userSchema: Schema = new Schema({
 	],
 });
 
+userSchema.pre('save', function (next) {
+	const user = this as IUser;
+
+	// format the invested balance to two decimal places if it changes
+
+	if (this.isModified('investedBalance')) {
+		user.investedBalance = +user.investedBalance.toFixed(2);
+	}
+
+	// calculate the total balance if the available balance changes
+	if (this.isModified('availableBalance')) {
+		user.totalBalance = user.availableBalance + user.investedBalance;
+		user.totalBalance = +user.totalBalance.toFixed(2);
+
+		user.availableBalance = +user.availableBalance.toFixed(2);
+	}
+
+	next();
+});
+
 userSchema.methods.addStock = async function (
 	withCost: boolean,
 	symbol: string,
@@ -83,7 +107,7 @@ userSchema.methods.addStock = async function (
 	}
 };
 
-userSchema.methods.calculateInvestedBalance = async function () {
+userSchema.methods.calculateTotalAndInvestedBalance = async function () {
 	try {
 		const user: IUser = this as any;
 		user.investedBalance = 0;
@@ -102,7 +126,7 @@ userSchema.methods.calculateInvestedBalance = async function () {
 
 userSchema.methods.calculatePercentageOfThePortfolioOfEachStock = async function () {
 	try {
-		const user: IUser = this as any;
+		let user: IUser = this as any;
 
 		for (let stock of user.stocks) {
 			stock.percentageOfThePortfolio =
@@ -111,7 +135,6 @@ userSchema.methods.calculatePercentageOfThePortfolioOfEachStock = async function
 				) / 100;
 		}
 
-		await user.save();
 		return user;
 	} catch (_err) {
 		return new ApolloError('Something went wrong.');

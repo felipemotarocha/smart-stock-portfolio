@@ -9,9 +9,9 @@ import { default as UserType } from '../types/user.types';
 @Resolver((_of) => UserType)
 class UserResolver {
 	@Query(() => UserType)
-	async user(@Arg('_id') _id: string) {
+	async user(@Arg('id') id: string) {
 		try {
-			const user = await User.findOne({ _id });
+			const user = await User.findById(id);
 			await updateStocksData(user!);
 			return user;
 		} catch (_err) {
@@ -25,6 +25,26 @@ class UserResolver {
 			const users = await User.find({});
 			return users;
 		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
+	}
+
+	@Mutation(() => UserType)
+	async changeUserAvailableBalance(
+		@Arg('id') id: string,
+		@Arg('newAvailableBalance') newAvailableBalance: number
+	) {
+		try {
+			console.log(id);
+			console.log(newAvailableBalance);
+			const user = await User.findById(id);
+
+			user!.availableBalance = newAvailableBalance;
+			await user?.save();
+
+			return user;
+		} catch (err) {
+			console.log(err);
 			return new ApolloError('Something went wrong.');
 		}
 	}

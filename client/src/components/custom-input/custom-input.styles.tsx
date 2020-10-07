@@ -5,14 +5,14 @@ import { InputNumberProps } from 'antd/lib/input-number';
 
 interface CustomInputProps extends InputProps {
 	width: string | number | undefined;
-	backgroundColor: string | undefined;
-	borderColor?: string | undefined;
+	backgroundcolor: string | undefined;
+	bordercolor?: string | undefined;
 }
 
 interface CustomInputNumberProps extends InputNumberProps {
 	width: string | number | undefined;
-	backgroundColor: string | undefined;
-	borderColor?: string | undefined;
+	backgroundcolor: string | undefined;
+	bordercolor?: string | undefined;
 }
 
 export const GlobalStyled = createGlobalStyle`
@@ -24,20 +24,31 @@ export const GlobalStyled = createGlobalStyle`
 `;
 
 export const StyledInput = styled(Input)<CustomInputProps>`
-	width: ${({ width }) => width}%;
-	background: ${({ backgroundColor }) =>
-		backgroundColor ? backgroundColor : 'rgba(0, 0, 0, 0)'};
+	width: ${({ width }) => width};
+	display: flex;
+	align-items: center;
+	background: ${({ backgroundcolor }) =>
+		backgroundcolor ? backgroundcolor : 'rgba(0, 0, 0, 0)'};
 	color: #eee;
-	border-color: ${({ borderColor }) =>
-		borderColor ? borderColor : 'rgba(159, 159, 159, 0.5)'};
+	border-color: ${({ bordercolor }) =>
+		bordercolor ? bordercolor : 'rgba(159, 159, 159, 0.5)'};
+
+	svg {
+		color: #eee;
+	}
+
+	.ant-input-group-addon {
+		background: ${({ theme }) => theme.primaryBlue};
+		border-color: ${({ theme }) => theme.primaryBlue};
+	}
 `;
 
 export const StyledInputNumber = styled(InputNumber)<CustomInputNumberProps>`
 	margin: 0 0.5rem;
-	width: ${({ width }) => width}%;
-	background: ${({ backgroundColor }) =>
-		backgroundColor ? backgroundColor : 'rgba(0, 0, 0, 0)'};
+	width: ${({ width }) => `${width}px`};
+	background: ${({ backgroundcolor }) =>
+		backgroundcolor ? backgroundcolor : 'rgba(0, 0, 0, 0)'};
 	color: #eee;
-	border-color: ${({ borderColor }) =>
-		borderColor ? borderColor : 'rgba(159, 159, 159, 0.5)'};
+	border-color: ${({ bordercolor }) =>
+		bordercolor ? bordercolor : 'rgba(159, 159, 159, 0.5)'};
 `;

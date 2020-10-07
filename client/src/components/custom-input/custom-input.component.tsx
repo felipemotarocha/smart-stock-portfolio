@@ -9,12 +9,12 @@ import {
 
 export interface CustomInputProps extends InputProps {
 	width?: string | number | undefined;
-	backgroundColor?: string | undefined;
-	borderColor?: string | undefined;
+	backgroundcolor?: string | undefined;
+	bordercolor?: string | undefined;
 }
 
 const CustomInput: React.FunctionComponent<CustomInputProps> = (props) => {
-	const { type, size, placeholder, width, backgroundColor } = props;
+	const { type, size, placeholder, width, backgroundcolor } = props;
 	return (
 		<>
 			<GlobalStyled />
@@ -22,7 +22,7 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = (props) => {
 				<StyledInput
 					{...props}
 					width={width}
-					backgroundColor={backgroundColor}
+					backgroundcolor={backgroundcolor}
 				/>
 			) : (
 				<StyledInputNumber
@@ -31,7 +31,7 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = (props) => {
 					max={999999}
 					placeholder={placeholder}
 					width={width}
-					backgroundColor={backgroundColor}
+					backgroundcolor={backgroundcolor}
 				/>
 			)}
 		</>
