@@ -10,19 +10,15 @@ export type UserStocks = {
 		id: string;
 	};
 	stocks: {
-		symbol: string;
+		id: string;
 		name: string;
-		region: string;
-		currency: string;
-		market_time: {
-			open: string;
-			close: string;
-			timezone: number;
-		};
-		market_cap: number;
+		symbol: string;
 		price: number;
-		change_percent: number;
-		updated_at: Date;
+		marketCap: number;
+		changePercent: number;
+		updatedAt: Date;
+		quantity: number;
+		totalInvested: number;
 	}[];
 };
 

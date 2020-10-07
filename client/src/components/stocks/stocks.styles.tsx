@@ -11,4 +11,5 @@ export const Headline = styled.h1`
 
 export const Content = styled.div`
 	width: 100%;
+	height: 413px;
 `;
