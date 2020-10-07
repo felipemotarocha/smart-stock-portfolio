@@ -22,8 +22,8 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = () => {
 					size='large'
 					min={1}
 					max={999999}
-					width='15%'
-					placeholder='Quantity'
+					width='100%'
+					placeholder='Qnt.'
 				/>
 				<Button size='large' type='primary' icon={<PlusOutlined />} />
 			</InputsContainer>

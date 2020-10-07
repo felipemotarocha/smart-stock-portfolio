@@ -60,7 +60,6 @@ const userSchema: Schema = new Schema({
 	},
 	stocks: [
 		{
-			_id: false,
 			name: String,
 			symbol: String,
 			price: Number,

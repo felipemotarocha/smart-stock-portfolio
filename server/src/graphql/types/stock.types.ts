@@ -19,6 +19,9 @@ export type StockData = {
 @ObjectType()
 class Stock {
 	@Field()
+	id: string;
+
+	@Field()
 	name: string;
 
 	@Field()

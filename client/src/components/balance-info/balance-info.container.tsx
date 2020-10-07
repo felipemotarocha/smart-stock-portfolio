@@ -1,38 +1,13 @@
 import * as React from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
+
+import { CHANGE_USER_AVAILABLE_BALANCE } from '../../graphql/mutations/server-mutations';
+import { GET_USER_BALANCE_INFO } from '../../graphql/queries/server-queries';
 
 import BalanceInfo from './balance-info.component';
 
 export interface BalanceInfoContainerProps {}
-
-const GET_USER_BALANCE_INFO = gql`
-	query GetUserBalanceInfo {
-		user(id: "5f7d176dad6b0f36440cb08b") {
-			id
-			availableBalance
-			investedBalance
-			totalBalance
-		}
-	}
-`;
-
-const CHANGE_USER_AVAILABLE_BALANCE = gql`
-	mutation ChangeUserAvailableBalance(
-		$id: String!
-		$newAvailableBalance: Float!
-	) {
-		changeUserAvailableBalance(
-			id: $id
-			newAvailableBalance: $newAvailableBalance
-		) {
-			id
-			availableBalance
-			investedBalance
-			totalBalance
-		}
-	}
-`;
 
 const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> = () => {
 	const [availableBalanceInput, setAvailableBalanceInput] = useState<number>(
