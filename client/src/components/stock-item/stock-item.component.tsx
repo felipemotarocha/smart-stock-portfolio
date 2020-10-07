@@ -1,7 +1,9 @@
 import * as React from 'react';
-import StockItemHeader from '../stock-item-header/stock-item-header.component';
 
 import { Container } from './stock-item.styles';
+
+import StockItemContent from '../stock-item-content/stock-item-content.component';
+import StockItemHeader from '../stock-item-header/stock-item-header.component';
 
 export interface StockItemProps {
 	stock: {
@@ -28,6 +30,7 @@ const StockItem: React.FunctionComponent<StockItemProps> = ({
 				price={price}
 				changePercent={changePercent}
 			/>
+			<StockItemContent />
 		</Container>
 	);
 };

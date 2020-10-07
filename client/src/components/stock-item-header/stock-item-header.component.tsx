@@ -31,7 +31,7 @@ const StockItemHeader: React.FunctionComponent<StockItemHeaderProps> = ({
 			<Value>
 				<Price>R${price}</Price>
 				<ChangePercent isPositive={changePercent >= 0}>
-					{changePercent >= 0 ? `+${changePercent}` : changePercent}
+					{changePercent >= 0 ? `+${changePercent}` : changePercent}%
 				</ChangePercent>
 			</Value>
 		</Container>

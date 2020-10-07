@@ -9,6 +9,7 @@ export const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	color: #eee;
+	border-bottom: 3px solid #5d5c5c;
 `;
 
 export const Info = styled.div``;
