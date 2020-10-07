@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { SaveOutlined } from '@ant-design/icons';
+import NumberFormat from 'react-number-format';
 
 import { Container, InputContainer, Headline } from './balance-info.styles';
 
@@ -33,6 +34,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 		<Container>
 			<InputContainer>
 				<Headline>Available balance</Headline>
+
 				<CustomInput
 					width='300px'
 					prefix='R$'
@@ -55,28 +57,44 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 
 			<InputContainer>
 				<Headline>Invested balance</Headline>
-				<CustomInput
-					type='text'
-					width='300px'
-					prefix='R$'
-					size='large'
-					backgroundcolor='#1488cc'
-					readOnly
+				<NumberFormat
 					value={investedBalance}
+					displayType={'text'}
+					thousandSeparator='.'
+					decimalSeparator=','
+					prefix={'R$'}
+					renderText={(value) => (
+						<CustomInput
+							type='text'
+							width='300px'
+							size='large'
+							backgroundcolor='#1488cc'
+							readOnly
+							value={value}
+						/>
+					)}
 				/>
 			</InputContainer>
 
 			<InputContainer>
 				<Headline>Total balance</Headline>
-				<CustomInput
-					width='300px'
-					prefix='R$'
-					type='text'
-					size='large'
-					color='primary'
-					backgroundcolor='#1488cc'
-					readOnly
+				<NumberFormat
 					value={totalBalance}
+					displayType={'text'}
+					thousandSeparator='.'
+					decimalSeparator=','
+					prefix={'R$'}
+					renderText={(value) => (
+						<CustomInput
+							width='300px'
+							type='text'
+							size='large'
+							color='primary'
+							backgroundcolor='#1488cc'
+							readOnly
+							value={value}
+						/>
+					)}
 				/>
 			</InputContainer>
 		</Container>

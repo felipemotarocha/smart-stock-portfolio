@@ -68,6 +68,7 @@ export const addStock = async (
 
 		return user;
 	} catch (err) {
+		console.log(err);
 		return new ApolloError('Something went wrong.');
 	}
 };

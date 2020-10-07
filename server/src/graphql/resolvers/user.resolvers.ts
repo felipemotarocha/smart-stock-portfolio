@@ -1,10 +1,18 @@
 import { updateStocksData } from './../../helpers/user.helpers';
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import {
+	Resolver,
+	Query,
+	Mutation,
+	Arg,
+	FieldResolver,
+	Root,
+} from 'type-graphql';
 import bcrypt from 'bcryptjs';
 import { ApolloError } from 'apollo-server-express';
 
 import User, { IRegisterUserInput } from '../../models/user.model';
 import { default as UserType } from '../types/user.types';
+import Stock from '../types/stock.types';
 
 @Resolver((_of) => UserType)
 class UserResolver {
@@ -29,14 +37,26 @@ class UserResolver {
 		}
 	}
 
+	@FieldResolver(() => Stock)
+	async stock(@Root() user: UserType, @Arg('id') id: string) {
+		try {
+			const stock = (user as any)._doc.stocks.find(
+				(stock: Stock) => stock.id.toString() === id
+			);
+			if (!stock) return new ApolloError('This stock was not found.');
+
+			return stock;
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
+	}
+
 	@Mutation(() => UserType)
 	async changeUserAvailableBalance(
 		@Arg('id') id: string,
 		@Arg('newAvailableBalance') newAvailableBalance: number
 	) {
 		try {
-			console.log(id);
-			console.log(newAvailableBalance);
 			const user = await User.findById(id);
 
 			user!.availableBalance = newAvailableBalance;
@@ -44,7 +64,6 @@ class UserResolver {
 
 			return user;
 		} catch (err) {
-			console.log(err);
 			return new ApolloError('Something went wrong.');
 		}
 	}

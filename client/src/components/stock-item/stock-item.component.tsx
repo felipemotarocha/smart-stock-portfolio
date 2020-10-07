@@ -1,27 +1,17 @@
 import * as React from 'react';
 
 import { Container } from './stock-item.styles';
+import { Stock } from '../../helpers/types/stock.types';
 
 import StockItemContent from '../stock-item-content/stock-item-content.component';
 import StockItemHeader from '../stock-item-header/stock-item-header.component';
 
 export interface StockItemProps {
-	stock: {
-		id: string;
-		name: string;
-		symbol: string;
-		price: number;
-		marketCap: number;
-		changePercent: number;
-		updatedAt: Date;
-		quantity: number;
-		totalInvested: number;
-	};
+	stock: Stock;
 }
 
-const StockItem: React.FunctionComponent<StockItemProps> = ({
-	stock: { name, symbol, price, changePercent },
-}) => {
+const StockItem: React.FunctionComponent<StockItemProps> = ({ stock }) => {
+	const { name, symbol, price, changePercent } = stock;
 	return (
 		<Container>
 			<StockItemHeader
@@ -30,7 +20,7 @@ const StockItem: React.FunctionComponent<StockItemProps> = ({
 				price={price}
 				changePercent={changePercent}
 			/>
-			<StockItemContent />
+			<StockItemContent stock={stock} />
 		</Container>
 	);
 };

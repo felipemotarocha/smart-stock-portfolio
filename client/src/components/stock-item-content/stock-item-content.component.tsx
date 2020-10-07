@@ -1,12 +1,17 @@
 import * as React from 'react';
 
 import { Columns, ColumnsInfo, Container } from './stock-item-content.styles';
+import { Stock } from '../../helpers/types/stock.types';
 
-import StockItemColumn from '../stock-item-column/stock-item-column.component';
+import StockItemColumn from '../stock-item-content-column/stock-item-content-column.component';
 
-export interface StockItemContentProps {}
+export interface StockItemContentProps {
+	stock: Stock;
+}
 
-const StockItemContent: React.FunctionComponent<StockItemContentProps> = () => {
+const StockItemContent: React.FunctionComponent<StockItemContentProps> = ({
+	stock,
+}) => {
 	return (
 		<Container>
 			<ColumnsInfo>
@@ -15,9 +20,21 @@ const StockItemContent: React.FunctionComponent<StockItemContentProps> = () => {
 				<p>%</p>
 			</ColumnsInfo>
 			<Columns>
-				<StockItemColumn headlineText='Atual' />
-				<StockItemColumn headlineText='Ideal' />
-				<StockItemColumn headlineText='Ajuste' />
+				<StockItemColumn
+					headlineText='Current'
+					contentType='current'
+					stock={stock}
+				/>
+				<StockItemColumn
+					headlineText='Ideal'
+					contentType='ideal'
+					stock={stock}
+				/>
+				<StockItemColumn
+					headlineText='Adjustment'
+					contentType='adjustment'
+					stock={stock}
+				/>
 			</Columns>
 		</Container>
 	);

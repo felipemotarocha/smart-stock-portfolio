@@ -36,6 +36,7 @@ export const Price = styled.p`
 export const ChangePercent = styled.p<ChangePercentProps>`
 	font-size: 1.3rem;
 	margin-top: -0.3rem;
+	text-align: right;
 
 	color: ${({ isPositive, theme }) =>
 		isPositive ? theme.primaryBlue : 'red'};

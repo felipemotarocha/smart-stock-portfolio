@@ -25,6 +25,7 @@ export const GET_USER_STOCKS = gql`
 				marketCap
 				totalInvested
 				updatedAt
+				quantity
 			}
 		}
 	}

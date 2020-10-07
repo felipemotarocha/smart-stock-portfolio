@@ -19,6 +19,7 @@ export type UserStocks = {
 		updatedAt: Date;
 		quantity: number;
 		totalInvested: number;
+		percentageOfThePortfolio: number;
 	}[];
 };
 
