@@ -34,10 +34,13 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 					allowClear
 					onChange={handleChange}
 					value={availableBalanceInput}
+					autoFocus
 					addonAfter={
 						availableBalanceInput !== availableBalance ? (
 							<SaveOutlined onClick={handleSubmit} />
-						) : null
+						) : (
+							''
+						)
 					}
 				/>
 			</InputContainer>
