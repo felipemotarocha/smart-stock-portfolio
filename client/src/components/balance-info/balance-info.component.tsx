@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { SaveOutlined } from '@ant-design/icons';
 
 import { Container, InputContainer, Headline } from './balance-info.styles';
@@ -7,6 +8,7 @@ import CustomInput from '../custom-input/custom-input.component';
 
 export interface BalanceInfoProps {
 	availableBalanceInput: number;
+	setAvailableBalanceInput: React.Dispatch<React.SetStateAction<number>>;
 	availableBalance: number;
 	investedBalance: number;
 	totalBalance: number;
@@ -20,7 +22,13 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 	handleChange,
 	handleSubmit,
 	availableBalanceInput,
+	setAvailableBalanceInput,
 }) => {
+	useEffect(() => {
+		setAvailableBalanceInput(availableBalance);
+		// eslint-disable-next-line
+	}, []);
+
 	return (
 		<Container>
 			<InputContainer>

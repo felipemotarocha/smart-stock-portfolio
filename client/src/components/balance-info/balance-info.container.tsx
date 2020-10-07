@@ -47,6 +47,7 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	return (
 		<BalanceInfo
 			availableBalanceInput={availableBalanceInput}
+			setAvailableBalanceInput={setAvailableBalanceInput}
 			availableBalance={availableBalance}
 			investedBalance={investedBalance}
 			totalBalance={totalBalance}
