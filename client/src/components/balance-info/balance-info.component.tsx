@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format';
 
 import { Container, InputContainer, Headline } from './balance-info.styles';
 
-import CustomInput from '../custom-input/custom-input.component';
+import { CustomInput } from '../custom-input/custom-input.component';
 
 export interface BalanceInfoProps {
 	availableBalanceInput: number;
@@ -29,6 +29,10 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 		setAvailableBalanceInput(availableBalance);
 		// eslint-disable-next-line
 	}, []);
+
+	useEffect(() => {
+		setAvailableBalanceInput(availableBalance);
+	}, [availableBalance, setAvailableBalanceInput]);
 
 	return (
 		<Container>

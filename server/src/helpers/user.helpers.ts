@@ -63,8 +63,8 @@ export const addStock = async (
 				totalInvested: quantity * price,
 			});
 		}
-		await user.calculateInvestedBalance();
-		await user.calculatePercentageOfThePortfolioOfEachStock();
+		user.calculateInvestedBalance();
+		user.calculatePercentageOfThePortfolioOfEachStock();
 
 		return user;
 	} catch (err) {
@@ -106,7 +106,7 @@ export const updateStocksData = async (
 			stock.updatedAt = updated_at;
 			stock.totalInvested = stock.price * stock.quantity!;
 
-			await user.calculatePercentageOfThePortfolioOfEachStock();
+			user.calculatePercentageOfThePortfolioOfEachStock();
 		}
 	}
 	return;

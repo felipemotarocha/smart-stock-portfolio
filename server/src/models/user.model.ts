@@ -134,6 +134,8 @@ userSchema.methods.calculatePercentageOfThePortfolioOfEachStock = async function
 				) / 100;
 		}
 
+		await user.save();
+
 		return user;
 	} catch (_err) {
 		return new ApolloError('Something went wrong.');

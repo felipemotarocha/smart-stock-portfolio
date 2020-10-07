@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Container } from './header.styles';
 
 import { default as BalanceInfo } from '../balance-info/balance-info.container';
-import StockPurchase from '../stock-purchase/stock-purchase.component';
+import { default as StockPurchase } from '../stock-purchase/stock-purchase.container';
 
 export interface HeaderProps {}
 
