@@ -23,7 +23,7 @@ export interface IUser extends Document {
 		percentageOfThePortfolio?: number;
 	}[];
 	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
-	calculateTotalAndInvestedBalance: () => IUser;
+	calculateInvestedBalance: () => IUser;
 	calculatePercentageOfThePortfolioOfEachStock: () => IUser;
 }
 
@@ -107,7 +107,7 @@ userSchema.methods.addStock = async function (
 	}
 };
 
-userSchema.methods.calculateTotalAndInvestedBalance = async function () {
+userSchema.methods.calculateInvestedBalance = async function () {
 	try {
 		const user: IUser = this as any;
 		user.investedBalance = 0;

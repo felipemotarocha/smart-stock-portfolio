@@ -63,7 +63,7 @@ export const addStock = async (
 				totalInvested: quantity * price,
 			});
 		}
-		await user.calculateTotalAndInvestedBalance();
+		await user.calculateInvestedBalance();
 		await user.calculatePercentageOfThePortfolioOfEachStock();
 
 		return user;
