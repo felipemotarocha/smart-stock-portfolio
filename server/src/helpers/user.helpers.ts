@@ -9,7 +9,8 @@ export const addStock = async (
 	withCost: boolean,
 	user: IUser,
 	symbol: string,
-	quantity: number
+	quantity: number,
+	note?: number
 ) => {
 	try {
 		const {
@@ -60,11 +61,15 @@ export const addStock = async (
 				changePercent: change_percent,
 				updatedAt: updated_at,
 				quantity,
-				totalInvested: quantity * price,
+				totalInvested: +(quantity * price).toFixed(2),
+				note,
 			});
 		}
-		user.calculateInvestedBalance();
-		user.calculatePercentageOfThePortfolioOfEachStock();
+
+		await user.save();
+
+		await user.calculateInvestedBalance();
+		await user.calculatePercentageOfThePortfolioOfEachStock();
 
 		return user;
 	} catch (err) {
@@ -95,6 +100,7 @@ export const updateStocksData = async (
 			} = await axios.get(
 				`https://api.hgbrasil.com/finance/stock_price?key=${process.env.HG_FINANCE_KEY}&symbol=${stock.symbol}`
 			);
+			console.log('updating stocks data');
 
 			const stockData: StockData = results[stock.symbol.toUpperCase()];
 			const { price, market_cap, change_percent, updated_at } = stockData;

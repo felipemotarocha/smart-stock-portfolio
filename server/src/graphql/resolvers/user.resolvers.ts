@@ -74,11 +74,12 @@ class UserResolver {
 		@Arg('withCost') withCost: boolean,
 		@Arg('userId') userId: string,
 		@Arg('symbol') symbol: string,
-		@Arg('quantity') quantity: number
+		@Arg('quantity') quantity: number,
+		@Arg('note', { nullable: true }) note: number
 	) {
 		try {
 			const user = await User.findOne({ _id: userId });
-			return user!.addStock(withCost, symbol, quantity);
+			return user!.addStock(withCost, symbol, quantity, note);
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');
 		}

@@ -29,7 +29,12 @@ export interface IUser extends Document {
 		idealQuantity?: number;
 		status?: 'Wait' | 'Buy';
 	}[];
-	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
+	addStock: (
+		withCost: boolean,
+		symbol: string,
+		quantity: number,
+		note?: number
+	) => IUser;
 	calculateInvestedBalance: () => IUser;
 	calculatePercentageOfThePortfolioOfEachStock: () => IUser;
 }
@@ -97,10 +102,13 @@ userSchema.pre('save', function (next) {
 	}
 
 	// calculate the total balance if the available balance changes
-	if (this.isModified('availableBalance')) {
-		user.totalBalance = user.availableBalance + user.investedBalance;
-		user.totalBalance = +user.totalBalance.toFixed(2);
-
+	if (
+		this.isModified('availableBalance') ||
+		this.isModified('investedBalance')
+	) {
+		user.totalBalance = +(
+			user.availableBalance + user.investedBalance
+		).toFixed(2);
 		user.availableBalance = +user.availableBalance.toFixed(2);
 	}
 
@@ -124,9 +132,7 @@ userSchema.pre('save', function (next) {
 
 			// ideal quantity
 			stock.idealQuantity! = Math.round(
-				(stock.idealTotalInvested - stock.totalInvested!) /
-					stock.price +
-					stock.quantity!
+				stock.idealTotalInvested / stock.price
 			);
 
 			// status
@@ -142,10 +148,17 @@ userSchema.pre('save', function (next) {
 userSchema.methods.addStock = async function (
 	withCost: boolean,
 	symbol: string,
-	quantity: number
+	quantity: number,
+	note: number
 ) {
 	try {
-		const user = await addStock(withCost, this as any, symbol, quantity);
+		const user = await addStock(
+			withCost,
+			this as any,
+			symbol,
+			quantity,
+			note
+		);
 		return user;
 	} catch (_err) {
 		return new ApolloError('Something went wrong.');

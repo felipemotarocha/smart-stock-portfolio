@@ -18,6 +18,7 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
+				status
 			}
 		}
 	}
@@ -52,6 +53,7 @@ export const ADD_STOCK = gql`
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
+				status
 			}
 		}
 	}
