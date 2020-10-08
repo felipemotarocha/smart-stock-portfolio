@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-import { Columns, ColumnsInfo, Container } from './stock-item-content.styles';
+import {
+	Columns,
+	ColumnsInfo,
+	Container,
+	Note,
+} from './stock-item-content.styles';
 import { Stock } from '../../helpers/types/stock.types';
 
 import StockItemColumn from '../stock-item-content-column/stock-item-content-column.component';
@@ -12,9 +17,13 @@ export interface StockItemContentProps {
 const StockItemContent: React.FunctionComponent<StockItemContentProps> = ({
 	stock,
 }) => {
+	const { note } = stock;
 	return (
 		<Container>
 			<ColumnsInfo>
+				<Note>
+					<p>{note}</p>
+				</Note>
 				<p>Qnt.</p>
 				<p>Pos.</p>
 				<p>%</p>

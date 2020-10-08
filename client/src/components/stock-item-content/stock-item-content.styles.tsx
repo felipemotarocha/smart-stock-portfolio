@@ -22,6 +22,15 @@ export const ColumnsInfo = styled.div`
 	}
 `;
 
+export const Note = styled.div`
+	background: #2a2a2a;
+	border-radius: 5px;
+
+	p {
+		text-align: center;
+	}
+`;
+
 export const Columns = styled.div`
 	display: flex;
 	justify-content: space-between;

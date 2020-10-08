@@ -13,6 +13,12 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			availableBalance
 			investedBalance
 			totalBalance
+			stocks {
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
+			}
 		}
 	}
 `;
@@ -42,6 +48,10 @@ export const ADD_STOCK = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
 			}
 		}
 	}

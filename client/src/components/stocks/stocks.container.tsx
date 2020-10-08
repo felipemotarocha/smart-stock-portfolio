@@ -1,6 +1,9 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
+
 import { GET_USER_STOCKS } from '../../graphql/queries/server-queries';
+import { Stock } from '../../helpers/types/stock.types';
+
 import Stocks from './stocks.component';
 
 export interface StocksContainerProps {}
@@ -9,18 +12,7 @@ export type UserStocks = {
 	user: {
 		id: string;
 	};
-	stocks: {
-		id: string;
-		name: string;
-		symbol: string;
-		price: number;
-		marketCap: number;
-		changePercent: number;
-		updatedAt: Date;
-		quantity: number;
-		totalInvested: number;
-		percentageOfThePortfolio: number;
-	}[];
+	stocks: Stock[];
 };
 
 const StocksContainer: React.FunctionComponent<StocksContainerProps> = () => {

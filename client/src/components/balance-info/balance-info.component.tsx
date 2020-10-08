@@ -6,7 +6,6 @@ import NumberFormat from 'react-number-format';
 import { Container, InputContainer, Headline } from './balance-info.styles';
 
 import { CustomInput } from '../custom-input/custom-input.component';
-import { Input } from 'antd';
 
 export interface BalanceInfoProps {
 	availableBalanceInput: number;

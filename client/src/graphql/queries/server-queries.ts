@@ -26,6 +26,10 @@ export const GET_USER_STOCKS = gql`
 				totalInvested
 				updatedAt
 				quantity
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
 			}
 		}
 	}
