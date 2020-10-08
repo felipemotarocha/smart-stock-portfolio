@@ -20,7 +20,7 @@ export type StockData = {
 	idealTotalInvested: number;
 	idealPercentageOfThePortfolio: number;
 	idealQuantity: number;
-	status: 'wait' | 'buy';
+	status: 'Wait' | 'Buy';
 };
 
 @ObjectType()
