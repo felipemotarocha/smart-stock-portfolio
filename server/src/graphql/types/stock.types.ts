@@ -20,6 +20,7 @@ export type StockData = {
 	idealTotalInvested: number;
 	idealPercentageOfThePortfolio: number;
 	idealQuantity: number;
+	status: 'wait' | 'buy';
 };
 
 @ObjectType()
@@ -65,6 +66,9 @@ class Stock {
 
 	@Field({ nullable: true })
 	idealQuantity: number;
+
+	@Field({ nullable: true })
+	status: 'Wait' | 'Buy';
 }
 
 export default Stock;

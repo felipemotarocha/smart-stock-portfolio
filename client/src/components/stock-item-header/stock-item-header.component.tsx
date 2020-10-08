@@ -1,4 +1,5 @@
 import * as React from 'react';
+import StockStatus from '../stock-status/stock-status.component';
 import {
 	Container,
 	Info,
@@ -8,26 +9,23 @@ import {
 	Price,
 	ChangePercent,
 } from './stock-item-header.styles';
+import { Stock } from '../../helpers/types/stock.types';
 
 export interface StockItemHeaderProps {
-	symbol: string;
-	name: string;
-	price: number;
-	changePercent: number;
+	stock: Stock;
 }
 
 const StockItemHeader: React.FunctionComponent<StockItemHeaderProps> = ({
-	symbol,
-	name,
-	price,
-	changePercent,
+	stock,
 }) => {
+	const { symbol, name, price, changePercent } = stock;
 	return (
 		<Container>
 			<Info>
 				<Symbol>{symbol}</Symbol>
 				<Name>{name}</Name>
 			</Info>
+			<StockStatus stock={stock} />
 			<Value>
 				<Price>R${price}</Price>
 				<ChangePercent isPositive={changePercent >= 0}>

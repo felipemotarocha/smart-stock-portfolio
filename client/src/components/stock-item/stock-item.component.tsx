@@ -11,15 +11,9 @@ export interface StockItemProps {
 }
 
 const StockItem: React.FunctionComponent<StockItemProps> = ({ stock }) => {
-	const { name, symbol, price, changePercent } = stock;
 	return (
 		<Container>
-			<StockItemHeader
-				name={name}
-				symbol={symbol}
-				price={price}
-				changePercent={changePercent}
-			/>
+			<StockItemHeader stock={stock} />
 			<StockItemContent stock={stock} />
 		</Container>
 	);

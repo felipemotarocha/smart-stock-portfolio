@@ -27,6 +27,7 @@ export interface IUser extends Document {
 		idealTotalInvested?: number;
 		idealPercentageOfThePortfolio?: number;
 		idealQuantity?: number;
+		status?: 'Wait' | 'Buy';
 	}[];
 	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
 	calculateInvestedBalance: () => IUser;
@@ -81,6 +82,7 @@ const userSchema: Schema = new Schema({
 			idealTotalInvested: Number,
 			idealPercentageOfThePortfolio: Number,
 			idealQuantity: Number,
+			status: String,
 		},
 	],
 });
@@ -122,8 +124,15 @@ userSchema.pre('save', function (next) {
 
 			// ideal quantity
 			stock.idealQuantity! = Math.round(
-				(stock.idealTotalInvested - stock.totalInvested!) / stock.price
+				(stock.idealTotalInvested - stock.totalInvested!) /
+					stock.price +
+					stock.quantity!
 			);
+
+			// status
+			stock.idealQuantity > stock.quantity!
+				? (stock.status = 'Buy')
+				: (stock.status = 'Wait');
 		}
 	}
 

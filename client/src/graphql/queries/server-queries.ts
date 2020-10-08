@@ -30,6 +30,7 @@ export const GET_USER_STOCKS = gql`
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
+				status
 			}
 		}
 	}
