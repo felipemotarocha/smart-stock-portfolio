@@ -12,9 +12,14 @@ export const Container = styled.div`
 	border-bottom: 3px solid #5d5c5c;
 `;
 
-export const Info = styled.div``;
+export const Info = styled.div`
+	flex: 2;
+`;
 
-export const Value = styled.div``;
+export const Value = styled.div`
+	text-align: right;
+	flex: 1;
+`;
 
 export const Symbol = styled.p`
 	font-size: 1.7rem;
