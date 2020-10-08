@@ -11,7 +11,11 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         
-        background-color: #343637;
+        background: rgb(35,37,38);
+        background: linear-gradient(75deg, rgba(35,37,38,1) 0%, rgba(65,67,69,1) 100%);
+
+        background-repeat: no-repeat;
+        background-attachment: fixed;
 
         padding: 3rem 5rem;
         box-sizing: border-box;
