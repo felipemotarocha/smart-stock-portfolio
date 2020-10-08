@@ -12,6 +12,7 @@ export interface IUser extends Document {
 	investedBalance: number;
 	totalBalance: number;
 	stocks: {
+		id?: string;
 		name: string;
 		symbol: string;
 		price: number;
@@ -21,6 +22,11 @@ export interface IUser extends Document {
 		quantity?: number;
 		totalInvested?: number;
 		percentageOfThePortfolio?: number;
+
+		note?: number;
+		idealTotalInvested?: number;
+		idealPercentageOfThePortfolio?: number;
+		idealQuantity?: number;
 	}[];
 	addStock: (withCost: boolean, symbol: string, quantity: number) => IUser;
 	calculateInvestedBalance: () => IUser;
@@ -69,6 +75,12 @@ const userSchema: Schema = new Schema({
 			quantity: Number,
 			totalInvested: Number,
 			percentageOfThePortfolio: Number,
+
+			note: Number,
+
+			idealTotalInvested: Number,
+			idealPercentageOfThePortfolio: Number,
+			idealQuantity: Number,
 		},
 	],
 });
@@ -88,6 +100,31 @@ userSchema.pre('save', function (next) {
 		user.totalBalance = +user.totalBalance.toFixed(2);
 
 		user.availableBalance = +user.availableBalance.toFixed(2);
+	}
+
+	if (this.isModified('availableBalance') || this.isModified('stocks')) {
+		const allStockNotesSummed = user.stocks.reduce(
+			(accumulator, stock) => accumulator + (stock.note as any),
+			0
+		);
+
+		for (let stock of user.stocks) {
+			// ideal percentage of the portfolio
+			stock.idealPercentageOfThePortfolio =
+				Math.round((stock.note! / allStockNotesSummed) * 100 * 100) /
+				100;
+
+			// ideal total invested
+			stock.idealTotalInvested = +(
+				(stock.idealPercentageOfThePortfolio / 100) *
+				user.totalBalance
+			).toFixed(2);
+
+			// ideal quantity
+			stock.idealQuantity! = Math.round(
+				(stock.idealTotalInvested - stock.totalInvested!) / stock.price
+			);
+		}
 	}
 
 	next();

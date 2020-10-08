@@ -12,6 +12,7 @@ export interface CustomInputProps extends InputProps {
 	width?: string | number | undefined;
 	backgroundcolor?: string | undefined;
 	bordercolor?: string | undefined;
+	isAvailableBalanceInput?: boolean;
 }
 
 export const CustomInput: React.FunctionComponent<CustomInputProps> = (
@@ -25,6 +26,7 @@ export const CustomInput: React.FunctionComponent<CustomInputProps> = (
 			<StyledInput
 				width={width}
 				backgroundcolor={backgroundcolor}
+				size='large'
 				{...props}
 			/>
 		</>

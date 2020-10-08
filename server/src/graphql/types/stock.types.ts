@@ -1,6 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 export type StockData = {
+	id: string;
 	symbol: string;
 	name: string;
 	region: string;
@@ -14,6 +15,11 @@ export type StockData = {
 	price: number;
 	change_percent: number;
 	updated_at: Date;
+
+	note: number;
+	idealTotalInvested: number;
+	idealPercentageOfThePortfolio: number;
+	idealQuantity: number;
 };
 
 @ObjectType()
@@ -47,6 +53,18 @@ class Stock {
 
 	@Field({ nullable: true })
 	percentageOfThePortfolio: number;
+
+	@Field({ nullable: true })
+	note: number;
+
+	@Field({ nullable: true })
+	idealTotalInvested: number;
+
+	@Field({ nullable: true })
+	idealPercentageOfThePortfolio: number;
+
+	@Field({ nullable: true })
+	idealQuantity: number;
 }
 
 export default Stock;

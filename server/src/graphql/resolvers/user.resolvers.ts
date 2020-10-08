@@ -52,23 +52,6 @@ class UserResolver {
 	}
 
 	@Mutation(() => UserType)
-	async changeUserAvailableBalance(
-		@Arg('id') id: string,
-		@Arg('newAvailableBalance') newAvailableBalance: number
-	) {
-		try {
-			const user = await User.findById(id);
-
-			user!.availableBalance = newAvailableBalance;
-			await user?.save();
-
-			return user;
-		} catch (err) {
-			return new ApolloError('Something went wrong.');
-		}
-	}
-
-	@Mutation(() => UserType)
 	async register(
 		@Arg('name') name: string,
 		@Arg('email') email: string,
@@ -96,6 +79,43 @@ class UserResolver {
 		try {
 			const user = await User.findOne({ _id: userId });
 			return user!.addStock(withCost, symbol, quantity);
+		} catch (_err) {
+			return new ApolloError('Something went wrong.');
+		}
+	}
+
+	@Mutation(() => UserType)
+	async changeUserAvailableBalance(
+		@Arg('id') id: string,
+		@Arg('newAvailableBalance') newAvailableBalance: number
+	) {
+		try {
+			const user = await User.findById(id);
+
+			user!.availableBalance = newAvailableBalance;
+			await user?.save();
+
+			return user;
+		} catch (err) {
+			return new ApolloError('Something went wrong.');
+		}
+	}
+
+	@Mutation(() => UserType)
+	async changeStockNote(
+		@Arg('userId') userId: string,
+		@Arg('stockId') stockId: string,
+		@Arg('note') note: number
+	) {
+		try {
+			const user = await User.findById(userId);
+			const stock = user!.stocks.find(
+				(stock) => stock.id!.toString() === stockId
+			);
+			stock!.note = note;
+			await user?.save();
+
+			return user;
 		} catch (_err) {
 			return new ApolloError('Something went wrong.');
 		}
