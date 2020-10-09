@@ -14,5 +14,9 @@ export type Stock = {
 	idealTotalInvested: number;
 	idealPercentageOfThePortfolio: number;
 	idealQuantity: number;
+
+	quantityAdjustment: number;
+	totalInvestedAdjustment: number;
+
 	status: 'Wait' | 'Buy';
 };

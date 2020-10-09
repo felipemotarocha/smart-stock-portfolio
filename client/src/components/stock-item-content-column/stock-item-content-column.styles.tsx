@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 type ItemProps = {
 	headline?: boolean;
+	adjustment?: boolean;
 };
 
 export const Container = styled.div`
@@ -17,7 +18,7 @@ export const Item = styled.div<ItemProps>`
 	margin: 0.6rem 0;
 	background-color: ${({ headline, theme }) =>
 		headline ? theme.primaryBlue : '#2a2a2a'};
-	font-weight: ${({ headline }) => (headline ? '600' : 'initial')};
+	font-weight: ${({ headline, adjustment }) => (headline || adjustment ? '600' : 'initial')};
 	font-size: 1.2rem;
 	width: 200px;
 	height: 30px;
@@ -25,4 +26,6 @@ export const Item = styled.div<ItemProps>`
 	align-items: center;
 	justify-content: center;
 	border-radius: 3px;
+
+	color: ${({ adjustment, theme }) => adjustment ? theme.primaryBlue : 'inherit'}
 `;
