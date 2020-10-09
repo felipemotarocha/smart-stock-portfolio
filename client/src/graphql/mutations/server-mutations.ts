@@ -14,10 +14,13 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			investedBalance
 			totalBalance
 			stocks {
+				id
 				note
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
 				status
 			}
 		}
@@ -53,6 +56,8 @@ export const ADD_STOCK = gql`
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
 				status
 			}
 		}
