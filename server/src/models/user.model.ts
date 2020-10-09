@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose';
 import { ApolloError } from 'apollo-server-express';
 
-import { addStock } from './../helpers/user.helpers';
+import { addStock, calculateIdealsAndAdjustmentsOfTheStocks } from './../helpers/user.helpers';
 
 export interface IUser extends Document {
 	_id: string;
@@ -24,9 +24,14 @@ export interface IUser extends Document {
 		percentageOfThePortfolio?: number;
 
 		note?: number;
+
 		idealTotalInvested?: number;
 		idealPercentageOfThePortfolio?: number;
 		idealQuantity?: number;
+
+		quantityAdjustment?: number;
+		totalInvestedAdjustment?: number;
+
 		status?: 'Wait' | 'Buy';
 	}[];
 	addStock: (
@@ -87,6 +92,10 @@ const userSchema: Schema = new Schema({
 			idealTotalInvested: Number,
 			idealPercentageOfThePortfolio: Number,
 			idealQuantity: Number,
+
+			quantityAdjustment: Number,
+			totalInvestedAdjustment: Number,
+
 			status: String,
 		},
 	],
@@ -96,7 +105,6 @@ userSchema.pre('save', function (next) {
 	const user = this as IUser;
 
 	// format the invested balance to two decimal places if it changes
-
 	if (this.isModified('investedBalance')) {
 		user.investedBalance = +user.investedBalance.toFixed(2);
 	}
@@ -113,33 +121,7 @@ userSchema.pre('save', function (next) {
 	}
 
 	if (this.isModified('availableBalance') || this.isModified('stocks')) {
-		const allStockNotesSummed = user.stocks.reduce(
-			(accumulator, stock) => accumulator + (stock.note as any),
-			0
-		);
-
-		for (let stock of user.stocks) {
-			// ideal percentage of the portfolio
-			stock.idealPercentageOfThePortfolio =
-				Math.round((stock.note! / allStockNotesSummed) * 100 * 100) /
-				100;
-
-			// ideal total invested
-			stock.idealTotalInvested = +(
-				(stock.idealPercentageOfThePortfolio / 100) *
-				user.totalBalance
-			).toFixed(2);
-
-			// ideal quantity
-			stock.idealQuantity! = Math.round(
-				stock.idealTotalInvested / stock.price
-			);
-
-			// status
-			stock.idealQuantity > stock.quantity!
-				? (stock.status = 'Buy')
-				: (stock.status = 'Wait');
-		}
+		calculateIdealsAndAdjustmentsOfTheStocks(user)
 	}
 
 	next();

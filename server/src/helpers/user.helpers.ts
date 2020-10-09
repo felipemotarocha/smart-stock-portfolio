@@ -116,3 +116,37 @@ export const updateStocksData = async (
 	}
 	return;
 };
+
+export const calculateIdealsAndAdjustmentsOfTheStocks = (user: IUser) => {
+	const allStockNotesSummed = user.stocks.reduce(
+		(accumulator, stock) => accumulator + (stock.note as any),
+		0
+	);
+
+	for (let stock of user.stocks) {
+		// ideal percentage of the portfolio
+		stock.idealPercentageOfThePortfolio =
+			Math.round((stock.note! / allStockNotesSummed) * 100 * 100) /
+			100;
+
+		// ideal total invested
+		stock.idealTotalInvested = +(
+			(stock.idealPercentageOfThePortfolio / 100) *
+			user.totalBalance
+		).toFixed(2);
+
+		// ideal quantity
+		stock.idealQuantity! = Math.round(
+			stock.idealTotalInvested / stock.price
+		);
+
+		// status
+		stock.idealQuantity > stock.quantity!
+			? (stock.status = 'Buy')
+			: (stock.status = 'Wait');
+			
+		// quantity adjustment
+		stock.quantityAdjustment = +(stock.idealQuantity - stock.quantity!).toFixed(2);
+		stock.totalInvestedAdjustment = +(stock.idealTotalInvested - stock.totalInvested!).toFixed(2)
+	}
+}
