@@ -18,7 +18,7 @@ export type StockData = {
 };
 
 @ObjectType()
-class Stock {
+class StockType {
 	@Field()
 	id: string;
 
@@ -71,4 +71,4 @@ class Stock {
 	status: 'Wait' | 'Buy';
 }
 
-export default Stock;
+export default StockType;

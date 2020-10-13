@@ -3,7 +3,7 @@ import { ObjectType, Field, ID } from 'type-graphql';
 import Stock from './stock.types';
 
 @ObjectType()
-class User {
+class UserType {
 	@Field((_type) => ID)
 	id: string;
 
@@ -29,4 +29,4 @@ class User {
 	stocks: Stock[];
 }
 
-export default User;
+export default UserType;
