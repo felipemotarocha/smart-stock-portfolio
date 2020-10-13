@@ -14,7 +14,10 @@ const main = async () => {
 		resolvers,
 	});
 
-	const apolloServer = new ApolloServer({ schema });
+	const apolloServer = new ApolloServer({
+		schema,
+		context: ({ req, res }: any) => ({ req, res }),
+	});
 
 	const app = express();
 	app.use(cors());

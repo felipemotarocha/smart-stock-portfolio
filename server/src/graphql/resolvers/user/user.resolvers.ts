@@ -1,13 +1,13 @@
-import { ApolloError } from "apollo-server-express";
-import { Resolver, Arg, Query } from "type-graphql";
+import { ApolloError } from 'apollo-server-express';
+import { Resolver, Arg, Query } from 'type-graphql';
 
-import UserType from "../../../graphql/types/user.types";
-import { updateStocksData } from "../../../helpers/user.helpers";
-import User from "../../../models/user.model";
+import UserType from '../../../graphql/types/user.types';
+import { updateStocksData } from '../../../helpers/user.helpers';
+import User from '../../../models/user.model';
 
 @Resolver()
 class UserResolver {
-    @Query(() => UserType)
+	@Query(() => UserType)
 	async user(@Arg('id') id: string) {
 		try {
 			const user = await User.findById(id);
