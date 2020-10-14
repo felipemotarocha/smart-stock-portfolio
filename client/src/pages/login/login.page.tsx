@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Button } from 'antd';
 
 import { CustomInput } from '../../components/custom-input/custom-input.component';
@@ -7,18 +7,13 @@ import { Container, Content } from './login.styles';
 import { UserContext } from '../../contexts/user.context';
 import { useHistory } from 'react-router-dom';
 
-export interface LoginPageProps {
-	handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSubmit: () => void;
-}
+export interface LoginPageProps {}
 
-const LoginPage: React.FunctionComponent<LoginPageProps> = ({
-	handleEmailChange,
-	handlePasswordChange,
-	handleSubmit,
-}) => {
-	const { currentUser } = useContext(UserContext);
+const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const { login, currentUser } = useContext(UserContext);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -31,14 +26,14 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = ({
 				<CustomInput
 					placeholder='E-mail'
 					type='primary'
-					onChange={handleEmailChange}
+					onChange={({ target: { value } }) => setEmail(value)}
 				/>
 				<CustomInput
 					type='password'
 					placeholder='Password'
-					onChange={handlePasswordChange}
+					onChange={({ target: { value } }) => setPassword(value)}
 				/>
-				<Button type='primary' onClick={handleSubmit}>
+				<Button type='primary' onClick={() => login(email, password)}>
 					Login
 				</Button>
 			</Content>

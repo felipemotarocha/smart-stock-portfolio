@@ -12,12 +12,14 @@ export const GET_USER_PROFILE = gql`
 			stocks {
 				id
 				name
-				symbol
 				price
-				quantity
+				symbol
 				percentageOfThePortfolio
+				changePercent
+				marketCap
 				totalInvested
 				updatedAt
+				quantity
 				note
 				idealPercentageOfThePortfolio
 				idealTotalInvested

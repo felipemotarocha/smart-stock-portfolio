@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { useState, useContext } from 'react';
 
 import { CHANGE_USER_AVAILABLE_BALANCE } from '../../graphql/mutations/server-mutations';
-import { GET_USER_BALANCE_INFO } from '../../graphql/queries/server-queries';
+import { UserContext } from '../../contexts/user.context';
 
 import BalanceInfo from './balance-info.component';
 
@@ -13,10 +13,10 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	const [availableBalanceInput, setAvailableBalanceInput] = useState<number>(
 		0
 	);
-	const { loading, error, data } = useQuery(GET_USER_BALANCE_INFO);
 	const [changeUserAvailableBalance] = useMutation(
 		CHANGE_USER_AVAILABLE_BALANCE
 	);
+	const { currentUser } = useContext(UserContext);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// regex to check if the input value is a number
@@ -38,22 +38,20 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 		});
 	};
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
-
-	const {
-		user: { availableBalance, investedBalance, totalBalance },
-	} = data;
 	return (
-		<BalanceInfo
-			availableBalanceInput={availableBalanceInput}
-			setAvailableBalanceInput={setAvailableBalanceInput}
-			availableBalance={availableBalance}
-			investedBalance={investedBalance}
-			totalBalance={totalBalance}
-			handleChange={handleChange}
-			handleSubmit={handleSubmit}
-		/>
+		<>
+			{currentUser ? (
+				<BalanceInfo
+					availableBalanceInput={availableBalanceInput}
+					setAvailableBalanceInput={setAvailableBalanceInput}
+					availableBalance={currentUser.availableBalance}
+					investedBalance={currentUser.investedBalance}
+					totalBalance={currentUser.totalBalance}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+				/>
+			) : null}
+		</>
 	);
 };
 

@@ -11,6 +11,7 @@ interface ContextProps {
 	login: (email: string, password: string) => void;
 	logout: () => void;
 	checkUserSession: () => void;
+	loading: boolean;
 }
 
 export const UserContext = createContext<ContextProps>({
@@ -18,6 +19,7 @@ export const UserContext = createContext<ContextProps>({
 	login: () => {},
 	checkUserSession: () => {},
 	logout: () => {},
+	loading: true,
 });
 
 export interface UserContextProviderProps {
@@ -27,9 +29,10 @@ export interface UserContextProviderProps {
 const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = ({
 	children,
 }) => {
+	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
-	const { refetch } = useQuery(GET_USER_PROFILE);
 	const [loginUserMutation] = useMutation(LOGIN_USER);
+	const { refetch } = useQuery(GET_USER_PROFILE);
 
 	const login = async (email: string, password: string) => {
 		const {
@@ -51,18 +54,21 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 
 	const checkUserSession = async () => {
 		try {
+			setLoading(true);
 			const {
 				data: { me: user },
 			} = await refetch();
-			if (user) return setCurrentUser(user);
+			if (user) setCurrentUser(user);
+			setLoading(false);
 		} catch (err) {
+			setLoading(false);
 			setCurrentUser(null);
 		}
 	};
 
 	return (
 		<UserContext.Provider
-			value={{ currentUser, login, checkUserSession, logout }}
+			value={{ currentUser, login, checkUserSession, logout, loading }}
 		>
 			{children}
 		</UserContext.Provider>
