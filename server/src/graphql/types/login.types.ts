@@ -8,7 +8,7 @@ class LoginResponseType {
 	user: UserType;
 
 	@Field()
-	accessToken: string;
+	authToken: string;
 }
 
 export default LoginResponseType;

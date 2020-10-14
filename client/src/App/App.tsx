@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.less';
 
-import HomePage from '../pages/home.page';
+import HomePage from '../pages/home/home.page';
 import { default as LoginPage } from '../pages/login/login.container';
 
 export interface AppProps {}

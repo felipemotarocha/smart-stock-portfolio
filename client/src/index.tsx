@@ -7,6 +7,7 @@ import { ApolloProvider } from '@apollo/client';
 import App from './App/App';
 
 import { GlobalStyle } from './index.styles';
+import UserContextProvider from './contexts/user.context';
 
 const client = new ApolloClient({
 	uri: 'http://localhost:4000/graphql',
@@ -17,7 +18,9 @@ ReactDOM.render(
 	<ThemeProvider theme={{ primaryBlue: '#1488cc' }}>
 		<GlobalStyle />
 		<ApolloProvider client={client}>
-			<App />
+			<UserContextProvider>
+				<App />
+			</UserContextProvider>
 		</ApolloProvider>
 	</ThemeProvider>,
 	document.getElementById('root')

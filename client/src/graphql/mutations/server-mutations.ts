@@ -29,7 +29,7 @@ export const LOGIN_USER = gql`
 					status
 				}
 			}
-			accessToken
+			authToken
 		}
 	}
 `;

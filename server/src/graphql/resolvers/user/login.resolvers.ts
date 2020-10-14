@@ -22,7 +22,7 @@ class LoginResolver {
 
 		return {
 			user,
-			accessToken: jwt.sign(
+			authToken: jwt.sign(
 				{ userId: user._id },
 				process.env.JWT_SECRET_KEY!
 			),
