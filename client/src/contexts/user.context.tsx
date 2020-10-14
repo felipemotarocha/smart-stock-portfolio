@@ -9,6 +9,7 @@ import { User } from '../helpers/types/user.types';
 interface ContextProps {
 	currentUser: User | null;
 	login: (email: string, password: string) => void;
+	logout: () => void;
 	checkUserSession: () => void;
 }
 
@@ -16,6 +17,7 @@ export const UserContext = createContext<ContextProps>({
 	currentUser: null,
 	login: () => {},
 	checkUserSession: () => {},
+	logout: () => {},
 });
 
 export interface UserContextProviderProps {
@@ -26,11 +28,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	children,
 }) => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
-	const {
-		data: getUserProfileData,
-		loading: getUserProfileDataLoading,
-		error: getUserProfileError,
-	} = useQuery(GET_USER_PROFILE);
+	const { refetch } = useQuery(GET_USER_PROFILE);
 	const [loginUserMutation] = useMutation(LOGIN_USER);
 
 	const login = async (email: string, password: string) => {
@@ -42,20 +40,30 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			variables: { email, password },
 		});
 
-		localStorage.setItem('authToken', authToken);
 		setCurrentUser(user);
+		localStorage.setItem('authToken', authToken);
 	};
 
-	const checkUserSession = () => {
-		if (getUserProfileError) return setCurrentUser(null);
-		if (!getUserProfileDataLoading && getUserProfileData) {
-			const { me: user } = getUserProfileData;
-			setCurrentUser(user);
+	const logout = () => {
+		localStorage.removeItem('authToken');
+		setCurrentUser(null);
+	};
+
+	const checkUserSession = async () => {
+		try {
+			const {
+				data: { me: user },
+			} = await refetch();
+			if (user) return setCurrentUser(user);
+		} catch (err) {
+			setCurrentUser(null);
 		}
 	};
 
 	return (
-		<UserContext.Provider value={{ currentUser, login, checkUserSession }}>
+		<UserContext.Provider
+			value={{ currentUser, login, checkUserSession, logout }}
+		>
 			{children}
 		</UserContext.Provider>
 	);

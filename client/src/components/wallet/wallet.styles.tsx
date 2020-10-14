@@ -23,3 +23,14 @@ export const Content = styled.div`
 export const Buttons = styled.div`
 	display: flex;
 `;
+
+export const ButtonsContent = styled.div`
+	display: flex;
+	align-items: center;
+
+	p {
+		margin: 0;
+		margin-right: 1rem;
+		font-size: 1rem;
+	}
+`;
