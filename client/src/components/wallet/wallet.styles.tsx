@@ -13,3 +13,13 @@ export const Headline = styled.h1`
 	padding: 0.2rem 1rem;
 	font-weight: 400;
 `;
+
+export const Content = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+`;
+
+export const Buttons = styled.div`
+	display: flex;
+`;

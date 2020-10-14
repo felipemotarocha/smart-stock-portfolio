@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Container } from './header.styles';
+import { Container } from './wallet-header.styles';
 
 import { default as BalanceInfo } from '../balance-info/balance-info.container';
 import { default as StockPurchase } from '../stock-purchase/stock-purchase.container';

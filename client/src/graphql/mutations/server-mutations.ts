@@ -1,5 +1,39 @@
 import { gql } from '@apollo/client';
 
+export const LOGIN_USER = gql`
+	mutation LoginUser($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			user {
+				id
+				name
+				email
+				password
+				investedBalance
+				availableBalance
+				totalBalance
+				stocks {
+					id
+					name
+					symbol
+					price
+					quantity
+					percentageOfThePortfolio
+					totalInvested
+					updatedAt
+					note
+					idealPercentageOfThePortfolio
+					idealTotalInvested
+					idealQuantity
+					quantityAdjustment
+					totalInvestedAdjustment
+					status
+				}
+			}
+			accessToken
+		}
+	}
+`;
+
 export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 	mutation ChangeUserAvailableBalance(
 		$id: String!
