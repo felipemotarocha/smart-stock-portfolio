@@ -1,5 +1,35 @@
 import { gql } from '@apollo/client';
 
+export const GET_USER_PROFILE = gql`
+	query GetUserProfile {
+		me {
+			id
+			name
+			email
+			investedBalance
+			availableBalance
+			totalBalance
+			stocks {
+				id
+				name
+				symbol
+				price
+				quantity
+				percentageOfThePortfolio
+				totalInvested
+				updatedAt
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
+				status
+			}
+		}
+	}
+`;
+
 export const GET_USER_BALANCE_INFO = gql`
 	query GetUserBalanceInfo {
 		user(id: "5f7d176dad6b0f36440cb08b") {
