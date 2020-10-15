@@ -1,6 +1,6 @@
-import AddStockResolver from './user/add-stock.resolvers';
-import ChangeAvailableBalance from './user/change-available-balance.resolvers';
-import ChangeStockNote from './user/change-stock-note';
+import AddUserStockResolver from './user/add-user-stock.resolvers';
+import ChangeUserAvailableBalanceResolver from './user/change-user-available-balance.resolvers';
+import EditUserStockResolver from './user/edit-user-stock.resolvers';
 import LoginResolver from './user/login.resolvers';
 import MeResolver from './user/me.resolvers';
 import RegisterResolver from './user/register.resolvers';
@@ -13,9 +13,9 @@ const resolvers: any = [
 	RegisterResolver,
 	LoginResolver,
 	StockResolver,
-	AddStockResolver,
-	ChangeAvailableBalance,
-	ChangeStockNote,
+	AddUserStockResolver,
+	EditUserStockResolver,
+	ChangeUserAvailableBalanceResolver,
 	UserResolver,
 	UsersResolvers,
 	MeResolver,

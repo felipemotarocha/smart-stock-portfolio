@@ -47,7 +47,7 @@ export const StyledInput = styled(Input)<CustomInputProps>`
 
 export const StyledInputNumber = styled(InputNumber)<CustomInputNumberProps>`
 	margin: 0 0.5rem;
-	width: ${({ width }) => `${width}px`};
+	width: ${({ width }) => width};
 	background: ${({ backgroundcolor }) =>
 		backgroundcolor ? backgroundcolor : 'rgba(0, 0, 0, 0)'};
 	color: #eee;

@@ -42,7 +42,6 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 					size='large'
 					min={1}
 					max={999999}
-					width='100%'
 					placeholder='Qnt.'
 					value={quantity}
 					onChange={(value) => handleQuantityChange(value)}

@@ -73,13 +73,13 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 	}
 `;
 
-export const ADD_STOCK = gql`
-	mutation AddStock(
+export const ADD_USER_STOCK = gql`
+	mutation addUserStock(
 		$withCost: Boolean!
 		$symbol: String!
 		$quantity: Float!
 	) {
-		addStock(
+		addUserStock(
 			withCost: $withCost
 			userId: "5f7d176dad6b0f36440cb08b"
 			symbol: $symbol
@@ -89,6 +89,47 @@ export const ADD_STOCK = gql`
 			name
 			email
 			password
+			investedBalance
+			availableBalance
+			totalBalance
+			stocks {
+				id
+				name
+				symbol
+				price
+				quantity
+				changePercent
+				percentageOfThePortfolio
+				totalInvested
+				updatedAt
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
+				status
+			}
+		}
+	}
+`;
+
+export const EDIT_USER_STOCK = gql`
+	mutation editUserStock(
+		$userId: String!
+		$stockId: String!
+		$note: Float
+		$quantity: Float
+	) {
+		editUserStock(
+			userId: $userId
+			stockId: $stockId
+			note: $note
+			quantity: $quantity
+		) {
+			id
+			name
+			email
 			investedBalance
 			availableBalance
 			totalBalance

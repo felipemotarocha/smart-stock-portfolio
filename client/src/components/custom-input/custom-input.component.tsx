@@ -49,8 +49,6 @@ export const CustomNumberInput: React.FunctionComponent<CustomNumberInputProps> 
 			<GlobalStyled />
 			<StyledInputNumber
 				size={size}
-				min={1}
-				max={999999}
 				placeholder={placeholder}
 				width={width}
 				backgroundcolor={backgroundcolor}

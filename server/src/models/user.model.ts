@@ -1,7 +1,10 @@
 import { Document, Schema, model } from 'mongoose';
 import { ApolloError } from 'apollo-server-express';
 
-import { addStock, calculateIdealsAndAdjustmentsOfTheStocks } from './../helpers/user.helpers';
+import {
+	addUserStock,
+	calculateUserStocksIdealsAndAdjustments,
+} from './../helpers/user.helpers';
 
 export interface IUser extends Document {
 	_id: string;
@@ -34,7 +37,7 @@ export interface IUser extends Document {
 
 		status?: 'Wait' | 'Buy';
 	}[];
-	addStock: (
+	addUserStock: (
 		withCost: boolean,
 		symbol: string,
 		quantity: number,
@@ -121,20 +124,20 @@ userSchema.pre('save', function (next) {
 	}
 
 	if (this.isModified('availableBalance') || this.isModified('stocks')) {
-		calculateIdealsAndAdjustmentsOfTheStocks(user)
+		calculateUserStocksIdealsAndAdjustments(user);
 	}
 
 	next();
 });
 
-userSchema.methods.addStock = async function (
+userSchema.methods.addUserStock = async function (
 	withCost: boolean,
 	symbol: string,
 	quantity: number,
 	note: number
 ) {
 	try {
-		const user = await addStock(
+		const user = await addUserStock(
 			withCost,
 			this as any,
 			symbol,

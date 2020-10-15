@@ -5,7 +5,80 @@ import { differenceInMinutes, getHours, isSaturday, isSunday } from 'date-fns';
 import { IUser } from './../models/user.model';
 import { StockData } from 'src/graphql/types/stock.types';
 
-export const addStock = async (
+export const calculateUserStocksTotalInvested = (user: IUser) => {
+	const { stocks } = user;
+
+	let totalInvested = 0;
+	for (let stock of stocks) {
+		totalInvested = stock.price * stock.quantity!;
+		stock.totalInvested = +totalInvested.toFixed(2);
+	}
+
+	return user;
+};
+
+export const calculateUserBalances = (user: IUser) => {
+	const { stocks } = user;
+
+	let investedBalance = 0;
+	for (let stock of stocks) investedBalance += stock.totalInvested!;
+	user.investedBalance = +investedBalance.toFixed(2);
+
+	let totalBalance = 0;
+	totalBalance = user.investedBalance + user.availableBalance;
+	user.totalBalance = +totalBalance.toFixed(2);
+
+	return user;
+};
+
+export const calculateUserStocksPercentagesOfThePortfolio = (user: IUser) => {
+	const { stocks } = user;
+
+	for (let stock of stocks) {
+		stock.percentageOfThePortfolio =
+			Math.round(
+				((stock.totalInvested! * 100) / user.investedBalance) * 100
+			) / 100;
+	}
+
+	return user;
+};
+
+export const calculateUserStocksIdealsAndAdjustments = (user: IUser) => {
+	const allUserStocksNotesSummed = user.stocks.reduce(
+		(accumulator, stock) => accumulator + (stock.note as any),
+		0
+	);
+
+	for (let stock of user.stocks) {
+		let idealPercentageOfThePortfolio =
+			stock.note! / allUserStocksNotesSummed;
+		stock.idealPercentageOfThePortfolio =
+			Math.round(idealPercentageOfThePortfolio * 100 * 100) / 100;
+
+		let idealTotalInvested =
+			(stock.idealPercentageOfThePortfolio / 100) * user.totalBalance;
+		stock.idealTotalInvested = +idealTotalInvested.toFixed(2);
+
+		let idealQuantity = stock.idealTotalInvested / stock.price;
+		stock.idealQuantity! = Math.round(idealQuantity);
+
+		let quantityAdjustment = stock.idealQuantity - stock.quantity!;
+		stock.quantityAdjustment = +quantityAdjustment.toFixed(2);
+
+		let totalInvestedAdjustment =
+			stock.idealTotalInvested - stock.totalInvested!;
+		stock.totalInvestedAdjustment = +totalInvestedAdjustment.toFixed(2);
+
+		let status: 'Wait' | 'Buy' =
+			idealQuantity > stock.quantity! ? 'Buy' : 'Wait';
+		stock.status = status;
+	}
+
+	return user;
+};
+
+export const addUserStock = async (
 	withCost: boolean,
 	user: IUser,
 	symbol: string,
@@ -116,37 +189,3 @@ export const updateStocksData = async (
 	}
 	return;
 };
-
-export const calculateIdealsAndAdjustmentsOfTheStocks = (user: IUser) => {
-	const allStockNotesSummed = user.stocks.reduce(
-		(accumulator, stock) => accumulator + (stock.note as any),
-		0
-	);
-
-	for (let stock of user.stocks) {
-		// ideal percentage of the portfolio
-		stock.idealPercentageOfThePortfolio =
-			Math.round((stock.note! / allStockNotesSummed) * 100 * 100) /
-			100;
-
-		// ideal total invested
-		stock.idealTotalInvested = +(
-			(stock.idealPercentageOfThePortfolio / 100) *
-			user.totalBalance
-		).toFixed(2);
-
-		// ideal quantity
-		stock.idealQuantity! = Math.round(
-			stock.idealTotalInvested / stock.price
-		);
-
-		// status
-		stock.idealQuantity > stock.quantity!
-			? (stock.status = 'Buy')
-			: (stock.status = 'Wait');
-			
-		// quantity adjustment
-		stock.quantityAdjustment = +(stock.idealQuantity - stock.quantity!).toFixed(2);
-		stock.totalInvestedAdjustment = +(stock.idealTotalInvested - stock.totalInvested!).toFixed(2)
-	}
-}

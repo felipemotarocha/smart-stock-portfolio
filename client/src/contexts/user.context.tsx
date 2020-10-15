@@ -12,6 +12,8 @@ interface ContextProps {
 	logout: () => void;
 	checkUserSession: () => void;
 	updateCurrentUser: (user: User) => void;
+	editableStocks: boolean;
+	setEditableStocks: React.Dispatch<React.SetStateAction<boolean>> | null;
 	loading: boolean;
 }
 
@@ -21,6 +23,9 @@ export const UserContext = createContext<ContextProps>({
 	logout: () => {},
 	checkUserSession: () => {},
 	updateCurrentUser: () => {},
+	editableStocks: true,
+	setEditableStocks: null,
+
 	loading: true,
 });
 
@@ -31,8 +36,9 @@ export interface UserContextProviderProps {
 const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = ({
 	children,
 }) => {
-	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
+	const [editableStocks, setEditableStocks] = useState(true);
+	const [loading, setLoading] = useState(true);
 
 	const [loginUserMutation] = useMutation(LOGIN_USER);
 	const { refetch } = useQuery(GET_USER_PROFILE);
@@ -81,6 +87,8 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 				logout,
 				checkUserSession,
 				updateCurrentUser,
+				editableStocks,
+				setEditableStocks,
 				loading,
 			}}
 		>

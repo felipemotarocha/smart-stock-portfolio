@@ -4,9 +4,16 @@ export const Container = styled.div`
 	width: 100%;
 `;
 
-export const Headline = styled.h1`
-	color: #eee;
-	font-weight: 400;
+export const Headline = styled.div`
+	display: flex;
+	align-items: center;
+	p {
+		color: #eee;
+		font-weight: 400;
+		font-size: 2rem;
+		margin: 1rem 0;
+		margin-right: 1rem;
+	}
 `;
 
 export const Content = styled.div`

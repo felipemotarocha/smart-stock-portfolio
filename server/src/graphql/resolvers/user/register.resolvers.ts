@@ -1,14 +1,14 @@
-import { ApolloError } from "apollo-server-express"
-import { Resolver } from "type-graphql";
-import bcrypt from 'bcryptjs'
+import { ApolloError } from 'apollo-server-express';
+import { Resolver } from 'type-graphql';
+import bcrypt from 'bcryptjs';
 
-import { Mutation, Arg } from "type-graphql";
-import User, { IRegisterUserInput } from "../../../models/user.model";
-import UserType from "../../../graphql/types/user.types";
+import { Mutation, Arg } from 'type-graphql';
+import User, { IRegisterUserInput } from '../../../models/user.model';
+import UserType from '../../../graphql/types/user.types';
 
 @Resolver()
 class RegisterResolver {
-    @Mutation(() => UserType)
+	@Mutation(() => UserType)
 	async register(
 		@Arg('name') name: string,
 		@Arg('email') email: string,
