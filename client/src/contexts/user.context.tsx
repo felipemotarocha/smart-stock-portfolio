@@ -11,14 +11,16 @@ interface ContextProps {
 	login: (email: string, password: string) => void;
 	logout: () => void;
 	checkUserSession: () => void;
+	updateCurrentUser: (user: User) => void;
 	loading: boolean;
 }
 
 export const UserContext = createContext<ContextProps>({
 	currentUser: null,
 	login: () => {},
-	checkUserSession: () => {},
 	logout: () => {},
+	checkUserSession: () => {},
+	updateCurrentUser: () => {},
 	loading: true,
 });
 
@@ -31,6 +33,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 }) => {
 	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
+
 	const [loginUserMutation] = useMutation(LOGIN_USER);
 	const { refetch } = useQuery(GET_USER_PROFILE);
 
@@ -66,9 +69,20 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		}
 	};
 
+	const updateCurrentUser = async (user: User) => {
+		setCurrentUser(user);
+	};
+
 	return (
 		<UserContext.Provider
-			value={{ currentUser, login, checkUserSession, logout, loading }}
+			value={{
+				currentUser,
+				login,
+				logout,
+				checkUserSession,
+				updateCurrentUser,
+				loading,
+			}}
 		>
 			{children}
 		</UserContext.Provider>

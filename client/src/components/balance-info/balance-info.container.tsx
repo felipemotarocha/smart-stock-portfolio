@@ -13,10 +13,14 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	const [availableBalanceInput, setAvailableBalanceInput] = useState<number>(
 		0
 	);
+	const { currentUser, updateCurrentUser } = useContext(UserContext);
 	const [changeUserAvailableBalance] = useMutation(
-		CHANGE_USER_AVAILABLE_BALANCE
+		CHANGE_USER_AVAILABLE_BALANCE,
+		{
+			onCompleted: ({ changeUserAvailableBalance: user }) =>
+				updateCurrentUser(user),
+		}
 	);
-	const { currentUser } = useContext(UserContext);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// regex to check if the input value is a number
@@ -32,7 +36,7 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	const handleSubmit = () => {
 		changeUserAvailableBalance({
 			variables: {
-				id: '5f7d176dad6b0f36440cb08b',
+				id: currentUser!.id,
 				newAvailableBalance: availableBalanceInput,
 			},
 		});

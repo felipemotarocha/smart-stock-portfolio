@@ -45,11 +45,22 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			newAvailableBalance: $newAvailableBalance
 		) {
 			id
-			availableBalance
+			name
+			email
+			password
 			investedBalance
+			availableBalance
 			totalBalance
 			stocks {
 				id
+				name
+				symbol
+				price
+				quantity
+				changePercent
+				percentageOfThePortfolio
+				totalInvested
+				updatedAt
 				note
 				idealPercentageOfThePortfolio
 				idealTotalInvested

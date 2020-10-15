@@ -27,11 +27,6 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 }) => {
 	useEffect(() => {
 		setAvailableBalanceInput(availableBalance);
-		// eslint-disable-next-line
-	}, []);
-
-	useEffect(() => {
-		setAvailableBalanceInput(availableBalance);
 	}, [availableBalance, setAvailableBalanceInput]);
 
 	return (
