@@ -75,15 +75,18 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 
 export const ADD_USER_STOCK = gql`
 	mutation addUserStock(
+		$userId: String!
 		$withCost: Boolean!
 		$symbol: String!
 		$quantity: Float!
+		$note: Float
 	) {
 		addUserStock(
 			withCost: $withCost
-			userId: "5f7d176dad6b0f36440cb08b"
+			userId: $userId
 			symbol: $symbol
 			quantity: $quantity
+			note: $note
 		) {
 			id
 			name

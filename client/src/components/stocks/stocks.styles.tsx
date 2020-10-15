@@ -14,6 +14,10 @@ export const Headline = styled.div`
 		margin: 1rem 0;
 		margin-right: 1rem;
 	}
+
+	button:nth-child(2) {
+		margin-right: 0.6rem;
+	}
 `;
 
 export const Content = styled.div`

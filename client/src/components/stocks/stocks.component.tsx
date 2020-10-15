@@ -7,6 +7,7 @@ import { UserContext } from '../../contexts/user.context';
 import { Container, Content, Headline } from './stocks.styles';
 
 import StockItem from '../stock-item/stock-item.component';
+import AddStock from '../add-stock/add-stock.component';
 
 const Stocks: React.FunctionComponent = () => {
 	const { currentUser, editableStocks, setEditableStocks } = useContext(
@@ -16,6 +17,7 @@ const Stocks: React.FunctionComponent = () => {
 		<Container>
 			<Headline>
 				<p>Stocks</p>
+				<AddStock />
 				<Button
 					size='large'
 					type='primary'

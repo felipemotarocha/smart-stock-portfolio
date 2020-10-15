@@ -13,7 +13,7 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 	const [symbol, setSymbol] = useState('');
 	const [quantity, setQuantity] = useState(1);
 
-	const { updateCurrentUser } = useContext(UserContext);
+	const { currentUser, updateCurrentUser } = useContext(UserContext);
 	const [addUserStock] = useMutation(ADD_USER_STOCK, {
 		onCompleted: ({ addUserStock: user }) => updateCurrentUser(user),
 	});
@@ -30,6 +30,7 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 		if (symbol)
 			return addUserStock({
 				variables: {
+					userId: currentUser?.id,
 					withCost: true,
 					symbol,
 					quantity,
