@@ -6,6 +6,7 @@ import { ADD_USER_STOCK } from '../../graphql/mutations/server-mutations';
 import { UserContext } from '../../contexts/user.context';
 
 import StockPurchase from './stock-purchase.component';
+import { message } from 'antd';
 
 export interface StockPurchaseContainerProps {}
 
@@ -16,6 +17,7 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 	const { currentUser, updateCurrentUser } = useContext(UserContext);
 	const [addUserStock] = useMutation(ADD_USER_STOCK, {
 		onCompleted: ({ addUserStock: user }) => updateCurrentUser(user),
+		onError: (error) => message.error(error.message, 2.5),
 	});
 
 	const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {

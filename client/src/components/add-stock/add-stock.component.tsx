@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import {
@@ -37,14 +37,19 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 			note,
 		},
 		onCompleted: ({ addUserStock: user }) => updateCurrentUser(user),
+		onError: (error) => message.error(error.message),
 	});
 
-	const handleOk = (e: any) => {
-		addUserStock();
-		setVisible(false);
-		setSymbol('');
-		setQuantity(1);
-		setNote(1);
+	const handleOk = async (e: any) => {
+		try {
+			addUserStock();
+			setVisible(false);
+			setSymbol('');
+			setQuantity(1);
+			setNote(1);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const handleCancel = () => {
@@ -62,7 +67,9 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 				size='large'
 				onClick={() => setVisible(true)}
 				icon={<PlusOutlined />}
-			/>
+			>
+				New
+			</Button>
 			<Container>
 				<Modal
 					title='Add a new stock with no cost (will not affect your available balance)'

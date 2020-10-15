@@ -42,7 +42,10 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 			note,
 			quantity,
 		},
-		onCompleted: ({ editUserStock: user }) => updateCurrentUser(user),
+		onCompleted: ({ editUserStock: user }) => {
+			updateCurrentUser(user);
+			message.success('The changes were successfully saved.');
+		},
 	});
 	const [deleteUserStock] = useMutation(DELETE_USER_STOCK, {
 		variables: { userId: currentUser?.id, stockId: stock.id },
@@ -96,7 +99,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 					icon={<SaveOutlined />}
 					onClick={() => editUserStock()}
 				>
-					Save
+					Save changes
 				</Button>
 				<Button
 					type='default'

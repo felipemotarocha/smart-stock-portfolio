@@ -32,8 +32,8 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 				<CustomInput
 					type='text'
 					size='large'
-					placeholder='Add the purchase of a stock'
-					width='40%'
+					placeholder='Add the purchase of an existent stock'
+					width='45%'
 					value={symbol}
 					onChange={(e) => handleSymbolChange(e)}
 				/>

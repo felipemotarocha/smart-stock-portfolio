@@ -16,7 +16,7 @@ export const Headline = styled.div`
 	}
 
 	button:nth-child(2) {
-		margin-right: 0.6rem;
+		margin-right: 1rem;
 	}
 `;
 
