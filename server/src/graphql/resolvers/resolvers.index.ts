@@ -6,6 +6,7 @@ import LoginResolver from './user/login.resolvers';
 import MeResolver from './user/me.resolvers';
 import RegisterResolver from './user/register.resolvers';
 import StockResolver from './user/stock.resolvers';
+import StocksResolver from './user/stocks.resolvers';
 import UserResolver from './user/user.resolvers';
 import UsersResolvers from './user/users.resolvers';
 
@@ -14,6 +15,7 @@ const resolvers: any = [
 	RegisterResolver,
 	LoginResolver,
 	StockResolver,
+	StocksResolver,
 	AddUserStockResolver,
 	EditUserStockResolver,
 	DeleteUserStockResolver,

@@ -76,7 +76,7 @@ export const calculateUserStocksIdealsAndAdjustments = (user: IUser) => {
 		stock.totalInvestedAdjustment = +totalInvestedAdjustment.toFixed(2);
 
 		let status: 'Wait' | 'Buy' =
-			idealQuantity > stock.quantity! ? 'Buy' : 'Wait';
+			stock.quantityAdjustment > 0 ? 'Buy' : 'Wait';
 		stock.status = status;
 	}
 
@@ -118,6 +118,11 @@ export const addUserStock = async (
 		if (withCost && userAlreadyHasTheStock === -1)
 			throw new Error(
 				'You do not have this stock. To buy it, you need to first add it to your portfolio using the "New" buton.'
+			);
+
+		if (!withCost && userAlreadyHasTheStock !== -1)
+			throw new Error(
+				'You already have this stock. You can buy more using your available balance or change its quantity.'
 			);
 
 		if (withCost && user.availableBalance < price * quantity)
