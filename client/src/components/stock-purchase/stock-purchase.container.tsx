@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { ADD_STOCK } from '../../graphql/mutations/server-mutations';
+import { UserContext } from '../../contexts/user.context';
 
 import StockPurchase from './stock-purchase.component';
 
@@ -12,7 +13,10 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 	const [symbol, setSymbol] = useState('');
 	const [quantity, setQuantity] = useState(1);
 
-	const [addStock] = useMutation(ADD_STOCK);
+	const { updateCurrentUser } = useContext(UserContext);
+	const [addStock] = useMutation(ADD_STOCK, {
+		onCompleted: ({ addStock: user }) => updateCurrentUser(user),
+	});
 
 	const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSymbol(e.target.value);

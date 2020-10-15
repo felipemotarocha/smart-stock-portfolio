@@ -86,6 +86,9 @@ export const ADD_STOCK = gql`
 			quantity: $quantity
 		) {
 			id
+			name
+			email
+			password
 			investedBalance
 			availableBalance
 			totalBalance
@@ -95,6 +98,7 @@ export const ADD_STOCK = gql`
 				symbol
 				price
 				quantity
+				changePercent
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt

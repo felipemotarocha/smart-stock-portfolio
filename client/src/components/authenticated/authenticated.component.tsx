@@ -16,7 +16,6 @@ const Authenticated: React.FunctionComponent<AuthenticatedProps> = ({
 
 	useEffect(() => {
 		checkUserSession();
-		console.log('happening');
 		// eslint-disable-next-line
 	}, []);
 
