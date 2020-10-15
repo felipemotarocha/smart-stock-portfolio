@@ -23,9 +23,8 @@ export const UserContext = createContext<ContextProps>({
 	logout: () => {},
 	checkUserSession: () => {},
 	updateCurrentUser: () => {},
-	editableStocks: true,
+	editableStocks: false,
 	setEditableStocks: null,
-
 	loading: true,
 });
 
@@ -37,7 +36,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	children,
 }) => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
-	const [editableStocks, setEditableStocks] = useState(true);
+	const [editableStocks, setEditableStocks] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const [loginUserMutation] = useMutation(LOGIN_USER);

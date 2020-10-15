@@ -23,7 +23,7 @@ export const Field = styled.div`
 	align-items: center;
 	width: 32%;
 
-	.ant-input {
+	input {
 		text-align: center;
 	}
 `;
