@@ -36,7 +36,6 @@ class EditUserStockResolver {
 			await user!.save();
 			return user;
 		} catch (err) {
-			console.log(err.message);
 			return new ApolloError('Something went wrong.');
 		}
 	}

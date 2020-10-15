@@ -41,15 +41,11 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 	});
 
 	const handleOk = async (e: any) => {
-		try {
-			addUserStock();
-			setVisible(false);
-			setSymbol('');
-			setQuantity(1);
-			setNote(1);
-		} catch (err) {
-			console.log(err);
-		}
+		addUserStock();
+		setVisible(false);
+		setSymbol('');
+		setQuantity(1);
+		setNote(1);
 	};
 
 	const handleCancel = () => {
