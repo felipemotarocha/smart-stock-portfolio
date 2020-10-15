@@ -41,17 +41,17 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 
 	const handleOk = (e: any) => {
 		addUserStock();
+		setVisible(false);
 		setSymbol('');
 		setQuantity(1);
 		setNote(1);
-		setVisible(false);
 	};
 
 	const handleCancel = () => {
+		setVisible(false);
 		setSymbol('');
 		setQuantity(1);
 		setNote(1);
-		setVisible(false);
 	};
 
 	return (

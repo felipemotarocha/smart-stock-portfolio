@@ -3,8 +3,16 @@ import { useState, useContext } from 'react';
 import { Button } from 'antd';
 import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/client';
+import { Popconfirm, message } from 'antd';
 
-import { Buttons, Container, Field, Fields, Title } from './stock-edit.styles';
+import {
+	Buttons,
+	Container,
+	Field,
+	Fields,
+	Title,
+	GlobalStyle,
+} from './stock-edit.styles';
 import { Stock } from '../../helpers/types/stock.types';
 import {
 	DELETE_USER_STOCK,
@@ -47,8 +55,14 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 		setNote(note);
 	};
 
+	const handleConfirmDelete = () => {
+		deleteUserStock();
+		message.success('The stock was successfully deleted.');
+	};
+
 	return (
 		<Container>
+			<GlobalStyle />
 			<Fields>
 				<Field>
 					<Title>Symbol</Title>
@@ -92,14 +106,23 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 				>
 					Discard changes
 				</Button>
-				<Button
-					type='default'
-					size='large'
-					icon={<DeleteOutlined />}
-					onClick={() => deleteUserStock()}
+
+				<Popconfirm
+					placement='topRight'
+					title='Are you sure you want to delete this stock from your portfolio?'
+					okText='Yes'
+					cancelText='No'
+					className='popconfirm'
+					onConfirm={handleConfirmDelete}
 				>
-					Delete
-				</Button>
+					<Button
+						type='default'
+						size='large'
+						icon={<DeleteOutlined />}
+					>
+						Delete
+					</Button>
+				</Popconfirm>
 			</Buttons>
 		</Container>
 	);

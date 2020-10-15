@@ -1,4 +1,24 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+
+	.ant-popover-content {
+		.ant-popover-inner  {
+			background: #515151;
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+			.ant-popover-message {
+				color: #eee;
+			}
+		}
+
+		.ant-popover-arrow {
+			border-right-color: #515151 !important;
+			border-bottom-color: #515151 !important;
+		}
+	} 
+`;
 
 export const Container = styled.div`
 	height: 100%;
