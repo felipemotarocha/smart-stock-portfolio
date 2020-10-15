@@ -17,8 +17,8 @@ class AddUserStockResolver {
 		try {
 			const user = await User.findOne({ _id: userId });
 			return user!.addUserStock(withCost, symbol, quantity, note);
-		} catch (_err) {
-			return new ApolloError('Something went wrong.');
+		} catch (err) {
+			return new ApolloError(err.message);
 		}
 	}
 }

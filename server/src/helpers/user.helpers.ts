@@ -35,6 +35,11 @@ export const calculateUserStocksPercentagesOfThePortfolio = (user: IUser) => {
 	const { stocks } = user;
 
 	for (let stock of stocks) {
+		if (user.investedBalance === 0 || stock.totalInvested! === 0) {
+			stock.percentageOfThePortfolio = 0;
+			return;
+		}
+
 		stock.percentageOfThePortfolio =
 			Math.round(
 				((stock.totalInvested! * 100) / user.investedBalance) * 100
@@ -92,6 +97,11 @@ export const addUserStock = async (
 			`https://api.hgbrasil.com/finance/stock_price?key=${process.env.HG_FINANCE_KEY}&symbol=${symbol}`
 		);
 
+		if (results[symbol.toUpperCase()].error)
+			throw new Error(
+				'You entered an invalid symbol or something else went wrong.'
+			);
+
 		const stockData: StockData = results[symbol.toUpperCase()];
 		const {
 			name,
@@ -101,17 +111,23 @@ export const addUserStock = async (
 			updated_at,
 		} = stockData;
 
+		const userAlreadyHasTheStock = user.stocks.findIndex(
+			(stock) => stock.symbol === symbol.toUpperCase()
+		);
+
+		if (withCost && userAlreadyHasTheStock === -1)
+			throw new Error(
+				'You do not have this stock. To buy it, you need to first add it to your portfolio using the "New" buton.'
+			);
+
 		if (withCost && user.availableBalance < price * quantity)
-			return new ApolloError(
+			throw new Error(
 				'You do not have enough money to make this transaction.'
 			);
 
 		// user.investedBalance += price * quantity;
 		if (withCost) user.availableBalance -= price * quantity;
 
-		const userAlreadyHasTheStock = user.stocks.findIndex(
-			(stock) => stock.symbol === symbol.toUpperCase()
-		);
 		if (userAlreadyHasTheStock !== -1) {
 			user.stocks[userAlreadyHasTheStock].quantity! += quantity;
 
@@ -146,7 +162,7 @@ export const addUserStock = async (
 
 		return user;
 	} catch (err) {
-		return new ApolloError('Something went wrong.');
+		return new ApolloError(err.message);
 	}
 };
 

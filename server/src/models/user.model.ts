@@ -172,6 +172,10 @@ userSchema.methods.calculatePercentageOfThePortfolioOfEachStock = async function
 		let user: IUser = this as any;
 
 		for (let stock of user.stocks) {
+			if (user.investedBalance === 0 || stock.totalInvested! === 0) {
+				stock.percentageOfThePortfolio = 0;
+				return;
+			}
 			stock.percentageOfThePortfolio =
 				Math.round(
 					((stock.totalInvested! * 100) / user.investedBalance) * 100
