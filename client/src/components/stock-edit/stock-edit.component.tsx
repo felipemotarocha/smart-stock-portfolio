@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
 import { Button } from 'antd';
-import { CloseOutlined, SaveOutlined } from '@ant-design/icons';
+import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/client';
 
-import { Stock } from '../../helpers/types/stock.types';
 import { Buttons, Container, Field, Fields, Title } from './stock-edit.styles';
+import { Stock } from '../../helpers/types/stock.types';
+import {
+	DELETE_USER_STOCK,
+	EDIT_USER_STOCK,
+} from '../../graphql/mutations/server-mutations';
+import { UserContext } from '../../contexts/user.context';
 
 import {
 	CustomInput,
 	CustomNumberInput,
 } from '../custom-input/custom-input.component';
-import { EDIT_USER_STOCK } from '../../graphql/mutations/server-mutations';
-import { UserContext } from '../../contexts/user.context';
 
 export interface StockEditProps {
 	stock: Stock;
@@ -32,6 +35,10 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 			quantity,
 		},
 		onCompleted: ({ editUserStock: user }) => updateCurrentUser(user),
+	});
+	const [deleteUserStock] = useMutation(DELETE_USER_STOCK, {
+		variables: { userId: currentUser?.id, stockId: stock.id },
+		onCompleted: ({ deleteUserStock: user }) => updateCurrentUser(user),
 	});
 
 	const resetInputs = () => {
@@ -84,6 +91,14 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 					onClick={resetInputs}
 				>
 					Discard changes
+				</Button>
+				<Button
+					type='default'
+					size='large'
+					icon={<DeleteOutlined />}
+					onClick={() => deleteUserStock()}
+				>
+					Delete
 				</Button>
 			</Buttons>
 		</Container>

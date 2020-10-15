@@ -1,3 +1,5 @@
+import { IUser } from './../../../models/user.model';
+import { updateStocksData } from './../../../helpers/user.helpers';
 import { Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
 
 import { ContextType } from './../../types/context.types';
@@ -9,7 +11,12 @@ class MeResolver {
 	@Query(() => UserType)
 	@UseMiddleware(AuthMiddleware)
 	async me(@Ctx() { req }: ContextType) {
-		return (req as any).user;
+		const user: IUser = (req as any).user;
+		updateStocksData(user);
+
+		await user.save();
+
+		return user;
 	}
 }
 

@@ -39,11 +39,17 @@ export const Title = styled.p`
 export const Buttons = styled.div`
 	display: flex;
 	justify-content: center;
+	flex-flow: wrap;
 
 	.ant-btn {
 		width: 40%;
 
+		&:nth-child(1) {
+			width: 40%;
+		}
+
 		&:nth-child(2) {
+			width: 40%;
 			margin-left: 1rem;
 			background: rgba(0, 0, 0, 0);
 			color: ${({ theme }) => theme.primaryBlue};
@@ -52,6 +58,18 @@ export const Buttons = styled.div`
 			&:hover {
 				background: ${({ theme }) => theme.primaryBlue};
 				color: #eee;
+			}
+		}
+
+		&:nth-child(3) {
+			margin-top: 1rem;
+			background: #ff3232;
+			color: #eee;
+			border-color: #ff3232;
+
+			&:hover {
+				background: rgba(0, 0, 0, 0);
+				color: #ff3232;
 			}
 		}
 	}

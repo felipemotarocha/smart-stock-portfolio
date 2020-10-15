@@ -154,3 +154,34 @@ export const EDIT_USER_STOCK = gql`
 		}
 	}
 `;
+
+export const DELETE_USER_STOCK = gql`
+	mutation deleteUserStock($userId: String!, $stockId: String!) {
+		deleteUserStock(userId: $userId, stockId: $stockId) {
+			id
+			name
+			email
+			investedBalance
+			availableBalance
+			totalBalance
+			stocks {
+				id
+				name
+				symbol
+				price
+				quantity
+				changePercent
+				percentageOfThePortfolio
+				totalInvested
+				updatedAt
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
+				status
+			}
+		}
+	}
+`;

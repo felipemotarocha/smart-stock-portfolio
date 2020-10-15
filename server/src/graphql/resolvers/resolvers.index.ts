@@ -1,5 +1,6 @@
 import AddUserStockResolver from './user/add-user-stock.resolvers';
 import ChangeUserAvailableBalanceResolver from './user/change-user-available-balance.resolvers';
+import DeleteUserStockResolver from './user/delete-user-stock.resolvers';
 import EditUserStockResolver from './user/edit-user-stock.resolvers';
 import LoginResolver from './user/login.resolvers';
 import MeResolver from './user/me.resolvers';
@@ -15,6 +16,7 @@ const resolvers: any = [
 	StockResolver,
 	AddUserStockResolver,
 	EditUserStockResolver,
+	DeleteUserStockResolver,
 	ChangeUserAvailableBalanceResolver,
 	UserResolver,
 	UsersResolvers,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { EditOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
 import { UserContext } from '../../contexts/user.context';
@@ -19,7 +19,7 @@ const Stocks: React.FunctionComponent = () => {
 				<Button
 					size='large'
 					type='primary'
-					icon={<EditOutlined />}
+					icon={editableStocks ? <CloseOutlined /> : <EditOutlined />}
 					onClick={() => setEditableStocks!(!editableStocks)}
 				/>
 			</Headline>
