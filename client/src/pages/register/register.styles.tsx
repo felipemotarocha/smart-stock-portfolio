@@ -15,13 +15,14 @@ export const Content = styled.div`
 	h1 {
 		text-align: center;
 		color: #eee;
+		margin-bottom: 1rem;
 	}
 
 	.ant-input:nth-child(3) {
 		margin: 1rem 0;
 	}
 
-	button:nth-child(5) {
+	button {
 		margin-top: 1rem;
 	}
 `;

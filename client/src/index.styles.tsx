@@ -17,7 +17,6 @@ export const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         background-attachment: fixed;
 
-        padding: 3rem 5rem;
         box-sizing: border-box;
         height: 100vh;
 

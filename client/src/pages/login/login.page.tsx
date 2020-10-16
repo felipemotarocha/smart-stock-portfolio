@@ -6,6 +6,7 @@ import { CustomInput } from '../../components/custom-input/custom-input.componen
 import { Container, Content } from './login.styles';
 import { UserContext } from '../../contexts/user.context';
 import { useHistory } from 'react-router-dom';
+import CustomButton from '../../components/custom-button/custom-button.component';
 
 export interface LoginPageProps {}
 
@@ -23,9 +24,10 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 	return (
 		<Container>
 			<Content>
+				<h1>Login to your account.</h1>
 				<CustomInput
+					type='email'
 					placeholder='E-mail'
-					type='primary'
 					onChange={({ target: { value } }) => setEmail(value)}
 				/>
 				<CustomInput
@@ -36,6 +38,13 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 				<Button type='primary' onClick={() => login(email, password)}>
 					Login
 				</Button>
+				<CustomButton
+					type='primary'
+					outlined={true}
+					onClick={() => history.push('/register')}
+				>
+					Create an account
+				</CustomButton>
 			</Content>
 		</Container>
 	);

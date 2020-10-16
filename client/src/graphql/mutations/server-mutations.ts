@@ -35,6 +35,41 @@ export const LOGIN_USER = gql`
 	}
 `;
 
+export const REGISTER_USER = gql`
+	mutation RegisterUser($name: String!, $email: String!, $password: String!) {
+		register(name: $name, email: $email, password: $password) {
+			user {
+				id
+				name
+				email
+				password
+				investedBalance
+				availableBalance
+				totalBalance
+				stocks(sortBy: "totalInvestedAdjustment") {
+					id
+					name
+					symbol
+					price
+					quantity
+					changePercent
+					percentageOfThePortfolio
+					totalInvested
+					updatedAt
+					note
+					idealPercentageOfThePortfolio
+					idealTotalInvested
+					idealQuantity
+					quantityAdjustment
+					totalInvestedAdjustment
+					status
+				}
+			}
+			authToken
+		}
+	}
+`;
+
 export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 	mutation ChangeUserAvailableBalance(
 		$id: String!

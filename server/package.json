@@ -19,7 +19,6 @@
 		"apollo-server-express": "^2.18.1",
 		"axios": "^0.20.0",
 		"bcryptjs": "^2.4.3",
-		"class-validator": "^0.12.2",
 		"cors": "^2.8.5",
 		"date-fns": "^2.16.1",
 		"dotenv": "^8.2.0",

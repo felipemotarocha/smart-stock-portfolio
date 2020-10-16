@@ -3,7 +3,7 @@ import { ObjectType, Field } from 'type-graphql';
 import UserType from './user.types';
 
 @ObjectType()
-class LoginResponseType {
+class LoginAndRegisterResponseTypes {
 	@Field()
 	user: UserType;
 
@@ -11,4 +11,4 @@ class LoginResponseType {
 	authToken: string;
 }
 
-export default LoginResponseType;
+export default LoginAndRegisterResponseTypes;

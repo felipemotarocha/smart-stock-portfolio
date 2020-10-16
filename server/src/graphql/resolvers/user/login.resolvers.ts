@@ -5,11 +5,11 @@ import { Mutation, Arg } from 'type-graphql';
 import jwt from 'jsonwebtoken';
 
 import User from '../../../models/user.model';
-import LoginResponseType from '../../../graphql/types/login.types';
+import LoginAndRegisterResponseTypes from '../../types/login-and-register.types';
 
 @Resolver()
 class LoginResolver {
-	@Mutation(() => LoginResponseType)
+	@Mutation(() => LoginAndRegisterResponseTypes)
 	async login(
 		@Arg('email') email: string,
 		@Arg('password') password: string

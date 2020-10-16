@@ -6,6 +6,7 @@ import './App.less';
 import HomePage from '../pages/home/home.page';
 import LoginPage from '../pages/login/login.page';
 import Authenticated from '../components/authenticated/authenticated.component';
+import RegisterPage from '../pages/register/register.component';
 
 export interface AppProps {}
 
@@ -15,6 +16,9 @@ const App: React.FunctionComponent<AppProps> = () => {
 			<Switch>
 				<Route exact path='/login'>
 					<LoginPage />
+				</Route>
+				<Route exact path='/register'>
+					<RegisterPage />
 				</Route>
 				<Authenticated>
 					<Route exact path='/'>
