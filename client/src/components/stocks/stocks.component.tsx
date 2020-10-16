@@ -24,7 +24,7 @@ const Stocks: React.FunctionComponent = () => {
 					icon={editableStocks ? <CheckOutlined /> : <EditOutlined />}
 					onClick={() => setEditableStocks!(!editableStocks)}
 				>
-					{editableStocks ? 'Confirm edits' : 'Edit'}
+					{editableStocks ? 'Done' : 'Edit'}
 				</Button>
 			</Headline>
 			<Content>

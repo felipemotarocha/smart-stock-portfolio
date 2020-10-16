@@ -2,21 +2,33 @@ import { useMutation, useQuery } from '@apollo/client';
 import { message } from 'antd';
 import * as React from 'react';
 import { createContext, ReactNode, useState } from 'react';
+import { GoogleLoginResponse } from 'react-google-login';
 
 import {
-	LOGIN_USER,
-	REGISTER_USER,
+	LOGIN_WITH_CREDENTIALS,
+	LOGIN_WITH_GOOGLE,
+	REGISTER,
 } from '../graphql/mutations/server-mutations';
 import { GET_USER_PROFILE } from '../graphql/queries/server-queries';
 import { User } from '../helpers/types/user.types';
 
 interface ContextProps {
 	currentUser: User | null;
-	login: (email: string, password: string) => void;
-	register: (name: string, email: string, password: string) => void;
+	loginWithCredentials: (
+		email: string,
+		password: string
+	) => Promise<void> | void;
+	loginWithGoogle: (
+		googleResponse: GoogleLoginResponse
+	) => Promise<void> | void;
+	register: (
+		name: string,
+		email: string,
+		password: string
+	) => Promise<void> | void;
 	logout: () => void;
-	checkUserSession: () => void;
-	updateCurrentUser: (user: User) => void;
+	checkUserSession: () => Promise<void> | void;
+	updateCurrentUser: (user: User) => Promise<void> | void;
 	editableStocks: boolean;
 	setEditableStocks: React.Dispatch<React.SetStateAction<boolean>> | null;
 	loading: boolean;
@@ -24,7 +36,8 @@ interface ContextProps {
 
 export const UserContext = createContext<ContextProps>({
 	currentUser: null,
-	login: () => {},
+	loginWithCredentials: () => {},
+	loginWithGoogle: () => {},
 	register: () => {},
 	logout: () => {},
 	checkUserSession: () => {},
@@ -45,18 +58,39 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	const [editableStocks, setEditableStocks] = useState(false);
 	const [loading, setLoading] = useState(true);
 
-	const [loginUserMutation] = useMutation(LOGIN_USER);
-	const [registerUserMutation] = useMutation(REGISTER_USER);
+	const [loginWithCredentialsMutation] = useMutation(LOGIN_WITH_CREDENTIALS);
+	const [loginWithGoogleMutation] = useMutation(LOGIN_WITH_GOOGLE);
+	const [registerMutation] = useMutation(REGISTER);
 	const { refetch } = useQuery(GET_USER_PROFILE);
 
-	const login = async (email: string, password: string) => {
+	const loginWithCredentials = async (email: string, password: string) => {
 		try {
 			const {
 				data: {
 					login: { user, authToken },
 				},
-			} = await loginUserMutation({
+			} = await loginWithCredentialsMutation({
 				variables: { email, password },
+			});
+
+			setCurrentUser(user);
+			localStorage.setItem('authToken', authToken);
+		} catch (err) {
+			message.error(err.message);
+		}
+	};
+
+	const loginWithGoogle = async (googleResponse: GoogleLoginResponse) => {
+		const {
+			profileObj: { name, email, googleId },
+		} = googleResponse;
+		try {
+			const {
+				data: {
+					loginWithGoogle: { user, authToken },
+				},
+			} = await loginWithGoogleMutation({
+				variables: { name, email, googleId },
 			});
 
 			setCurrentUser(user);
@@ -72,10 +106,10 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 				data: {
 					register: { user, authToken },
 				},
-			} = await registerUserMutation({
+			} = await registerMutation({
 				variables: { name, email, password },
 			});
-			console.log(user);
+
 			setCurrentUser(user);
 			localStorage.setItem('authToken', authToken);
 		} catch (err) {
@@ -110,7 +144,8 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		<UserContext.Provider
 			value={{
 				currentUser,
-				login,
+				loginWithCredentials,
+				loginWithGoogle,
 				register,
 				logout,
 				checkUserSession,

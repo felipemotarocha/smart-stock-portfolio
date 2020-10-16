@@ -22,6 +22,6 @@ export const Content = styled.div`
 	}
 
 	button:nth-child(5) {
-		margin-top: 1rem;
+		margin: 1rem 0;
 	}
 `;

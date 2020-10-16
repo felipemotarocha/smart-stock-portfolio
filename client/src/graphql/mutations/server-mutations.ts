@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const LOGIN_USER = gql`
+export const LOGIN_WITH_CREDENTIALS = gql`
 	mutation LoginUser($email: String!, $password: String!) {
 		login(email: $email, password: $password) {
 			user {
@@ -35,8 +35,47 @@ export const LOGIN_USER = gql`
 	}
 `;
 
-export const REGISTER_USER = gql`
-	mutation RegisterUser($name: String!, $email: String!, $password: String!) {
+export const LOGIN_WITH_GOOGLE = gql`
+	mutation loginWithGoogle(
+		$email: String!
+		$name: String!
+		$googleId: String!
+	) {
+		loginWithGoogle(email: $email, name: $name, googleId: $googleId) {
+			user {
+				id
+				name
+				email
+				password
+				investedBalance
+				availableBalance
+				totalBalance
+				stocks(sortBy: "totalInvestedAdjustment") {
+					id
+					name
+					symbol
+					price
+					quantity
+					changePercent
+					percentageOfThePortfolio
+					totalInvested
+					updatedAt
+					note
+					idealPercentageOfThePortfolio
+					idealTotalInvested
+					idealQuantity
+					quantityAdjustment
+					totalInvestedAdjustment
+					status
+				}
+			}
+			authToken
+		}
+	}
+`;
+
+export const REGISTER = gql`
+	mutation Register($name: String!, $email: String!, $password: String!) {
 		register(name: $name, email: $email, password: $password) {
 			user {
 				id
