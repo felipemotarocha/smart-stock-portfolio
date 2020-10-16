@@ -2,7 +2,14 @@ import * as React from 'react';
 import { useState, useContext } from 'react';
 import { Button, message } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import { useMutation } from '@apollo/client';
 import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
+
+import {
+	CustomInput,
+	CustomNumberInput,
+} from '../custom-input/custom-input.component';
+
 import {
 	Container,
 	Field,
@@ -10,12 +17,6 @@ import {
 	GlobalStyle,
 	Title,
 } from './add-stock.styles';
-import './styles.css';
-import {
-	CustomInput,
-	CustomNumberInput,
-} from '../custom-input/custom-input.component';
-import { useMutation } from '@apollo/client';
 import { ADD_USER_STOCK } from '../../graphql/mutations/server-mutations';
 import { UserContext } from '../../contexts/user.context';
 
@@ -36,17 +37,16 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 			quantity,
 			note,
 		},
-		onCompleted: ({ addUserStock: user }) => updateCurrentUser(user),
+		onCompleted: ({ addUserStock: user }) => {
+			updateCurrentUser(user);
+			setSymbol('');
+			setQuantity(1);
+			setNote(1);
+			setVisible(false);
+			message.success('The stock was successfully added.');
+		},
 		onError: (error) => message.error(error.message),
 	});
-
-	const handleOk = async (e: any) => {
-		addUserStock();
-		setVisible(false);
-		setSymbol('');
-		setQuantity(1);
-		setNote(1);
-	};
 
 	const handleCancel = () => {
 		setVisible(false);
@@ -71,7 +71,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 					title='Add a new stock with no cost (will not affect your available balance)'
 					centered
 					visible={visible}
-					onOk={handleOk}
+					onOk={() => addUserStock()}
 					onCancel={handleCancel}
 					className='modal'
 					closable={false}
@@ -88,9 +88,10 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 							<CustomInput
 								value={symbol}
 								onChange={({ target: { value } }) =>
-									setSymbol(value)
+									setSymbol(value.trim())
 								}
 								placeholder='ABCD4'
+								onPressEnter={() => addUserStock()}
 							/>
 						</Field>
 						<Field>
@@ -101,6 +102,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 								min={0}
 								value={quantity}
 								onChange={(value) => setQuantity(value as any)}
+								onPressEnter={() => addUserStock()}
 							/>
 						</Field>
 						<Field>
@@ -112,6 +114,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 								max={10}
 								value={note}
 								onChange={(value) => setNote(value as any)}
+								onPressEnter={() => addUserStock()}
 							/>
 						</Field>
 					</Fields>

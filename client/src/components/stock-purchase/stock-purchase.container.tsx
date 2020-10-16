@@ -21,7 +21,7 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 	});
 
 	const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSymbol(e.target.value);
+		setSymbol(e.target.value.trim());
 	};
 
 	const handleQuantityChange = (value: string | number | undefined) => {

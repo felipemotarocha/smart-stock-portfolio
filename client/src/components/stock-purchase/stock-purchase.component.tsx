@@ -36,6 +36,7 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 					width='45%'
 					value={symbol}
 					onChange={(e) => handleSymbolChange(e)}
+					onPressEnter={() => handleSubmit()}
 				/>
 				<CustomNumberInput
 					type='number'
@@ -45,6 +46,7 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 					placeholder='Qnt.'
 					value={quantity}
 					onChange={(value) => handleQuantityChange(value)}
+					onPressEnter={() => handleSubmit()}
 				/>
 				<Button
 					size='large'

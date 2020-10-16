@@ -9,7 +9,7 @@ export const GET_USER_PROFILE = gql`
 			investedBalance
 			availableBalance
 			totalBalance
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				price
@@ -47,7 +47,7 @@ export const GET_USER_STOCKS = gql`
 	query GetUserStocks {
 		user(id: "5f7d176dad6b0f36440cb08b") {
 			id
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				price

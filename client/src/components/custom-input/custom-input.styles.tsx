@@ -28,7 +28,7 @@ export const StyledInput = styled(Input)<CustomInputProps>`
 	display: flex;
 	align-items: center;
 	background: ${({ backgroundcolor }) =>
-		backgroundcolor ? backgroundcolor : 'rgba(0, 0, 0, 0)'};
+		backgroundcolor ? backgroundcolor : 'rgba(0, 0, 0, 0)'} !important;
 	color: #eee;
 	border-color: ${({ bordercolor }) =>
 		bordercolor ? bordercolor : 'rgba(159, 159, 159, 0.5)'};

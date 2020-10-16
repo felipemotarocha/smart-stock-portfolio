@@ -11,7 +11,7 @@ export const LOGIN_USER = gql`
 				investedBalance
 				availableBalance
 				totalBalance
-				stocks {
+				stocks(sortBy: "totalInvestedAdjustment") {
 					id
 					name
 					symbol
@@ -51,7 +51,7 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			investedBalance
 			availableBalance
 			totalBalance
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				symbol
@@ -95,7 +95,7 @@ export const ADD_USER_STOCK = gql`
 			investedBalance
 			availableBalance
 			totalBalance
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				symbol
@@ -136,7 +136,7 @@ export const EDIT_USER_STOCK = gql`
 			investedBalance
 			availableBalance
 			totalBalance
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				symbol
@@ -167,7 +167,7 @@ export const DELETE_USER_STOCK = gql`
 			investedBalance
 			availableBalance
 			totalBalance
-			stocks {
+			stocks(sortBy: "totalInvestedAdjustment") {
 				id
 				name
 				symbol
