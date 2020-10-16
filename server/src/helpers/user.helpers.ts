@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ApolloError } from 'apollo-server-express';
 import { differenceInMinutes, getHours, isSaturday, isSunday } from 'date-fns';
+import jwt from 'jsonwebtoken';
 
 import { IUser } from './../models/user.model';
 import { StockData } from 'src/graphql/types/stock.types';
@@ -209,4 +210,8 @@ export const updateStocksData = async (
 		}
 	}
 	return;
+};
+
+export const generateAuthToken = (user: IUser) => {
+	return jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY!);
 };

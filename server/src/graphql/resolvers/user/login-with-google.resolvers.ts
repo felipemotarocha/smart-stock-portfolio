@@ -1,9 +1,9 @@
 import { Resolver } from 'type-graphql';
 import { Mutation, Arg } from 'type-graphql';
-import jwt from 'jsonwebtoken';
 
 import User from '../../../models/user.model';
 import LoginAndRegisterResponseTypes from '../../types/login-and-register.types';
+import { generateAuthToken } from '../../../helpers/user.helpers';
 
 @Resolver()
 class LoginWithGoogleResolver {
@@ -21,10 +21,7 @@ class LoginWithGoogleResolver {
 
 		return {
 			user,
-			authToken: jwt.sign(
-				{ userId: user._id },
-				process.env.JWT_SECRET_KEY!
-			),
+			authToken: generateAuthToken(user),
 		};
 	}
 }
