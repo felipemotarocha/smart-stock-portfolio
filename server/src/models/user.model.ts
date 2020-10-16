@@ -10,7 +10,8 @@ export interface IUser extends Document {
 	_id: string;
 	name: string;
 	email: string;
-	password: string;
+	password?: string;
+	googleId?: string;
 	availableBalance: number;
 	investedBalance: number;
 	totalBalance: number;
@@ -25,16 +26,12 @@ export interface IUser extends Document {
 		quantity?: number;
 		totalInvested?: number;
 		percentageOfThePortfolio?: number;
-
 		note?: number;
-
 		idealTotalInvested?: number;
 		idealPercentageOfThePortfolio?: number;
 		idealQuantity?: number;
-
 		quantityAdjustment?: number;
 		totalInvestedAdjustment?: number;
-
 		status?: 'Wait' | 'Buy';
 	}[];
 	addUserStock: (
@@ -64,7 +61,10 @@ const userSchema: Schema = new Schema({
 	},
 	password: {
 		type: String,
-		required: true,
+	},
+	googleId: {
+		type: String,
+		default: null,
 	},
 	availableBalance: {
 		type: Number,

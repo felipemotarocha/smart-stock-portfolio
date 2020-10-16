@@ -13,8 +13,11 @@ class UserType {
 	@Field()
 	email: string;
 
-	@Field()
+	@Field({ nullable: true })
 	password: string;
+
+	@Field({ nullable: true })
+	googleId: string;
 
 	@Field()
 	availableBalance: number;

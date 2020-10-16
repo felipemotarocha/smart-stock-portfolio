@@ -22,7 +22,7 @@ class RegisterResolver {
 				);
 
 			const existentUser = await User.findOne({ email });
-			if (existentUser)
+			if (existentUser && !existentUser.googleId)
 				return new ApolloError('This email is already in use.');
 
 			const hashedPassword = await bcrypt.hash(password, 8);
