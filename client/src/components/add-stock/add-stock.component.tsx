@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import { useMutation } from '@apollo/client';
 import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
 import {
@@ -17,63 +15,32 @@ import {
 	GlobalStyle,
 	Title,
 } from './add-stock.styles';
-import { ADD_NEW_USER_STOCK } from '../../graphql/mutations/server-mutations';
-import { UserContext } from '../../contexts/user.context';
 
-export interface AddStockProps {}
+export interface AddStockProps {
+	symbol: string;
+	quantity: number;
+	note: number;
+	visible: boolean;
+	handleSymbolChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	handleQuantityChange: (value: string | number | undefined) => void;
+	handleNoteChange: (value: string | number | undefined) => void;
+	handleEnterPress: () => void;
+	handleOpenModal: () => void;
+	handleCancel: () => void;
+}
 
-const AddStock: React.FunctionComponent<AddStockProps> = () => {
-	const [symbol, setSymbol] = useState<string>('');
-	const [quantity, setQuantity] = useState<number>(1);
-	const [note, setNote] = useState<number>(1);
-	const [visible, setVisible] = useState(false);
-
-	const { currentUser, updateCurrentUser } = useContext(UserContext);
-	const [addNewUserStock] = useMutation(ADD_NEW_USER_STOCK, {
-		variables: {
-			userId: currentUser?.id,
-			symbol,
-			quantity,
-			note,
-		},
-		onCompleted: ({ addNewUserStock: user }) => {
-			updateCurrentUser(user);
-			setSymbol('');
-			setQuantity(1);
-			setNote(1);
-			setVisible(false);
-			message.success('The stock was successfully added.');
-		},
-		onError: (error) => message.error(error.message),
-	});
-
-	const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSymbol(e.target.value);
-	};
-
-	const handleEnterPress = () => {
-		addNewUserStock();
-	};
-
-	const handleQuantityChange = (value: string | number | undefined) => {
-		setQuantity(value as any);
-	};
-
-	const handleNoteChange = (value: string | number | undefined) => {
-		setNote(value as any);
-	};
-
-	const handleOpenModal = () => {
-		setVisible(true);
-	};
-
-	const handleCancel = () => {
-		setVisible(false);
-		setSymbol('');
-		setQuantity(1);
-		setNote(1);
-	};
-
+const AddStock: React.FunctionComponent<AddStockProps> = ({
+	symbol,
+	quantity,
+	note,
+	visible,
+	handleSymbolChange,
+	handleQuantityChange,
+	handleNoteChange,
+	handleEnterPress,
+	handleOpenModal,
+	handleCancel,
+}) => {
 	return (
 		<>
 			<GlobalStyle />

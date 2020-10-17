@@ -5,7 +5,7 @@ import { Stock } from '../../helpers/types/stock.types';
 
 import StockItemContent from '../stock-item-content/stock-item-content.component';
 import StockItemHeader from '../stock-item-header/stock-item-header.component';
-import StockEdit from '../stock-edit/stock-edit.component';
+import { default as StockEdit } from '../stock-edit/stock-edit.container';
 
 export interface StockItemProps {
 	stock: Stock;

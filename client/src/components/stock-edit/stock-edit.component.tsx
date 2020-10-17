@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
 import { Button } from 'antd';
 import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
-import { useMutation } from '@apollo/client';
-import { Popconfirm, message } from 'antd';
+import { Popconfirm } from 'antd';
 
 import {
 	Buttons,
@@ -13,12 +11,6 @@ import {
 	Title,
 	GlobalStyle,
 } from './stock-edit.styles';
-import { Stock } from '../../helpers/types/stock.types';
-import {
-	DELETE_USER_STOCK,
-	EDIT_USER_STOCK,
-} from '../../graphql/mutations/server-mutations';
-import { UserContext } from '../../contexts/user.context';
 
 import {
 	CustomInput,
@@ -26,43 +18,26 @@ import {
 } from '../custom-input/custom-input.component';
 
 export interface StockEditProps {
-	stock: Stock;
+	symbol: string;
+	quantity: number;
+	note: number;
+	handleQuantityChange: (value: string | number | undefined) => void;
+	handleNoteChange: (value: string | number | undefined) => void;
+	resetInputs: () => void;
+	handleConfirmDelete: () => void;
+	handleSaveChanges: () => void;
 }
 
-const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
-	const [symbol] = useState<string>(stock.symbol);
-	const [quantity, setQuantity] = useState<number>(stock.quantity);
-	const [note, setNote] = useState<number>(stock.note);
-
-	const { currentUser, updateCurrentUser } = useContext(UserContext);
-	const [editUserStock] = useMutation(EDIT_USER_STOCK, {
-		variables: {
-			userId: currentUser?.id,
-			stockId: stock.id,
-			note,
-			quantity,
-		},
-		onCompleted: ({ editUserStock: user }) => {
-			updateCurrentUser(user);
-			message.success('The changes were successfully saved.');
-		},
-	});
-	const [deleteUserStock] = useMutation(DELETE_USER_STOCK, {
-		variables: { userId: currentUser?.id, stockId: stock.id },
-		onCompleted: ({ deleteUserStock: user }) => updateCurrentUser(user),
-	});
-
-	const resetInputs = () => {
-		const { quantity, note } = stock;
-		setQuantity(quantity);
-		setNote(note);
-	};
-
-	const handleConfirmDelete = () => {
-		deleteUserStock();
-		message.success('The stock was successfully deleted.');
-	};
-
+const StockEdit: React.FunctionComponent<StockEditProps> = ({
+	symbol,
+	quantity,
+	note,
+	handleQuantityChange,
+	handleNoteChange,
+	handleConfirmDelete,
+	handleSaveChanges,
+	resetInputs,
+}) => {
 	return (
 		<Container>
 			<GlobalStyle />
@@ -77,7 +52,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 						size='large'
 						width='100%'
 						value={quantity}
-						onChange={(value) => setQuantity(value as any)}
+						onChange={handleQuantityChange}
 					/>
 				</Field>
 				<Field>
@@ -88,7 +63,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 						min={1}
 						max={10}
 						value={note}
-						onChange={(value) => setNote(value as any)}
+						onChange={handleNoteChange}
 					/>
 				</Field>
 			</Fields>
@@ -97,7 +72,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({ stock }) => {
 					type='primary'
 					size='large'
 					icon={<SaveOutlined />}
-					onClick={() => editUserStock()}
+					onClick={handleSaveChanges}
 				>
 					Save changes
 				</Button>

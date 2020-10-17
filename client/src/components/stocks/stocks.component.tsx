@@ -7,7 +7,7 @@ import { UserContext } from '../../contexts/user.context';
 import { Container, Content, Headline } from './stocks.styles';
 
 import StockItem from '../stock-item/stock-item.component';
-import AddStock from '../add-stock/add-stock.component';
+import { default as AddStock } from '../add-stock/add-stock.container';
 
 const Stocks: React.FunctionComponent = () => {
 	const { currentUser, editableStocks, setEditableStocks } = useContext(
