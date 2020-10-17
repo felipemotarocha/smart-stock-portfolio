@@ -147,20 +147,58 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 	}
 `;
 
-export const ADD_USER_STOCK = gql`
-	mutation addUserStock(
+export const ADD_NEW_USER_STOCK = gql`
+	mutation addNewUserStock(
 		$userId: String!
-		$withCost: Boolean!
 		$symbol: String!
 		$quantity: Float!
-		$note: Float
+		$note: Float!
 	) {
-		addUserStock(
-			withCost: $withCost
+		addNewUserStock(
 			userId: $userId
 			symbol: $symbol
 			quantity: $quantity
 			note: $note
+		) {
+			id
+			name
+			email
+			password
+			investedBalance
+			availableBalance
+			totalBalance
+			stocks(sortBy: "totalInvestedAdjustment") {
+				id
+				name
+				symbol
+				price
+				quantity
+				changePercent
+				percentageOfThePortfolio
+				totalInvested
+				updatedAt
+				note
+				idealPercentageOfThePortfolio
+				idealTotalInvested
+				idealQuantity
+				quantityAdjustment
+				totalInvestedAdjustment
+				status
+			}
+		}
+	}
+`;
+
+export const ADD_EXISTING_USER_STOCK = gql`
+	mutation addExistingUserStock(
+		$userId: String!
+		$symbol: String!
+		$quantity: Float!
+	) {
+		addExistingUserStock(
+			userId: $userId
+			symbol: $symbol
+			quantity: $quantity
 		) {
 			id
 			name

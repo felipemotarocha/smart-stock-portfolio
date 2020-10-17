@@ -117,7 +117,8 @@ export const updateStocksData = async (
 			stock.updatedAt = updated_at;
 			stock.totalInvested = stock.price * stock.quantity!;
 
-			user.calculatePercentageOfThePortfolioOfEachStock();
+			calculateUserStocksPercentagesOfThePortfolio(user);
+			await user.save();
 		}
 	}
 	return;

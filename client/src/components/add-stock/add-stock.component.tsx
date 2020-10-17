@@ -17,27 +17,26 @@ import {
 	GlobalStyle,
 	Title,
 } from './add-stock.styles';
-import { ADD_USER_STOCK } from '../../graphql/mutations/server-mutations';
+import { ADD_NEW_USER_STOCK } from '../../graphql/mutations/server-mutations';
 import { UserContext } from '../../contexts/user.context';
 
 export interface AddStockProps {}
 
 const AddStock: React.FunctionComponent<AddStockProps> = () => {
-	const [visible, setVisible] = useState(false);
 	const [symbol, setSymbol] = useState<string>('');
 	const [quantity, setQuantity] = useState<number>(1);
 	const [note, setNote] = useState<number>(1);
+	const [visible, setVisible] = useState(false);
 
 	const { currentUser, updateCurrentUser } = useContext(UserContext);
-	const [addUserStock] = useMutation(ADD_USER_STOCK, {
+	const [addNewUserStock] = useMutation(ADD_NEW_USER_STOCK, {
 		variables: {
 			userId: currentUser?.id,
-			withCost: false,
 			symbol,
 			quantity,
 			note,
 		},
-		onCompleted: ({ addUserStock: user }) => {
+		onCompleted: ({ addNewUserStock: user }) => {
 			updateCurrentUser(user);
 			setSymbol('');
 			setQuantity(1);
@@ -47,6 +46,26 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 		},
 		onError: (error) => message.error(error.message),
 	});
+
+	const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSymbol(e.target.value);
+	};
+
+	const handleEnterPress = () => {
+		addNewUserStock();
+	};
+
+	const handleQuantityChange = (value: string | number | undefined) => {
+		setQuantity(value as any);
+	};
+
+	const handleNoteChange = (value: string | number | undefined) => {
+		setNote(value as any);
+	};
+
+	const handleOpenModal = () => {
+		setVisible(true);
+	};
 
 	const handleCancel = () => {
 		setVisible(false);
@@ -61,7 +80,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 			<Button
 				type='primary'
 				size='large'
-				onClick={() => setVisible(true)}
+				onClick={handleOpenModal}
 				icon={<PlusOutlined />}
 			>
 				New
@@ -71,7 +90,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 					title='Add a new stock with no cost (will not affect your available balance)'
 					centered
 					visible={visible}
-					onOk={() => addUserStock()}
+					onOk={handleEnterPress}
 					onCancel={handleCancel}
 					className='modal'
 					closable={false}
@@ -87,11 +106,9 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 							<Title>Symbol</Title>
 							<CustomInput
 								value={symbol}
-								onChange={({ target: { value } }) =>
-									setSymbol(value.trim())
-								}
+								onChange={handleSymbolChange}
 								placeholder='ABCD4'
-								onPressEnter={() => addUserStock()}
+								onPressEnter={handleEnterPress}
 							/>
 						</Field>
 						<Field>
@@ -101,8 +118,8 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 								width='100%'
 								min={0}
 								value={quantity}
-								onChange={(value) => setQuantity(value as any)}
-								onPressEnter={() => addUserStock()}
+								onChange={handleQuantityChange}
+								onPressEnter={handleEnterPress}
 							/>
 						</Field>
 						<Field>
@@ -113,8 +130,8 @@ const AddStock: React.FunctionComponent<AddStockProps> = () => {
 								min={1}
 								max={10}
 								value={note}
-								onChange={(value) => setNote(value as any)}
-								onPressEnter={() => addUserStock()}
+								onChange={handleNoteChange}
+								onPressEnter={handleEnterPress}
 							/>
 						</Field>
 					</Fields>

@@ -28,14 +28,6 @@ export interface IUser extends Document {
 		totalInvestedAdjustment?: number;
 		status?: 'Wait' | 'Buy';
 	}[];
-	addUserStock: (
-		withCost: boolean,
-		symbol: string,
-		quantity: number,
-		note?: number
-	) => IUser;
-	calculateInvestedBalance: () => IUser;
-	calculatePercentageOfThePortfolioOfEachStock: () => IUser;
 }
 
 export interface IRegisterUserInput {

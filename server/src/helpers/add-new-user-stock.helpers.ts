@@ -21,7 +21,7 @@ const addNewUserStockHelper = async (
 	const { name, price, market_cap, change_percent, updated_at } = stock;
 	user.stocks.push({
 		name,
-		symbol,
+		symbol: symbol.toUpperCase(),
 		price,
 		quantity,
 		note,
