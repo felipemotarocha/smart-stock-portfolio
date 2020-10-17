@@ -51,7 +51,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 							''
 						)
 					}
-					onPressEnter={() => handleSubmit()}
+					onPressEnter={handleSubmit}
 				/>
 			</InputContainer>
 

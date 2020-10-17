@@ -13,6 +13,11 @@ const Stocks: React.FunctionComponent = () => {
 	const { currentUser, editableStocks, setEditableStocks } = useContext(
 		UserContext
 	);
+
+	const handleToggleEditableStocks = () => {
+		setEditableStocks!(!editableStocks);
+	};
+
 	return (
 		<Container>
 			<Headline>
@@ -22,7 +27,7 @@ const Stocks: React.FunctionComponent = () => {
 					size='large'
 					type='primary'
 					icon={editableStocks ? <CheckOutlined /> : <EditOutlined />}
-					onClick={() => setEditableStocks!(!editableStocks)}
+					onClick={handleToggleEditableStocks}
 				>
 					{editableStocks ? 'Done' : 'Edit'}
 				</Button>

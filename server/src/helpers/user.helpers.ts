@@ -28,6 +28,9 @@ export const calculateUserBalances = (user: IUser) => {
 	totalBalance = user.investedBalance + user.availableBalance;
 	user.totalBalance = +totalBalance.toFixed(2);
 
+	let availableBalance = +user.availableBalance.toFixed(2);
+	user.availableBalance = availableBalance;
+
 	return user;
 };
 
@@ -106,7 +109,6 @@ export const updateStocksData = async (
 			} = await axios.get(
 				`https://api.hgbrasil.com/finance/stock_price?key=${process.env.HG_FINANCE_KEY}&symbol=${stock.symbol}`
 			);
-			console.log('updating stocks data');
 
 			const stockData: StockData = results[stock.symbol.toUpperCase()];
 			const { price, market_cap, change_percent, updated_at } = stockData;

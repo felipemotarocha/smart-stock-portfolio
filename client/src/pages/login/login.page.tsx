@@ -29,6 +29,14 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 		if (currentUser) history.push('/');
 	}, [currentUser, history]);
 
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
+	};
+
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.target.value);
+	};
+
 	const handleLoginWithCredentials = () => {
 		loginWithCredentials(email, password);
 	};
@@ -50,12 +58,12 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 				<CustomInput
 					type='email'
 					placeholder='E-mail'
-					onChange={({ target: { value } }) => setEmail(value)}
+					onChange={handleEmailChange}
 				/>
 				<CustomInput
 					type='password'
 					placeholder='Password'
-					onChange={({ target: { value } }) => setPassword(value)}
+					onChange={handlePasswordChange}
 				/>
 				<Button type='primary' onClick={handleLoginWithCredentials}>
 					Login

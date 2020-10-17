@@ -23,6 +23,21 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 		if (currentUser) history.push('/');
 	}, [currentUser, history]);
 
+	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setName(e.target.value);
+	};
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
+	};
+
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.target.value);
+	};
+
+	const handleLoginClick = () => {
+		history.push('/login');
+	};
+
 	const handleSubmit = () => {
 		if (!name || !email || !password) {
 			message.info('Please fill out all the inputs.');
@@ -45,17 +60,17 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 				<CustomInput
 					placeholder='Name'
 					type='primary'
-					onChange={({ target: { value } }) => setName(value)}
+					onChange={handleNameChange}
 				/>
 				<CustomInput
 					placeholder='E-mail'
 					type='primary'
-					onChange={({ target: { value } }) => setEmail(value)}
+					onChange={handleEmailChange}
 				/>
 				<CustomInput
 					type='password'
 					placeholder='Password'
-					onChange={({ target: { value } }) => setPassword(value)}
+					onChange={handlePasswordChange}
 				/>
 				<Button type='primary' onClick={handleSubmit}>
 					Register
@@ -63,7 +78,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 				<CustomButton
 					type='primary'
 					outlined
-					onClick={() => history.push('/login')}
+					onClick={handleLoginClick}
 				>
 					I already have an account
 				</CustomButton>

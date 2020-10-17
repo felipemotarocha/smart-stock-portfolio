@@ -18,7 +18,15 @@ export interface WalletProps {}
 
 const Wallet: React.FunctionComponent<WalletProps> = () => {
 	const { currentUser, logout } = useContext(UserContext);
-	const { push } = useHistory();
+	const history = useHistory();
+
+	const handleLoginClick = () => {
+		history.push('/login');
+	};
+
+	const handleRegisterClick = () => {
+		history.push('/register');
+	};
 
 	return (
 		<Container>
@@ -35,16 +43,10 @@ const Wallet: React.FunctionComponent<WalletProps> = () => {
 					) : (
 						<ButtonsContent>
 							{' '}
-							<Button
-								type='primary'
-								onClick={() => push('/login')}
-							>
+							<Button type='primary' onClick={handleLoginClick}>
 								Login
 							</Button>
-							<Button
-								type='link'
-								onClick={() => push('/register')}
-							>
+							<Button type='link' onClick={handleRegisterClick}>
 								Register
 							</Button>
 						</ButtonsContent>
