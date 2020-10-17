@@ -1,4 +1,4 @@
-import AddUserStockResolver from './user/add-user-stock.resolvers';
+import AddNewUserStockResolver from './user/add-new-user-stock.resolvers';
 import LoginWithGoogleResolver from './user/login-with-google.resolvers';
 import LoginWithCredentialsResolver from './user/login-with-credentials.resolvers';
 import ChangeUserAvailableBalanceResolver from './user/change-user-available-balance.resolvers';
@@ -10,6 +10,7 @@ import StockResolver from './user/stock.resolvers';
 import StocksResolver from './user/stocks.resolvers';
 import UserResolver from './user/user.resolvers';
 import UsersResolvers from './user/users.resolvers';
+import AddExistingUserStockResolver from './user/add-existing-user-stock.resolvers';
 
 const resolvers: any = [
 	UserResolver,
@@ -18,7 +19,8 @@ const resolvers: any = [
 	LoginWithGoogleResolver,
 	StockResolver,
 	StocksResolver,
-	AddUserStockResolver,
+	AddNewUserStockResolver,
+	AddExistingUserStockResolver,
 	EditUserStockResolver,
 	DeleteUserStockResolver,
 	ChangeUserAvailableBalanceResolver,

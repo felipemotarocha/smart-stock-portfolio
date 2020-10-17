@@ -1,10 +1,9 @@
+import { StockData } from './../graphql/types/stock.types';
 import axios from 'axios';
-import { ApolloError } from 'apollo-server-express';
 import { differenceInMinutes, getHours, isSaturday, isSunday } from 'date-fns';
 import jwt from 'jsonwebtoken';
 
 import { IUser } from './../models/user.model';
-import { StockData } from 'src/graphql/types/stock.types';
 
 export const calculateUserStocksTotalInvested = (user: IUser) => {
 	const { stocks } = user;
@@ -59,117 +58,29 @@ export const calculateUserStocksIdealsAndAdjustments = (user: IUser) => {
 	for (let stock of user.stocks) {
 		let idealPercentageOfThePortfolio =
 			stock.note! / allUserStocksNotesSummed;
-		stock.idealPercentageOfThePortfolio =
+		stock['idealPercentageOfThePortfolio'] =
 			Math.round(idealPercentageOfThePortfolio * 100 * 100) / 100;
 
 		let idealTotalInvested =
 			(stock.idealPercentageOfThePortfolio / 100) * user.totalBalance;
-		stock.idealTotalInvested = +idealTotalInvested.toFixed(2);
+		stock['idealTotalInvested'] = +idealTotalInvested.toFixed(2);
 
 		let idealQuantity = stock.idealTotalInvested / stock.price;
-		stock.idealQuantity! = Math.round(idealQuantity);
+		stock['idealQuantity']! = Math.round(idealQuantity);
 
 		let quantityAdjustment = stock.idealQuantity - stock.quantity!;
-		stock.quantityAdjustment = +quantityAdjustment.toFixed(2);
+		stock['quantityAdjustment'] = +quantityAdjustment.toFixed(2);
 
 		let totalInvestedAdjustment =
 			stock.idealTotalInvested - stock.totalInvested!;
-		stock.totalInvestedAdjustment = +totalInvestedAdjustment.toFixed(2);
+		stock['totalInvestedAdjustment'] = +totalInvestedAdjustment.toFixed(2);
 
 		let status: 'Wait' | 'Buy' =
-			stock.quantityAdjustment > 0 ? 'Buy' : 'Wait';
-		stock.status = status;
+			stock['quantityAdjustment'] > 0 ? 'Buy' : 'Wait';
+		stock['status'] = status;
 	}
 
 	return user;
-};
-
-export const addUserStock = async (
-	withCost: boolean,
-	user: IUser,
-	symbol: string,
-	quantity: number,
-	note?: number
-) => {
-	try {
-		const {
-			data: { results },
-		} = await axios.get(
-			`https://api.hgbrasil.com/finance/stock_price?key=${process.env.HG_FINANCE_KEY}&symbol=${symbol}`
-		);
-
-		if (results[symbol.toUpperCase()].error)
-			throw new Error(
-				'You entered an invalid symbol or something else went wrong.'
-			);
-
-		const stockData: StockData = results[symbol.toUpperCase()];
-		const {
-			name,
-			price,
-			market_cap,
-			change_percent,
-			updated_at,
-		} = stockData;
-
-		const userAlreadyHasTheStock = user.stocks.findIndex(
-			(stock) => stock.symbol === symbol.toUpperCase()
-		);
-
-		if (withCost && userAlreadyHasTheStock === -1)
-			throw new Error(
-				'You do not have this stock. To buy it, you need to first add it to your portfolio using the "New" buton.'
-			);
-
-		if (!withCost && userAlreadyHasTheStock !== -1)
-			throw new Error(
-				'You already have this stock. You can buy more using your available balance or change its quantity.'
-			);
-
-		if (withCost && user.availableBalance < price * quantity)
-			throw new Error(
-				'You do not have enough money to make this transaction.'
-			);
-
-		// user.investedBalance += price * quantity;
-		if (withCost) user.availableBalance -= price * quantity;
-
-		if (userAlreadyHasTheStock !== -1) {
-			user.stocks[userAlreadyHasTheStock].quantity! += quantity;
-
-			user.stocks[userAlreadyHasTheStock].totalInvested =
-				user.stocks[userAlreadyHasTheStock].quantity! * price;
-			user.stocks[userAlreadyHasTheStock].totalInvested = +user.stocks[
-				userAlreadyHasTheStock
-			].totalInvested!.toFixed(2);
-
-			user.stocks[userAlreadyHasTheStock].price = price;
-			user.stocks[userAlreadyHasTheStock].marketCap = market_cap;
-			user.stocks[userAlreadyHasTheStock].updatedAt = updated_at;
-			user.stocks[userAlreadyHasTheStock].changePercent = change_percent;
-		} else {
-			user.stocks.push({
-				name,
-				symbol: stockData.symbol,
-				price,
-				marketCap: market_cap,
-				changePercent: change_percent,
-				updatedAt: updated_at,
-				quantity,
-				totalInvested: +(quantity * price).toFixed(2),
-				note,
-			});
-		}
-
-		await user.save();
-
-		await user.calculateInvestedBalance();
-		await user.calculatePercentageOfThePortfolioOfEachStock();
-
-		return user;
-	} catch (err) {
-		return new ApolloError(err.message);
-	}
 };
 
 export const updateStocksData = async (
