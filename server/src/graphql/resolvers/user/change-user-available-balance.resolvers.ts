@@ -3,6 +3,10 @@ import { ApolloError } from 'apollo-server-express';
 import { Arg, Mutation, Resolver } from 'type-graphql';
 import UserType from '../../types/user.types';
 import User from '../../../models/user.model';
+import {
+	calculateUserBalances,
+	calculateUserStocksIdealsAndAdjustments,
+} from '../../../helpers/user.helpers';
 
 @Resolver()
 class ChangeUserAvailableBalanceResolver {
@@ -15,6 +19,8 @@ class ChangeUserAvailableBalanceResolver {
 			const user = await User.findById(id);
 
 			user!.availableBalance = newAvailableBalance;
+			calculateUserBalances(user!);
+			calculateUserStocksIdealsAndAdjustments(user!);
 			await user?.save();
 
 			return user;
