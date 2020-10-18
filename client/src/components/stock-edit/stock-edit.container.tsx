@@ -20,14 +20,14 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 }) => {
 	const [symbol] = React.useState<string>(stock.symbol);
 	const [quantity, setQuantity] = React.useState<number>(stock.quantity);
-	const [note, setNote] = React.useState<number>(stock.note);
+	const [score, setScore] = React.useState<number>(stock.score);
 
 	const { currentUser, updateCurrentUser } = React.useContext(UserContext);
 	const [editUserStock] = useMutation(EDIT_USER_STOCK, {
 		variables: {
 			userId: currentUser?.id,
 			stockId: stock.id,
-			note,
+			score,
 			quantity,
 		},
 		onCompleted: ({ editUserStock: user }) => {
@@ -44,14 +44,14 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 		setQuantity(value as any);
 	};
 
-	const handleNoteChange = (value: string | number | undefined) => {
-		setNote(value as any);
+	const handleScoreChange = (value: string | number | undefined) => {
+		setScore(value as any);
 	};
 
 	const resetInputs = () => {
-		const { quantity, note } = stock;
+		const { quantity, score } = stock;
 		setQuantity(quantity);
-		setNote(note);
+		setScore(score);
 	};
 
 	const handleConfirmDelete = () => {
@@ -67,9 +67,9 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 		<StockEdit
 			symbol={symbol}
 			quantity={quantity}
-			note={note}
+			score={score}
 			handleQuantityChange={handleQuantityChange}
-			handleNoteChange={handleNoteChange}
+			handleScoreChange={handleScoreChange}
 			handleConfirmDelete={handleConfirmDelete}
 			handleSaveChanges={handleSaveChanges}
 			resetInputs={resetInputs}

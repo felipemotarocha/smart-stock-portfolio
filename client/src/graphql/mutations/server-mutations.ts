@@ -21,7 +21,7 @@ export const LOGIN_WITH_CREDENTIALS = gql`
 					percentageOfThePortfolio
 					totalInvested
 					updatedAt
-					note
+					score
 					idealPercentageOfThePortfolio
 					idealTotalInvested
 					idealQuantity
@@ -60,7 +60,7 @@ export const LOGIN_WITH_GOOGLE = gql`
 					percentageOfThePortfolio
 					totalInvested
 					updatedAt
-					note
+					score
 					idealPercentageOfThePortfolio
 					idealTotalInvested
 					idealQuantity
@@ -95,7 +95,7 @@ export const REGISTER = gql`
 					percentageOfThePortfolio
 					totalInvested
 					updatedAt
-					note
+					score
 					idealPercentageOfThePortfolio
 					idealTotalInvested
 					idealQuantity
@@ -135,7 +135,7 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
@@ -152,13 +152,13 @@ export const ADD_NEW_USER_STOCK = gql`
 		$userId: String!
 		$symbol: String!
 		$quantity: Float!
-		$note: Float!
+		$score: Float!
 	) {
 		addNewUserStock(
 			userId: $userId
 			symbol: $symbol
 			quantity: $quantity
-			note: $note
+			score: $score
 		) {
 			id
 			name
@@ -177,7 +177,7 @@ export const ADD_NEW_USER_STOCK = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
@@ -217,7 +217,7 @@ export const ADD_EXISTING_USER_STOCK = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
@@ -233,13 +233,13 @@ export const EDIT_USER_STOCK = gql`
 	mutation editUserStock(
 		$userId: String!
 		$stockId: String!
-		$note: Float
+		$score: Float
 		$quantity: Float
 	) {
 		editUserStock(
 			userId: $userId
 			stockId: $stockId
-			note: $note
+			score: $score
 			quantity: $quantity
 		) {
 			id
@@ -258,7 +258,7 @@ export const EDIT_USER_STOCK = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
@@ -289,7 +289,7 @@ export const DELETE_USER_STOCK = gql`
 				percentageOfThePortfolio
 				totalInvested
 				updatedAt
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity

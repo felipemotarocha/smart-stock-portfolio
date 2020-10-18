@@ -10,7 +10,7 @@ export type Stock = {
 	totalInvested: number;
 	percentageOfThePortfolio: number;
 
-	note: number;
+	score: number;
 	idealTotalInvested: number;
 	idealPercentageOfThePortfolio: number;
 	idealQuantity: number;

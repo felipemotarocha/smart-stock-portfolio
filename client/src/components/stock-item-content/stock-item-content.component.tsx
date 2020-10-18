@@ -4,7 +4,7 @@ import {
 	Columns,
 	ColumnsInfo,
 	Container,
-	Note,
+	Score,
 } from './stock-item-content.styles';
 import { Stock } from '../../helpers/types/stock.types';
 
@@ -17,13 +17,14 @@ export interface StockItemContentProps {
 const StockItemContent: React.FunctionComponent<StockItemContentProps> = ({
 	stock,
 }) => {
-	const { note } = stock;
+	const { score } = stock;
 	return (
 		<Container>
 			<ColumnsInfo>
-				<Note>
-					<p>{note}</p>
-				</Note>
+				<Score>
+					<p>Score</p>
+					<p>{score}</p>
+				</Score>
 				<p>Qnt.</p>
 				<p>Pos.</p>
 				<p>%</p>

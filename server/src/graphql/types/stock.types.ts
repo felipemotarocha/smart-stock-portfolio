@@ -50,7 +50,7 @@ class StockType {
 	percentageOfThePortfolio: number;
 
 	@Field({ nullable: true })
-	note: number;
+	score: number;
 
 	@Field({ nullable: true })
 	idealTotalInvested: number;

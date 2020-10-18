@@ -20,7 +20,7 @@ export interface IUser extends Document {
 		quantity?: number;
 		totalInvested?: number;
 		percentageOfThePortfolio?: number;
-		note?: number;
+		score?: number;
 		idealTotalInvested?: number;
 		idealPercentageOfThePortfolio?: number;
 		idealQuantity?: number;
@@ -76,7 +76,7 @@ const userSchema: Schema = new Schema({
 			totalInvested: Number,
 			percentageOfThePortfolio: Number,
 
-			note: Number,
+			score: Number,
 
 			idealTotalInvested: Number,
 			idealPercentageOfThePortfolio: Number,

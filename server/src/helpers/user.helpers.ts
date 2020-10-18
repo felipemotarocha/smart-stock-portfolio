@@ -53,14 +53,14 @@ export const calculateUserStocksPercentagesOfThePortfolio = (user: IUser) => {
 };
 
 export const calculateUserStocksIdealsAndAdjustments = (user: IUser) => {
-	const allUserStocksNotesSummed = user.stocks.reduce(
-		(accumulator, stock) => accumulator + (stock.note as any),
+	const allUserStocksScoresSummed = user.stocks.reduce(
+		(accumulator, stock) => accumulator + (stock.score as any),
 		0
 	);
 
 	for (let stock of user.stocks) {
 		let idealPercentageOfThePortfolio =
-			stock.note! / allUserStocksNotesSummed;
+			stock.score! / allUserStocksScoresSummed;
 		stock['idealPercentageOfThePortfolio'] =
 			Math.round(idealPercentageOfThePortfolio * 100 * 100) / 100;
 

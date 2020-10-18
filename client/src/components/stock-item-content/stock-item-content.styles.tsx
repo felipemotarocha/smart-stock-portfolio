@@ -24,12 +24,26 @@ export const ColumnsInfo = styled.div`
 	}
 `;
 
-export const Note = styled.div`
+export const Score = styled.div`
 	background: #2a2a2a;
 	border-radius: 5px;
+	position: relative;
+	min-height: 50px;
+	max-height: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 
-	p {
+	p:nth-child(1) {
+		margin: 0;
+		margin-bottom: -0.3rem;
+		font-size: 0.75rem;
 		text-align: center;
+	}
+
+	p:nth-child(2) {
+		text-align: center;
+		margin: 0;
 	}
 `;
 

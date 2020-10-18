@@ -19,11 +19,11 @@ import {
 export interface AddStockProps {
 	symbol: string;
 	quantity: number;
-	note: number;
+	score: number;
 	visible: boolean;
 	handleSymbolChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleQuantityChange: (value: string | number | undefined) => void;
-	handleNoteChange: (value: string | number | undefined) => void;
+	handleScoreChange: (value: string | number | undefined) => void;
 	handleEnterPress: () => void;
 	handleOpenModal: () => void;
 	handleCancel: () => void;
@@ -32,11 +32,11 @@ export interface AddStockProps {
 const AddStock: React.FunctionComponent<AddStockProps> = ({
 	symbol,
 	quantity,
-	note,
+	score,
 	visible,
 	handleSymbolChange,
 	handleQuantityChange,
-	handleNoteChange,
+	handleScoreChange,
 	handleEnterPress,
 	handleOpenModal,
 	handleCancel,
@@ -90,14 +90,14 @@ const AddStock: React.FunctionComponent<AddStockProps> = ({
 							/>
 						</Field>
 						<Field>
-							<Title>Note</Title>
+							<Title>Score</Title>
 							<CustomNumberInput
 								size='large'
 								width='100%'
 								min={1}
 								max={10}
-								value={note}
-								onChange={handleNoteChange}
+								value={score}
+								onChange={handleScoreChange}
 								onPressEnter={handleEnterPress}
 							/>
 						</Field>

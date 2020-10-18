@@ -20,9 +20,9 @@ import {
 export interface StockEditProps {
 	symbol: string;
 	quantity: number;
-	note: number;
+	score: number;
 	handleQuantityChange: (value: string | number | undefined) => void;
-	handleNoteChange: (value: string | number | undefined) => void;
+	handleScoreChange: (value: string | number | undefined) => void;
 	resetInputs: () => void;
 	handleConfirmDelete: () => void;
 	handleSaveChanges: () => void;
@@ -31,9 +31,9 @@ export interface StockEditProps {
 const StockEdit: React.FunctionComponent<StockEditProps> = ({
 	symbol,
 	quantity,
-	note,
+	score,
 	handleQuantityChange,
-	handleNoteChange,
+	handleScoreChange,
 	handleConfirmDelete,
 	handleSaveChanges,
 	resetInputs,
@@ -56,14 +56,14 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 					/>
 				</Field>
 				<Field>
-					<Title>Note</Title>
+					<Title>Score</Title>
 					<CustomNumberInput
 						size='large'
 						width='100%'
 						min={1}
 						max={10}
-						value={note}
-						onChange={handleNoteChange}
+						value={score}
+						onChange={handleScoreChange}
 					/>
 				</Field>
 			</Fields>

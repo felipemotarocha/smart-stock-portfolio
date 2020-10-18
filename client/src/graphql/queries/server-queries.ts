@@ -20,7 +20,7 @@ export const GET_USER_PROFILE = gql`
 				totalInvested
 				updatedAt
 				quantity
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity
@@ -58,7 +58,7 @@ export const GET_USER_STOCKS = gql`
 				totalInvested
 				updatedAt
 				quantity
-				note
+				score
 				idealPercentageOfThePortfolio
 				idealTotalInvested
 				idealQuantity

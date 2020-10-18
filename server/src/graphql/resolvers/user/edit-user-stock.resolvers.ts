@@ -16,7 +16,7 @@ class EditUserStockResolver {
 	async editUserStock(
 		@Arg('userId') userId: string,
 		@Arg('stockId') stockId: string,
-		@Arg('note', { nullable: true }) note: number,
+		@Arg('score', { nullable: true }) score: number,
 		@Arg('quantity', { nullable: true }) quantity: number
 	) {
 		try {
@@ -25,7 +25,7 @@ class EditUserStockResolver {
 				(stock) => stock.id!.toString() === stockId
 			);
 
-			if (note) stock!.note = note;
+			if (score) stock!.score = score;
 			if (quantity) stock!.quantity = quantity;
 
 			calculateUserStocksTotalInvested(user!);

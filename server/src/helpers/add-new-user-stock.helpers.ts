@@ -6,7 +6,7 @@ const addNewUserStockHelper = async (
 	user: IUser,
 	symbol: string,
 	quantity: number,
-	note: number
+	score: number
 ) => {
 	if (checkIfTheUserAlreadyHasTheStock(user, symbol))
 		throw new Error(
@@ -24,7 +24,7 @@ const addNewUserStockHelper = async (
 		symbol: symbol.toUpperCase(),
 		price,
 		quantity,
-		note,
+		score,
 		marketCap: market_cap,
 		changePercent: change_percent,
 		updatedAt: updated_at,

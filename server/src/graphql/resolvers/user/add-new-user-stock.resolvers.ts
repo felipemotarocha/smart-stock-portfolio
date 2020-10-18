@@ -18,12 +18,12 @@ class AddNewUserStockResolver {
 		@Arg('userId') userId: string,
 		@Arg('symbol') symbol: string,
 		@Arg('quantity') quantity: number,
-		@Arg('note') note: number
+		@Arg('score') score: number
 	) {
 		try {
 			const user = await User.findOne({ _id: userId });
 
-			await addNewUserStockHelper(user!, symbol, quantity, note);
+			await addNewUserStockHelper(user!, symbol, quantity, score);
 
 			calculateUserStocksTotalInvested(user!);
 			calculateUserBalances(user!);
