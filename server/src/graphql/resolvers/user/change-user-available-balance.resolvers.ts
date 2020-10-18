@@ -18,7 +18,7 @@ class ChangeUserAvailableBalanceResolver {
 		try {
 			const user = await User.findById(id);
 
-			user!.availableBalance = newAvailableBalance;
+			user!.availableBalance = +newAvailableBalance.toFixed(2);
 			calculateUserBalances(user!);
 			calculateUserStocksIdealsAndAdjustments(user!);
 			await user?.save();

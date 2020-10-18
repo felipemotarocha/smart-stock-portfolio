@@ -6,6 +6,7 @@ import { CHANGE_USER_AVAILABLE_BALANCE } from '../../graphql/mutations/server-mu
 import { UserContext } from '../../contexts/user.context';
 
 import BalanceInfo from './balance-info.component';
+import { message } from 'antd';
 
 export interface BalanceInfoContainerProps {}
 
@@ -17,20 +18,21 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	const [changeUserAvailableBalance] = useMutation(
 		CHANGE_USER_AVAILABLE_BALANCE,
 		{
-			onCompleted: ({ changeUserAvailableBalance: user }) =>
-				updateCurrentUser(user),
+			onCompleted: ({ changeUserAvailableBalance: user }) => {
+				updateCurrentUser(user);
+				message.success(
+					'Your available balance was successfully changed.'
+				);
+			},
 		}
 	);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// regex to check if the input value is a number
-		const re = /^[0-9\b]+$/;
-
-		if (e.target.value === '') {
-			setAvailableBalanceInput(0);
-		} else if (re.test(e.target.value)) {
-			setAvailableBalanceInput(parseInt(e.target.value));
-		}
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const valueInNumber = Number(
+			event.target.value.replace(/[^0-9.]+/g, '')
+		);
+		console.log(valueInNumber);
+		setAvailableBalanceInput(valueInNumber);
 	};
 
 	const handleSubmit = () => {

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
 	flex: auto;
 	display: flex;
+	align-items: flex-start;
+	padding: 1.2rem 0;
 `;
 
 export const ColumnsInfo = styled.div`
@@ -10,7 +12,7 @@ export const ColumnsInfo = styled.div`
 
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 
 	margin-right: 1rem;
 

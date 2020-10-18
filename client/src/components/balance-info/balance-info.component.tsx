@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { SaveOutlined } from '@ant-design/icons';
 import NumberFormat from 'react-number-format';
 
 import { Container, InputContainer, Headline } from './balance-info.styles';
 
 import { CustomInput } from '../custom-input/custom-input.component';
+import { SaveOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 export interface BalanceInfoProps {
 	availableBalanceInput: number;
@@ -13,8 +14,8 @@ export interface BalanceInfoProps {
 	availableBalance: number;
 	investedBalance: number;
 	totalBalance: number;
-	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSubmit: () => void;
+	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	handleSubmit: (e: any) => void;
 }
 const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 	availableBalance,
@@ -33,25 +34,27 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 		<Container>
 			<InputContainer>
 				<Headline>Available balance</Headline>
-
-				<CustomInput
+				<NumberFormat
+					customInput={CustomInput}
+					thousandSeparator=','
+					decimalSeparator='.'
+					prefix={'R$'}
 					width='300px'
-					prefix='R$'
-					type='text'
-					size='large'
-					color='primary'
-					allowClear
-					onChange={handleChange}
+					fixedDecimalScale={true}
 					value={availableBalanceInput}
-					autoFocus
-					addonAfter={
-						availableBalanceInput !== availableBalance ? (
-							<SaveOutlined onClick={handleSubmit} />
-						) : (
-							''
-						)
-					}
+					onChange={handleChange}
 					onPressEnter={handleSubmit}
+				/>
+				<Button
+					type='primary'
+					icon={<SaveOutlined />}
+					size='large'
+					disabled={
+						availableBalanceInput !== availableBalance
+							? false
+							: true
+					}
+					onClick={handleSubmit}
 				/>
 			</InputContainer>
 
@@ -60,13 +63,13 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 				<NumberFormat
 					value={investedBalance}
 					displayType={'text'}
-					thousandSeparator='.'
-					decimalSeparator=','
+					thousandSeparator=','
+					decimalSeparator='.'
 					prefix={'R$'}
 					renderText={(value) => (
 						<CustomInput
 							type='text'
-							width='300px'
+							width='340px'
 							size='large'
 							backgroundcolor='#1488cc'
 							readOnly
@@ -81,12 +84,12 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 				<NumberFormat
 					value={totalBalance}
 					displayType={'text'}
-					thousandSeparator='.'
-					decimalSeparator=','
+					thousandSeparator=','
+					decimalSeparator='.'
 					prefix={'R$'}
 					renderText={(value) => (
 						<CustomInput
-							width='300px'
+							width='340px'
 							type='text'
 							size='large'
 							color='primary'

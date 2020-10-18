@@ -23,7 +23,7 @@ const StockItemColumn: React.FunctionComponent<StockItemColumnProps> = ({
 		idealTotalInvested,
 		idealPercentageOfThePortfolio,
 		quantityAdjustment,
-		totalInvestedAdjustment
+		totalInvestedAdjustment,
 	} = stock;
 	return (
 		<Container>
@@ -35,8 +35,8 @@ const StockItemColumn: React.FunctionComponent<StockItemColumnProps> = ({
 						<NumberFormat
 							value={totalInvested}
 							displayType={'text'}
-							thousandSeparator='.'
-							decimalSeparator=','
+							thousandSeparator=','
+							decimalSeparator='.'
 							prefix={'R$'}
 						/>
 					</Item>
@@ -49,8 +49,8 @@ const StockItemColumn: React.FunctionComponent<StockItemColumnProps> = ({
 						<NumberFormat
 							value={idealTotalInvested}
 							displayType={'text'}
-							thousandSeparator='.'
-							decimalSeparator=','
+							thousandSeparator=','
+							decimalSeparator='.'
 							prefix={'R$'}
 						/>
 					</Item>
@@ -60,8 +60,15 @@ const StockItemColumn: React.FunctionComponent<StockItemColumnProps> = ({
 			) : contentType === 'adjustment' ? (
 				<>
 					<Item adjustment={true}>{quantityAdjustment}</Item>
-					<Item adjustment={true}>R${totalInvestedAdjustment}</Item>
-					<Item adjustment={true}>0%</Item>
+					<Item adjustment={true}>
+						<NumberFormat
+							value={totalInvestedAdjustment}
+							displayType={'text'}
+							thousandSeparator=','
+							decimalSeparator='.'
+							prefix={'R$'}
+						/>
+					</Item>
 				</>
 			) : null}
 		</Container>
