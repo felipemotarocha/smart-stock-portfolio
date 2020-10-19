@@ -31,45 +31,43 @@ Clone the project:
 
 cd into folder:
 
-```
-    cd server
+```bash
+cd server
 ```
 
 Install the dependencies:
 
-```
-    yarn install
+```bash
+yarn install
 ```
 
 Create a `.env` file in the `root` directory with the following values:
 
 ```
-    DB_PASSWORD=YOUR_DB_PASSWORD
-    HG_FINANCE_KEY=YOUR_HG_FINANCE_KEY
-    JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
+DB_PASSWORD=YOUR_DB_PASSWORD
+HG_FINANCE_KEY=YOUR_HG_FINANCE_KEY
+JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
 ```
 
 ## Getting Your Database Password 🔑
 
-Go to the MongoDB Atlas official website, sign in to your account and create a new project:
+Go to the [MongoDB Atlas official website](https://www.mongodb.com/cloud/atlas 'MongoDB Atlas official website'), sign in to your account and create a new project:
 
 ![MongoDB Website](https://imgur.com/6MBTnxM.png)
 
-After setting a name to it, build a new Cluster, choose the free plan and the region that you prefer.
+After setting a name to it, **build a new Cluster**, choose the free plan and the region that you prefer. After a few minutes, your cluster will be ready. Go to the **"Connect"** option:
 
-After a few minutes, your cluster will be ready. Go to the "Connect" option:
+![Connect to Cluster](https://imgur.com/aTC3j2M.png)
 
-![MongoDB Website](https://imgur.com/aTC3j2M.png)
-
-Put your IP Address (in this case the address '0.0.0.0/0' will allow every IP to connect with the database), create your database user and use the password you entered in the `DB_PASSWORD` environment variable.
+Put your IP Address (in this case the address '0.0.0.0/0' will allow every IP to connect with the database) and create your database user. Use the password you entered in your database user as the `DB_PASSWORD` environment variable.
 
 ## Getting Your HG Finance API Key 🔑
 
-Go to the HG Finance website and sign in to your account. Go to the "Keys" section and choose the free plan.
+Go to the [HG Finance official website](https://hgbrasil.com 'HG Finance official website') and sign in to your account. Go to the **"Keys"** section and choose the free plan.
 
 ![HG Finance Website](https://imgur.com/a7p6sQs.png)
 
-Choose the internal use option, and create the key:
+Choose the **internal use option**, create the key and use it as the `HG_FINANCE_KEY` environment variable.
 
 ![Creating the key](https://imgur.com/K4Ah3gA.png)
 
@@ -83,20 +81,20 @@ Choose the internal use option, and create the key:
 
 cd into folder:
 
-```
-    cd client
+```bash
+cd client
 ```
 
 Install the dependencies:
 
-```
-    yarn install
+```bash
+yarn install
 ```
 
 Create a `.env` file in the `root` directory with the following values:
 
 ```
-    REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 ```
 
 ## How To Get Your Google Client Id 🔑
@@ -105,8 +103,8 @@ Read the official Google OAuth Documentation clicking [here](https://developers.
 
 ## Running the server 🚀
 
-```
-    yarn start
+```bash
+yarn start
 ```
 
 # Application Info 📝
