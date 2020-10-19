@@ -11,7 +11,7 @@ import { GlobalStyle } from './index.styles';
 import UserContextProvider from './contexts/user.context';
 
 const httpLink = createHttpLink({
-	uri: 'http://localhost:4000/graphql',
+	uri: `${process.env.REACT_APP_GRAPHQL_API_URL}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
