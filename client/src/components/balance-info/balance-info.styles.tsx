@@ -13,7 +13,7 @@ export const InputContainer = styled.div`
 		margin: 1rem 0;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		flex-direction: column;
 		width: 100%;
 
@@ -28,7 +28,7 @@ export const Headline = styled.h2`
 	color: #eee;
 	margin: 0 1rem;
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		margin-bottom: 0.1rem;
 		font-size: 1.1rem;
 	}
@@ -37,7 +37,8 @@ export const Headline = styled.h2`
 export const WithButton = styled.div`
 	display: flex;
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		width: 100%;
+		justify-content: center;
 	}
 `;

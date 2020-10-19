@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 
 import {
 	CustomInput,
@@ -41,12 +42,16 @@ const AddStock: React.FunctionComponent<AddStockProps> = ({
 	handleOpenModal,
 	handleCancel,
 }) => {
+	const isMobile = useMediaQuery({
+		query: '(max-device-width: 768px)',
+	});
+
 	return (
 		<>
 			<GlobalStyle />
 			<Button
 				type='primary'
-				size='large'
+				size={isMobile ? 'middle' : 'large'}
 				onClick={handleOpenModal}
 				icon={<PlusOutlined />}
 			>

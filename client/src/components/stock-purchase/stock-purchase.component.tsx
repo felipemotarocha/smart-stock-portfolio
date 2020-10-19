@@ -28,7 +28,7 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 	handleSubmit,
 }) => {
 	const isMobile = useMediaQuery({
-		query: '(max-device-width: 768px)',
+		query: '(max-device-width: 1024px)',
 	});
 
 	return (

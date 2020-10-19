@@ -23,4 +23,8 @@ export const Container = styled.div<ContainerProps>`
 		margin-bottom: 1.5rem;
 		padding: 1rem 1.3rem;
 	}
+
+	@media (min-width: 769px) and (max-width: 1024px) {
+		width: 100%;
+	}
 `;

@@ -31,6 +31,10 @@ export const ColumnsInfo = styled.div`
 	@media (max-width: 768px) {
 		display: none;
 	}
+
+	@media (min-width: 769px) and (max-width: 1024px) {
+		margin-right: 1.5rem;
+	}
 `;
 
 export const Score = styled.div`

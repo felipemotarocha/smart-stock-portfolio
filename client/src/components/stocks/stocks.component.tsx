@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { CheckOutlined, EditOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 import { UserContext } from '../../contexts/user.context';
 import { Container, Content, Headline } from './stocks.styles';
@@ -18,13 +19,17 @@ const Stocks: React.FunctionComponent = () => {
 		setEditableStocks!(!editableStocks);
 	};
 
+	const isMobile = useMediaQuery({
+		query: '(max-device-width: 768px)',
+	});
+
 	return (
 		<Container>
 			<Headline>
 				<p>Stocks</p>
 				<AddStock />
 				<Button
-					size='large'
+					size={isMobile ? 'middle' : 'large'}
 					type='primary'
 					icon={editableStocks ? <CheckOutlined /> : <EditOutlined />}
 					onClick={handleToggleEditableStocks}
