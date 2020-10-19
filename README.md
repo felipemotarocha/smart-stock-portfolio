@@ -43,7 +43,7 @@ yarn install
 Create a `.env` file in the `root` directory with the following values:
 
 ```
-DB_PASSWORD=YOUR_DB_PASSWORD
+DB_PASSWORD=YOUR_DATABASE_PASSWORD
 HG_FINANCE_KEY=YOUR_HG_FINANCE_KEY
 JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
 ```
@@ -96,7 +96,7 @@ Create a `.env` file in the `root` directory with the following values:
 REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 ```
 
-## How To Get Your Google Client Id 🔑
+## How To Get Your Google Client ID 🔑
 
 Read the official Google OAuth Documentation clicking [here](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid 'Google OAuth Documentation') to know how you can get yours. Don't forget to add the URL of the application (i.e http://localhost:3000) to the **Authorized JavaScript origins**.
 
