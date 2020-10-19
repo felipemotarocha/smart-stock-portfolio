@@ -5,6 +5,10 @@ export const Container = styled.div`
 	display: flex;
 	align-items: flex-start;
 	padding: 1.2rem 0;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
 
 export const ColumnsInfo = styled.div`
@@ -21,6 +25,10 @@ export const ColumnsInfo = styled.div`
 		margin: 0.6rem 0;
 		font-weight: 600;
 		text-align: right;
+	}
+
+	@media (max-width: 768px) {
+		display: none;
 	}
 `;
 
@@ -51,4 +59,9 @@ export const Columns = styled.div`
 	display: flex;
 	justify-content: space-between;
 	flex: auto;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+		width: 100%;
+	}
 `;

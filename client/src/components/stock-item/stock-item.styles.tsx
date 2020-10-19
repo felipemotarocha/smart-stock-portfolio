@@ -16,7 +16,9 @@ export const Container = styled.div<ContainerProps>`
 	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 10px 10px -5px rgba(0, 0, 0, 0.04);
 	margin-bottom: 4rem;
-	/* border: 1px solid
-		${({ editableStocks, theme }) =>
-		editableStocks ? theme.primaryBlue : 'none'}; */
+
+	@media (max-width: 768px) {
+		width: 100%;
+		height: auto;
+	}
 `;

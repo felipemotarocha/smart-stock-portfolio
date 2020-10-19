@@ -10,15 +10,20 @@ export const Container = styled.div`
 	justify-content: space-between;
 	color: #eee;
 	border-bottom: 3px solid #5d5c5c;
+
+	@media (max-width: 768px) {
+		flex-wrap: wrap;
+		flex-direction: row-reverse;
+		align-items: center;
+	}
 `;
 
 export const Info = styled.div`
 	flex: 2;
-`;
 
-export const Value = styled.div`
-	text-align: right;
-	flex: 1;
+	@media (max-width: 768px) {
+		flex-basis: 100%;
+	}
 `;
 
 export const Symbol = styled.p`
@@ -30,6 +35,23 @@ export const Symbol = styled.p`
 export const Name = styled.p`
 	font-size: 1.3rem;
 	margin-top: -0.3rem;
+
+	@media (max-width: 768px) {
+		margin: 0;
+	}
+`;
+
+export const Value = styled.div`
+	text-align: right;
+	flex: 1;
+
+	@media (max-width: 768px) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 1rem 0;
+		text-align: left;
+	}
 `;
 
 export const Price = styled.p`
@@ -45,4 +67,9 @@ export const ChangePercent = styled.p<ChangePercentProps>`
 
 	color: ${({ isPositive, theme }) =>
 		isPositive ? theme.primaryBlue : 'red'};
+
+	@media (max-width: 768px) {
+		text-align: left;
+		margin-bottom: 0;
+	}
 `;

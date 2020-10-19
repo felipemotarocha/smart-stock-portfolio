@@ -15,6 +15,11 @@ export const Container = styled.div`
 		margin: 0;
 		font-weight: 600;
 	}
+
+	@media (max-width: 768px) {
+		flex: initial;
+		padding: 1rem 0;
+	}
 `;
 
 export const Status = styled.div<StatusProps>`

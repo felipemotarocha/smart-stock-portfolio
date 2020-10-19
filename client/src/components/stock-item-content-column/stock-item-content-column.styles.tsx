@@ -6,12 +6,15 @@ type ItemProps = {
 };
 
 export const Container = styled.div`
-	/* flex: auto; */
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	width: 200px;
+
+	@media (max-width: 768px) {
+		width: 100%;
+	}
 `;
 
 export const Item = styled.div<ItemProps>`
@@ -30,4 +33,8 @@ export const Item = styled.div<ItemProps>`
 
 	color: ${({ adjustment, theme }) =>
 		adjustment ? theme.primaryBlue : 'inherit'};
+
+	@media (max-width: 768px) {
+		width: 100%;
+	}
 `;
