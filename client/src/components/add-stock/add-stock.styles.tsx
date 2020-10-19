@@ -6,11 +6,16 @@ export const GlobalStyle = createGlobalStyle`
 
 		.ant-modal-body {
 			padding: 0 3rem;
+
+			@media (max-width: 767px) {
+				padding: 0 1rem;
+			}
 		}
 
 		.ant-modal-content {
 			background: #2a2a2a;
 		}
+
 		.ant-modal-header {
 			border-color: #2a2a2a;
 			background: #2a2a2a;
@@ -28,6 +33,8 @@ export const GlobalStyle = createGlobalStyle`
 			display: flex;
 			justify-content: center;
 			padding: 1.5rem 0;
+
+	
 
 			button {
 				width: 32%;
@@ -59,6 +66,11 @@ export const Fields = styled.div`
 	justify-content: space-between;
 	border-bottom: 2px solid #5d5c5c;
 	padding-bottom: 1.5rem;
+
+	@media (max-width: 767px) {
+		display: flex;
+		flex-direction: column;
+	}
 `;
 
 export const Field = styled.div`
@@ -70,6 +82,10 @@ export const Field = styled.div`
 
 	input {
 		text-align: center;
+	}
+
+	@media (max-width: 767px) {
+		width: 100%;
 	}
 `;
 
