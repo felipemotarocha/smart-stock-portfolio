@@ -40,7 +40,8 @@ export const Item = styled.div<ItemProps>`
 		margin: 0.4rem 0;
 	}
 
-	@media (min-width: 768px) and (max-width: 768px) {
+	@media (width: 768px) {
+		font-size: 1rem;
 		width: 190px;
 	}
 `;

@@ -34,8 +34,6 @@ export const GlobalStyle = createGlobalStyle`
 			justify-content: center;
 			padding: 1.5rem 0;
 
-	
-
 			button {
 				width: 32%;
 			}

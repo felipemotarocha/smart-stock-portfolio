@@ -37,9 +37,14 @@ export const Status = styled.div<StatusProps>`
 	font-size: 1.3rem;
 	font-weight: 500;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		margin-top: 0;
 		width: 70px;
 		font-size: 1rem;
+	}
+
+	@media (width: 768px) {
+		width: 70px;
+		font-size: 1.1rem;
 	}
 `;

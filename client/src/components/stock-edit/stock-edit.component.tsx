@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button } from 'antd';
 import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 import {
 	Buttons,
@@ -38,18 +39,26 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 	handleSaveChanges,
 	resetInputs,
 }) => {
+	const isMobile = useMediaQuery({
+		query: '(max-device-width: 1024px)',
+	});
+
 	return (
 		<Container>
 			<GlobalStyle />
 			<Fields>
 				<Field>
 					<Title>Symbol</Title>
-					<CustomInput readOnly value={symbol} />
+					<CustomInput
+						size={isMobile ? 'middle' : 'large'}
+						readOnly
+						value={symbol}
+					/>
 				</Field>
 				<Field>
 					<Title>Quantity</Title>
 					<CustomNumberInput
-						size='large'
+						size={isMobile ? 'middle' : 'large'}
 						width='100%'
 						value={quantity}
 						onChange={handleQuantityChange}
@@ -58,7 +67,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 				<Field>
 					<Title>Score</Title>
 					<CustomNumberInput
-						size='large'
+						size={isMobile ? 'middle' : 'large'}
 						width='100%'
 						min={1}
 						max={10}
@@ -70,7 +79,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 			<Buttons>
 				<Button
 					type='primary'
-					size='large'
+					size={isMobile ? 'middle' : 'large'}
 					icon={<SaveOutlined />}
 					onClick={handleSaveChanges}
 				>
@@ -78,7 +87,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 				</Button>
 				<Button
 					type='default'
-					size='large'
+					size={isMobile ? 'middle' : 'large'}
 					icon={<CloseOutlined />}
 					onClick={resetInputs}
 				>
@@ -86,7 +95,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 				</Button>
 
 				<Popconfirm
-					placement='topRight'
+					placement={isMobile ? 'top' : 'topRight'}
 					title='Are you sure you want to delete this stock from your portfolio?'
 					okText='Yes'
 					cancelText='No'
@@ -95,7 +104,7 @@ const StockEdit: React.FunctionComponent<StockEditProps> = ({
 				>
 					<Button
 						type='default'
-						size='large'
+						size={isMobile ? 'middle' : 'large'}
 						icon={<DeleteOutlined />}
 					>
 						Delete

@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
 
 	.ant-popover-content {
+		
 		.ant-popover-inner  {
 			background: #515151;
 			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -16,6 +17,11 @@ export const GlobalStyle = createGlobalStyle`
 		.ant-popover-arrow {
 			border-right-color: #515151 !important;
 			border-bottom-color: #515151 !important;
+		}
+
+		@media(max-width: 767px) {
+			width: 90%;
+			margin: 0 auto;
 		}
 	} 
 `;
@@ -54,6 +60,11 @@ export const Title = styled.p`
 	margin: 0.7rem 0;
 	font-size: 1.3rem;
 	font-weight: 600;
+
+	@media (max-width: 767px) {
+		font-size: 1rem;
+		margin: 0.4rem 0;
+	}
 `;
 
 export const Buttons = styled.div`
@@ -90,6 +101,26 @@ export const Buttons = styled.div`
 			&:hover {
 				background: rgba(0, 0, 0, 0);
 				color: #ff3232;
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		flex-direction: column;
+
+		.ant-btn {
+			&:nth-child(1) {
+				width: 100%;
+			}
+
+			&:nth-child(2) {
+				width: 100%;
+				margin: 0.7rem 0;
+			}
+
+			&:nth-child(3) {
+				width: 100%;
+				margin-top: 0;
 			}
 		}
 	}

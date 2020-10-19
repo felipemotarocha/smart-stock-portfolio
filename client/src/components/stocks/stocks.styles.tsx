@@ -7,6 +7,7 @@ export const Container = styled.div`
 export const Headline = styled.div`
 	display: flex;
 	align-items: center;
+
 	p {
 		color: #eee;
 		font-weight: 400;
@@ -17,6 +18,10 @@ export const Headline = styled.div`
 
 	button:nth-child(2) {
 		margin-right: 1rem;
+	}
+
+	@media (min-width: 321px) and (max-width: 767px) {
+		justify-content: space-between;
 	}
 `;
 
