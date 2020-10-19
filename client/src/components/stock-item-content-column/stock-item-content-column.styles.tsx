@@ -34,9 +34,13 @@ export const Item = styled.div<ItemProps>`
 	color: ${({ adjustment, theme }) =>
 		adjustment ? theme.primaryBlue : 'inherit'};
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		width: 100%;
 		font-size: 1rem;
 		margin: 0.4rem 0;
+	}
+
+	@media (min-width: 768px) and (max-width: 768px) {
+		width: 190px;
 	}
 `;

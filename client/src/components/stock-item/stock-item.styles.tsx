@@ -17,7 +17,7 @@ export const Container = styled.div<ContainerProps>`
 		0 10px 10px -5px rgba(0, 0, 0, 0.04);
 	margin-bottom: 4rem;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		width: 100%;
 		height: auto;
 		margin-bottom: 1.5rem;

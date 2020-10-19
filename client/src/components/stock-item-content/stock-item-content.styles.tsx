@@ -6,7 +6,7 @@ export const Container = styled.div`
 	align-items: flex-start;
 	padding: 1.2rem 0;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		flex-direction: column;
 		padding: 0.35rem 0;
 	}
@@ -28,7 +28,7 @@ export const ColumnsInfo = styled.div`
 		text-align: right;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		display: none;
 	}
 
@@ -65,7 +65,7 @@ export const Columns = styled.div`
 	justify-content: space-between;
 	flex: auto;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		flex-direction: column;
 		width: 100%;
 	}

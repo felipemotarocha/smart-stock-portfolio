@@ -23,6 +23,10 @@ const Stocks: React.FunctionComponent = () => {
 		query: '(max-device-width: 768px)',
 	});
 
+	const isIphone5s = useMediaQuery({
+		query: '(max-device-width: 320px)',
+	});
+
 	return (
 		<Container>
 			<Headline>
@@ -34,7 +38,7 @@ const Stocks: React.FunctionComponent = () => {
 					icon={editableStocks ? <CheckOutlined /> : <EditOutlined />}
 					onClick={handleToggleEditableStocks}
 				>
-					{editableStocks ? 'Done' : 'Edit'}
+					{isIphone5s ? null : editableStocks ? 'Done' : 'Edit'}
 				</Button>
 			</Headline>
 			<Content>

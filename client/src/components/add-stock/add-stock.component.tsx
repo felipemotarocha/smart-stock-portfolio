@@ -46,6 +46,10 @@ const AddStock: React.FunctionComponent<AddStockProps> = ({
 		query: '(max-device-width: 768px)',
 	});
 
+	const isIphone5s = useMediaQuery({
+		query: '(max-device-width: 320px)',
+	});
+
 	return (
 		<>
 			<GlobalStyle />
@@ -55,7 +59,7 @@ const AddStock: React.FunctionComponent<AddStockProps> = ({
 				onClick={handleOpenModal}
 				icon={<PlusOutlined />}
 			>
-				New
+				{isIphone5s ? null : 'New'}
 			</Button>
 			<Container>
 				<Modal

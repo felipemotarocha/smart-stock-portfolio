@@ -18,6 +18,11 @@ export const Content = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+
+	@media (max-width: 320px) {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 export const Buttons = styled.div`
