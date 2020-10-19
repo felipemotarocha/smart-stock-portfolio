@@ -55,7 +55,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 			<Content>
 				<h1>
 					Register to create your portfolio. We will help you to
-					rebalance it.
+					balance it.
 				</h1>
 				<CustomInput
 					placeholder='Name'
