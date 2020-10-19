@@ -17,7 +17,6 @@ _You can add stocks that you already have, instead of use your available balance
 _You can also login using your Google account if you want to._
 
 ![Register Page](https://imgur.com/XizwrAO.png)
-_You can also login using your Google account if you want to._
 
 # Quick Start 🚀
 
