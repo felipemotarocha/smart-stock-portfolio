@@ -74,7 +74,10 @@ const userSchema: Schema = new Schema({
 			updatedAt: Date,
 			quantity: Number,
 			totalInvested: Number,
-			percentageOfThePortfolio: Number,
+			percentageOfThePortfolio: {
+				type: Number,
+				default: 0,
+			},
 
 			score: Number,
 

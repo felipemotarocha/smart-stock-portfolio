@@ -8,7 +8,7 @@ export const Container = styled.div<ContainerProps>`
 	display: flex;
 	flex-direction: column;
 	height: 350px;
-	width: 820px;
+	width: 780px;
 	border-radius: 5px;
 	background: ${({ editableStocks }) =>
 		editableStocks ? '#2a2a2a' : '#515151'};

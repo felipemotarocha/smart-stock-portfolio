@@ -16,8 +16,11 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 
 	const { currentUser, updateCurrentUser } = useContext(UserContext);
 	const [addExistingUserStock] = useMutation(ADD_EXISTING_USER_STOCK, {
-		onCompleted: ({ addExistingUserStock: user }) =>
-			updateCurrentUser(user),
+		onCompleted: ({ addExistingUserStock: user }) => {
+			updateCurrentUser(user);
+			setSymbol('');
+			setQuantity(1);
+		},
 		onError: (error) => message.error(error.message, 2.5),
 	});
 
