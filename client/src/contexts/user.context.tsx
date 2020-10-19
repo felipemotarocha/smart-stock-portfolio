@@ -58,16 +58,25 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	const [editableStocks, setEditableStocks] = useState(false);
 	const [loading, setLoading] = useState(true);
 
-	const [loginWithCredentialsMutation] = useMutation(LOGIN_WITH_CREDENTIALS);
-	const [loginWithGoogleMutation] = useMutation(LOGIN_WITH_GOOGLE);
-	const [registerMutation] = useMutation(REGISTER);
+	const [loginWithCredentialsMutation] = useMutation(LOGIN_WITH_CREDENTIALS, {
+		onCompleted: ({ loginWithCredentials: { user } }) =>
+			message.success(`Welcome back, ${user.name}!`),
+	});
+	const [loginWithGoogleMutation] = useMutation(LOGIN_WITH_GOOGLE, {
+		onCompleted: ({ loginWithGoogle: { user } }) =>
+			message.success(`Welcome, ${user.name}!`),
+	});
+	const [registerMutation] = useMutation(REGISTER, {
+		onCompleted: ({ register: { user } }) =>
+			message.success(`Welcome, ${user.name}!`),
+	});
 	const { refetch } = useQuery(GET_USER_PROFILE);
 
 	const loginWithCredentials = async (email: string, password: string) => {
 		try {
 			const {
 				data: {
-					login: { user, authToken },
+					loginWithCredentials: { user, authToken },
 				},
 			} = await loginWithCredentialsMutation({
 				variables: { email, password },
