@@ -23,7 +23,7 @@ _You can also login using your Google account if you want to._
 Clone the project:
 
 ```bash
-    git clone https://github.com/felipemotarocha/fullstack-graphql-shares-rebalancing
+git clone https://github.com/felipemotarocha/fullstack-graphql-shares-rebalancing
 ```
 
 # Setting Up The Server Side 💻
@@ -72,8 +72,8 @@ Choose the **internal use option**, create the key and use it as the `HG_FINANCE
 
 ## Running the Server 🚀
 
-```
-    yarn dev
+```bash
+yarn dev
 ```
 
 # Setting Up The Client Side 💻
