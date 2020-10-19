@@ -30,6 +30,10 @@ export const Symbol = styled.p`
 	font-size: 1.7rem;
 	font-weight: 600;
 	margin: 0;
+
+	@media (max-width: 768px) {
+		font-size: 2rem;
+	}
 `;
 
 export const Name = styled.p`
@@ -38,6 +42,8 @@ export const Name = styled.p`
 
 	@media (max-width: 768px) {
 		margin: 0;
+		font-size: 1rem;
+		margin-top: -0.45rem;
 	}
 `;
 
@@ -49,7 +55,6 @@ export const Value = styled.div`
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 1rem 0;
 		text-align: left;
 	}
 `;
@@ -58,6 +63,10 @@ export const Price = styled.p`
 	font-size: 1.7rem;
 	font-weight: 600;
 	margin: 0;
+
+	@media (max-width: 768px) {
+		font-size: 1rem;
+	}
 `;
 
 export const ChangePercent = styled.p<ChangePercentProps>`
@@ -71,5 +80,6 @@ export const ChangePercent = styled.p<ChangePercentProps>`
 	@media (max-width: 768px) {
 		text-align: left;
 		margin-bottom: 0;
+		font-size: 1rem;
 	}
 `;

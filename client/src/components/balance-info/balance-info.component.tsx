@@ -55,11 +55,12 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 						value={availableBalanceInput}
 						onChange={handleChange}
 						onPressEnter={handleSubmit}
+						size={isMobile ? ('middle' as any) : ('large' as any)}
 					/>
 					<Button
 						type='primary'
 						icon={<SaveOutlined />}
-						size='large'
+						size={isMobile ? 'middle' : 'large'}
 						disabled={
 							availableBalanceInput !== availableBalance
 								? false
@@ -82,7 +83,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 						<CustomInput
 							type='text'
 							width={isMobile ? '100%' : '340px'}
-							size='large'
+							size={isMobile ? 'middle' : 'large'}
 							backgroundcolor='#1488cc'
 							readOnly
 							value={value}
@@ -103,7 +104,7 @@ const BalanceInfo: React.FunctionComponent<BalanceInfoProps> = ({
 						<CustomInput
 							width={isMobile ? '100%' : '340px'}
 							type='text'
-							size='large'
+							size={isMobile ? 'middle' : 'large'}
 							color='primary'
 							backgroundcolor='#1488cc'
 							readOnly

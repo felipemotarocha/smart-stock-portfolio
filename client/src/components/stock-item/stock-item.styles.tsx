@@ -20,5 +20,7 @@ export const Container = styled.div<ContainerProps>`
 	@media (max-width: 768px) {
 		width: 100%;
 		height: auto;
+		margin-bottom: 1.5rem;
+		padding: 1rem 1.3rem;
 	}
 `;

@@ -18,7 +18,11 @@ export const Container = styled.div`
 
 	@media (max-width: 768px) {
 		flex: initial;
-		padding: 1rem 0;
+		padding-bottom: 0.7rem;
+
+		p {
+			font-size: 1rem;
+		}
 	}
 `;
 
@@ -30,7 +34,12 @@ export const Status = styled.div<StatusProps>`
 	text-align: center;
 	border-radius: 5px;
 	margin-top: 0.1rem;
-
 	font-size: 1.3rem;
 	font-weight: 500;
+
+	@media (max-width: 768px) {
+		margin-top: 0;
+		width: 70px;
+		font-size: 1rem;
+	}
 `;

@@ -36,5 +36,7 @@ export const Item = styled.div<ItemProps>`
 
 	@media (max-width: 768px) {
 		width: 100%;
+		font-size: 1rem;
+		margin: 0.4rem 0;
 	}
 `;

@@ -33,4 +33,13 @@ export const ButtonsContent = styled.div`
 		margin-right: 1rem;
 		font-size: 1rem;
 	}
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+
+		p {
+			margin-right: 0;
+			margin-bottom: 0.2rem;
+		}
+	}
 `;

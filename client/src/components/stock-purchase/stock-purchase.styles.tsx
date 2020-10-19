@@ -7,7 +7,9 @@ export const Container = styled.div`
 		text-align: center;
 		font-weight: 400;
 		color: #eee;
-		margin: 0 1rem;
+		margin: 0;
+		margin-bottom: 0.1rem;
+		font-size: 1.1rem;
 	}
 `;
 
@@ -18,5 +20,6 @@ export const InputsContainer = styled.div`
 	@media (max-width: 768px) {
 		justify-content: center;
 		max-width: 100%;
+		margin-bottom: 0.7rem;
 	}
 `;

@@ -37,7 +37,7 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 			<InputsContainer>
 				<CustomInput
 					type='text'
-					size='large'
+					size={isMobile ? 'middle' : 'large'}
 					placeholder={
 						isMobile ? 'Symbol' : 'Add the purchase of a stock'
 					}
@@ -48,16 +48,15 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 				/>
 				<CustomNumberInput
 					type='number'
-					size='large'
+					size={isMobile ? ('middle' as any) : ('large' as any)}
 					min={1}
-					max={999999}
 					placeholder='Qnt.'
 					value={quantity}
 					onChange={handleQuantityChange}
 					onPressEnter={handleSubmit}
 				/>
 				<Button
-					size='large'
+					size={isMobile ? 'middle' : 'large'}
 					type='primary'
 					icon={<PlusOutlined />}
 					onClick={handleSubmit}

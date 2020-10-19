@@ -4,6 +4,10 @@ export const Container = styled.div`
 	height: 100vh;
 	display: flex;
 	align-items: center;
+
+	@media (max-width: 768px) {
+		padding: 2rem 1.5rem;
+	}
 `;
 
 export const Content = styled.div`
