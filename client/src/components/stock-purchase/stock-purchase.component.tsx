@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { FetchResult } from '@apollo/client';
+import { useMediaQuery } from 'react-responsive';
 
 import { Container, InputsContainer } from './stock-purchase.styles';
 import {
@@ -26,14 +27,21 @@ const StockPurchase: React.FunctionComponent<StockPurchaseProps> = ({
 	handleQuantityChange,
 	handleSubmit,
 }) => {
+	const isMobile = useMediaQuery({
+		query: '(max-device-width: 768px)',
+	});
+
 	return (
 		<Container>
+			{isMobile ? <h2>Add the purchase of a stock</h2> : null}
 			<InputsContainer>
 				<CustomInput
 					type='text'
 					size='large'
-					placeholder='Add the purchase of an existent stock'
-					width='45%'
+					placeholder={
+						isMobile ? 'Symbol' : 'Add the purchase of a stock'
+					}
+					width={isMobile ? 'inherit' : '45%'}
 					value={symbol}
 					onChange={handleSymbolChange}
 					onPressEnter={handleSubmit}

@@ -31,7 +31,6 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 		const valueInNumber = Number(
 			event.target.value.replace(/[^0-9.]+/g, '')
 		);
-		console.log(valueInNumber);
 		setAvailableBalanceInput(valueInNumber);
 	};
 
