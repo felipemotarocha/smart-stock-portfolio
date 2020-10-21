@@ -8,9 +8,9 @@ import User from '../../../models/user.model';
 @Resolver()
 class UserResolver {
 	@Query(() => UserType)
-	async user(@Arg('id') id: string) {
+	async user(@Arg('_id') _id: string) {
 		try {
-			const user = await User.findById(id);
+			const user = await User.findById(_id);
 			await updateStocksData(user!);
 			return user;
 		} catch (_err) {

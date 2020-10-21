@@ -17,7 +17,7 @@ const AddStockContainer: React.FunctionComponent<AddStockContainerProps> = () =>
 	const { currentUser, updateCurrentUser } = useContext(UserContext);
 	const [addNewUserStock] = useMutation(ADD_NEW_USER_STOCK, {
 		variables: {
-			userId: currentUser?.id,
+			userId: currentUser?._id,
 			symbol,
 			quantity,
 			score,

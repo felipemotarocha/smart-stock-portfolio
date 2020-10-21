@@ -1,5 +1,5 @@
 export type Stock = {
-	id: string;
+	_id: string;
 	name: string;
 	symbol: string;
 	price: number;

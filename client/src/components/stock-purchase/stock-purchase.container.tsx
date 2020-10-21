@@ -36,7 +36,7 @@ const StockPurchaseContainer: React.FunctionComponent<StockPurchaseContainerProp
 		if (symbol)
 			return addExistingUserStock({
 				variables: {
-					userId: currentUser?.id,
+					userId: currentUser?._id,
 					symbol,
 					quantity,
 				},

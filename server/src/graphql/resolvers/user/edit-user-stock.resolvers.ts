@@ -22,7 +22,7 @@ class EditUserStockResolver {
 		try {
 			const user = await User.findById(userId);
 			const stock = user!.stocks.find(
-				(stock) => stock.id!.toString() === stockId
+				(stock) => stock._id!.toString() === stockId
 			);
 
 			if (score) stock!.score = score;

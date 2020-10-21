@@ -45,7 +45,7 @@ const Stocks: React.FunctionComponent = () => {
 				{currentUser
 					? currentUser!.stocks.map((stock) => (
 							<StockItem
-								key={stock.id}
+								key={stock._id}
 								stock={stock}
 								editableStocks={editableStocks}
 							/>

@@ -3,13 +3,21 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"scripts": {
-		"dev": "nodemon --watch src/ --exec \"ts-node src/index.ts\" -e ts",
-		"start": "ts-node index.ts"
-	},
 	"keywords": [],
 	"author": "Felipe Rocha",
 	"license": "MIT",
+	"scripts": {
+		"dev": "nodemon --watch src/ --exec \"ts-node src/index.ts\" -e ts",
+		"test": "env-cmd -f ./test.env jest --watch",
+		"start": "node dist/index.js",
+		"postinstall": "tsc && mv -i -v build dist/ && mv -i -v .env dist/"
+	},
+	"jest": {
+		"testEnvironment": "node"
+	},
+	"engines": {
+		"node": "12.18.2"
+	},
 	"dependencies": {
 		"@types/bcryptjs": "^2.4.2",
 		"@types/express": "^4.17.8",

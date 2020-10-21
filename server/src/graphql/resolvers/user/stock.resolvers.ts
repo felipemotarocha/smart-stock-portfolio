@@ -1,16 +1,16 @@
-import { ApolloError } from "apollo-server-express";
-import { Arg, FieldResolver, Resolver, Root } from "type-graphql";
+import { ApolloError } from 'apollo-server-express';
+import { Arg, FieldResolver, Resolver, Root } from 'type-graphql';
 
-import UserType from "../../../graphql/types/user.types";
-import StockType from "../../../graphql/types/stock.types";
+import UserType from '../../../graphql/types/user.types';
+import StockType from '../../../graphql/types/stock.types';
 
 @Resolver((_of) => UserType)
 class StockResolver {
-    @FieldResolver(() => StockType)
-	async stock(@Root() user: UserType, @Arg('id') id: string) {
+	@FieldResolver(() => StockType)
+	async stock(@Root() user: UserType, @Arg('_id') _id: string) {
 		try {
 			const stock = (user as any)._doc.stocks.find(
-				(stock: StockType) => stock.id.toString() === id
+				(stock: StockType) => stock._id.toString() === _id
 			);
 			if (!stock) return new ApolloError('This stock was not found.');
 

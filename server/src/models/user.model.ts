@@ -10,7 +10,7 @@ export interface IUser extends Document {
 	investedBalance: number;
 	totalBalance: number;
 	stocks: {
-		id?: string;
+		_id?: string;
 		name: string;
 		symbol: string;
 		price: number;

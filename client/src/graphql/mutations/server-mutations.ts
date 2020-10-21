@@ -4,7 +4,7 @@ export const LOGIN_WITH_CREDENTIALS = gql`
 	mutation LoginUser($email: String!, $password: String!) {
 		loginWithCredentials(email: $email, password: $password) {
 			user {
-				id
+				_id
 				name
 				email
 				password
@@ -12,7 +12,7 @@ export const LOGIN_WITH_CREDENTIALS = gql`
 				availableBalance
 				totalBalance
 				stocks(sortBy: "totalInvestedAdjustment") {
-					id
+					_id
 					name
 					symbol
 					price
@@ -43,7 +43,7 @@ export const LOGIN_WITH_GOOGLE = gql`
 	) {
 		loginWithGoogle(email: $email, name: $name, googleId: $googleId) {
 			user {
-				id
+				_id
 				name
 				email
 				password
@@ -51,7 +51,7 @@ export const LOGIN_WITH_GOOGLE = gql`
 				availableBalance
 				totalBalance
 				stocks(sortBy: "totalInvestedAdjustment") {
-					id
+					_id
 					name
 					symbol
 					price
@@ -78,7 +78,7 @@ export const REGISTER = gql`
 	mutation Register($name: String!, $email: String!, $password: String!) {
 		register(name: $name, email: $email, password: $password) {
 			user {
-				id
+				_id
 				name
 				email
 				password
@@ -86,7 +86,7 @@ export const REGISTER = gql`
 				availableBalance
 				totalBalance
 				stocks(sortBy: "totalInvestedAdjustment") {
-					id
+					_id
 					name
 					symbol
 					price
@@ -111,14 +111,14 @@ export const REGISTER = gql`
 
 export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 	mutation ChangeUserAvailableBalance(
-		$id: String!
+		$_id: String!
 		$newAvailableBalance: Float!
 	) {
 		changeUserAvailableBalance(
-			id: $id
+			_id: $_id
 			newAvailableBalance: $newAvailableBalance
 		) {
-			id
+			_id
 			name
 			email
 			password
@@ -126,7 +126,7 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			availableBalance
 			totalBalance
 			stocks(sortBy: "totalInvestedAdjustment") {
-				id
+				_id
 				name
 				symbol
 				price
@@ -160,7 +160,7 @@ export const ADD_NEW_USER_STOCK = gql`
 			quantity: $quantity
 			score: $score
 		) {
-			id
+			_id
 			name
 			email
 			password
@@ -168,7 +168,7 @@ export const ADD_NEW_USER_STOCK = gql`
 			availableBalance
 			totalBalance
 			stocks(sortBy: "totalInvestedAdjustment") {
-				id
+				_id
 				name
 				symbol
 				price
@@ -200,7 +200,7 @@ export const ADD_EXISTING_USER_STOCK = gql`
 			symbol: $symbol
 			quantity: $quantity
 		) {
-			id
+			_id
 			name
 			email
 			password
@@ -208,7 +208,7 @@ export const ADD_EXISTING_USER_STOCK = gql`
 			availableBalance
 			totalBalance
 			stocks(sortBy: "totalInvestedAdjustment") {
-				id
+				_id
 				name
 				symbol
 				price
@@ -242,14 +242,14 @@ export const EDIT_USER_STOCK = gql`
 			score: $score
 			quantity: $quantity
 		) {
-			id
+			_id
 			name
 			email
 			investedBalance
 			availableBalance
 			totalBalance
 			stocks(sortBy: "totalInvestedAdjustment") {
-				id
+				_id
 				name
 				symbol
 				price
@@ -273,14 +273,14 @@ export const EDIT_USER_STOCK = gql`
 export const DELETE_USER_STOCK = gql`
 	mutation deleteUserStock($userId: String!, $stockId: String!) {
 		deleteUserStock(userId: $userId, stockId: $stockId) {
-			id
+			_id
 			name
 			email
 			investedBalance
 			availableBalance
 			totalBalance
 			stocks(sortBy: "totalInvestedAdjustment") {
-				id
+				_id
 				name
 				symbol
 				price

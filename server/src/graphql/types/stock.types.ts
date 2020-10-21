@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 export type StockData = {
-	id: string;
+	_id: string;
 	symbol: string;
 	name: string;
 	region: string;
@@ -20,7 +20,7 @@ export type StockData = {
 @ObjectType()
 class StockType {
 	@Field()
-	id: string;
+	_id: string;
 
 	@Field()
 	name: string;

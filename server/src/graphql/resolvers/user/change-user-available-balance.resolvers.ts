@@ -12,11 +12,11 @@ import {
 class ChangeUserAvailableBalanceResolver {
 	@Mutation(() => UserType)
 	async changeUserAvailableBalance(
-		@Arg('id') id: string,
+		@Arg('_id') _id: string,
 		@Arg('newAvailableBalance') newAvailableBalance: number
 	) {
 		try {
-			const user = await User.findById(id);
+			const user = await User.findById(_id);
 
 			user!.availableBalance = +newAvailableBalance.toFixed(2);
 			calculateUserBalances(user!);

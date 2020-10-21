@@ -13,14 +13,14 @@ import {
 class DeleteUserStockResolver {
 	@Mutation(() => UserType)
 	async deleteUserStock(
-		@Arg('userId') id: string,
+		@Arg('userId') userId: string,
 		@Arg('stockId') stockId: string
 	) {
 		try {
-			const user = await User.findById(id);
+			const user = await User.findById(userId);
 			if (!user) return new ApolloError('User not found.');
 
-			user.stocks = user.stocks.filter((stock) => stock.id !== stockId);
+			user.stocks = user.stocks.filter((stock) => stock._id !== stockId);
 
 			calculateUserBalances(user);
 			calculateUserStocksPercentagesOfThePortfolio(user);
