@@ -43,12 +43,12 @@ yarn install
 Create a `.env` file in the `root` directory with the following values:
 
 ```
-DB_PASSWORD=YOUR_DATABASE_PASSWORD
+MONGODB_URL=YOUR_MONGODB_URL
 HG_FINANCE_KEY=YOUR_HG_FINANCE_KEY
 JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
 ```
 
-## Getting Your Database Password 🔑
+## Getting Your MongoDB Database URL 🔑
 
 Go to the [MongoDB Atlas official website](https://www.mongodb.com/cloud/atlas 'MongoDB Atlas official website'), sign in to your account and create a new project:
 
@@ -58,7 +58,11 @@ After setting a name to it, **build a new Cluster**, choose the free plan and th
 
 ![Connect to Cluster](https://imgur.com/aTC3j2M.png)
 
-Put your IP Address (in this case the address '0.0.0.0/0' will allow every IP to connect with the database) and create your database user. Use the password you entered in your database user as the `DB_PASSWORD` environment variable.
+Put your IP Address (in this case the address '0.0.0.0/0' will allow every IP to connect with the database) and create your database user.
+
+Now go to **"Chose a connection method"**, select the **"Connect your application"** option, copy your **connection string** and paste it in the .env file, following the structions to replace the `<password>` and the `<dbname>` values with your user password and the name you want to give to the database:
+
+![Connecting to the application](https://imgur.com/DKDOJvO.png)
 
 ## Getting Your HG Finance API Key 🔑
 

@@ -64,9 +64,10 @@ export const calculateUserStocksIdealsAndAdjustments = (user: IUser) => {
 		stock['idealPercentageOfThePortfolio'] =
 			Math.round(idealPercentageOfThePortfolio * 100 * 100) / 100;
 
-		let idealTotalInvested =
+			let idealTotalInvested =
 			(stock.idealPercentageOfThePortfolio / 100) * user.totalBalance;
 		stock['idealTotalInvested'] = +idealTotalInvested.toFixed(2);
+		
 
 		let idealQuantity = stock.idealTotalInvested / stock.price;
 		stock['idealQuantity']! = Math.round(idealQuantity);
