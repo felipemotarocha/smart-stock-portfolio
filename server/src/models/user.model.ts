@@ -14,8 +14,8 @@ export interface IUser extends Document {
 		name: string;
 		symbol: string;
 		price: number;
-		marketCap: number;
-		changePercent: number;
+		marketCap?: number;
+		changePercent?: number;
 		updatedAt: Date;
 		quantity?: number;
 		totalInvested?: number;
@@ -69,11 +69,20 @@ const userSchema: Schema = new Schema({
 			name: String,
 			symbol: String,
 			price: Number,
-			marketCap: Number,
-			changePercent: Number,
+			marketCap: {
+				type: Number,
+				default: 0,
+			},
+			changePercent: {
+				type: Number,
+				default: 0,
+			},
 			updatedAt: Date,
 			quantity: Number,
-			totalInvested: Number,
+			totalInvested: {
+				type: Number,
+				default: 0,
+			},
 			percentageOfThePortfolio: {
 				type: Number,
 				default: 0,
@@ -81,12 +90,27 @@ const userSchema: Schema = new Schema({
 
 			score: Number,
 
-			idealTotalInvested: Number,
-			idealPercentageOfThePortfolio: Number,
-			idealQuantity: Number,
+			idealTotalInvested: {
+				type: Number,
+				default: 0,
+			},
+			idealPercentageOfThePortfolio: {
+				type: Number,
+				default: 0,
+			},
+			idealQuantity: {
+				type: Number,
+				default: 0,
+			},
 
-			quantityAdjustment: Number,
-			totalInvestedAdjustment: Number,
+			quantityAdjustment: {
+				type: Number,
+				default: 0,
+			},
+			totalInvestedAdjustment: {
+				type: Number,
+				default: 0,
+			},
 
 			status: String,
 		},

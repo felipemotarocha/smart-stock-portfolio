@@ -37,7 +37,10 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 	});
 	const [deleteUserStock] = useMutation(DELETE_USER_STOCK, {
 		variables: { userId: currentUser?._id, stockId: stock._id },
-		onCompleted: ({ deleteUserStock: user }) => updateCurrentUser(user),
+		onCompleted: ({ deleteUserStock: user }) => {
+			console.log(user);
+			updateCurrentUser(user);
+		},
 	});
 
 	const handleQuantityChange = (value: string | number | undefined) => {

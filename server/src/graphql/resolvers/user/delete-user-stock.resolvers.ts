@@ -20,7 +20,9 @@ class DeleteUserStockResolver {
 			const user = await User.findById(userId);
 			if (!user) return new ApolloError('User not found.');
 
-			user.stocks = user.stocks.filter((stock) => stock._id !== stockId);
+			user.stocks = user.stocks.filter(
+				(stock) => stock._id?.toString() !== stockId
+			);
 
 			calculateUserBalances(user);
 			calculateUserStocksPercentagesOfThePortfolio(user);
