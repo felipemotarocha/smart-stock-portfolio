@@ -26,7 +26,7 @@ class EditUserStockResolver {
 			);
 
 			if (score) stock!.score = score;
-			if (quantity) stock!.quantity = quantity;
+			if (quantity >= 0) stock!.quantity = quantity;
 
 			calculateUserStocksTotalInvested(user!);
 			calculateUserBalances(user!);

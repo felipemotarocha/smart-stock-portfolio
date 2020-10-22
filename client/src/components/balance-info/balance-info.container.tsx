@@ -37,7 +37,7 @@ const BalanceInfoContainer: React.FunctionComponent<BalanceInfoContainerProps> =
 	const handleSubmit = () => {
 		changeUserAvailableBalance({
 			variables: {
-				id: currentUser!._id,
+				_id: currentUser!._id,
 				newAvailableBalance: availableBalanceInput,
 			},
 		});
