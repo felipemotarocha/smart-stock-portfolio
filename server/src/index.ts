@@ -6,6 +6,7 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
 import { buildSchema } from 'type-graphql';
+import path from 'path';
 
 import resolvers from './graphql/resolvers/resolvers.index';
 
@@ -22,9 +23,17 @@ const main = async () => {
 	const app = express();
 	app.use(cors());
 
-	apolloServer.applyMiddleware({ app });
+	// SPA
+	app.use(express.static(path.join(__dirname, "build")));
 
-	app.listen(4000, () => console.log('listening on port 4000'));
+	app.get("*", function (_req, res) {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+	apolloServer.applyMiddleware({ app });
+	
+	const port = process.env.PORT || 4000;
+	app.listen(port, () => console.log(`listening on port ${port}`));
 };
 
 main();

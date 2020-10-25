@@ -98,7 +98,10 @@ Create a `.env` file in the `root` directory with the following values:
 
 ```
 REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+REACT_APP_GRAPHQL_API_URL=http://localhost:4000
 ```
+
+You can change the `REACT_APP_GRAPHQL_API_URL` if your API URL is different or if you want to deploy the application. By default, the Shares Rebalancing API is under the port 4000.
 
 ## How To Get Your Google Client ID 🔑
 
