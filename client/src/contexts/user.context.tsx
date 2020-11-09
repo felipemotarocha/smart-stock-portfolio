@@ -1,19 +1,20 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { message } from 'antd';
-import * as React from 'react';
-import { createContext, ReactNode, useState } from 'react';
-import { GoogleLoginResponse } from 'react-google-login';
+import { useMutation, useQuery } from "@apollo/client";
+import { message } from "antd";
+import * as React from "react";
+import { createContext, ReactNode, useState } from "react";
+import { GoogleLoginResponse } from "react-google-login";
+import { GUEST_USER, GuestUser } from "../constants/user.constants";
 
 import {
 	LOGIN_WITH_CREDENTIALS,
 	LOGIN_WITH_GOOGLE,
 	REGISTER,
-} from '../graphql/mutations/server-mutations';
-import { GET_USER_PROFILE } from '../graphql/queries/server-queries';
-import { User } from '../helpers/types/user.types';
+} from "../graphql/mutations/server-mutations";
+import { GET_USER_PROFILE } from "../graphql/queries/server-queries";
+import { User } from "../helpers/types/user.types";
 
 interface ContextProps {
-	currentUser: User | null;
+	currentUser: User | GuestUser;
 	loginWithCredentials: (
 		email: string,
 		password: string
@@ -35,7 +36,7 @@ interface ContextProps {
 }
 
 export const UserContext = createContext<ContextProps>({
-	currentUser: null,
+	currentUser: GUEST_USER,
 	loginWithCredentials: () => {},
 	loginWithGoogle: () => {},
 	register: () => {},
@@ -54,7 +55,7 @@ export interface UserContextProviderProps {
 const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = ({
 	children,
 }) => {
-	const [currentUser, setCurrentUser] = useState<User | null>(null);
+	const [currentUser, setCurrentUser] = useState<User | GuestUser>(GUEST_USER);
 	const [editableStocks, setEditableStocks] = useState(false);
 	const [loading, setLoading] = useState(true);
 
@@ -83,7 +84,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			});
 
 			setCurrentUser(user);
-			localStorage.setItem('authToken', authToken);
+			localStorage.setItem("authToken", authToken);
 		} catch (err) {
 			message.error(err.message);
 		}
@@ -103,7 +104,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			});
 
 			setCurrentUser(user);
-			localStorage.setItem('authToken', authToken);
+			localStorage.setItem("authToken", authToken);
 		} catch (err) {
 			message.error(err.message);
 		}
@@ -120,15 +121,15 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			});
 
 			setCurrentUser(user);
-			localStorage.setItem('authToken', authToken);
+			localStorage.setItem("authToken", authToken);
 		} catch (err) {
 			message.error(err.message);
 		}
 	};
 
 	const logout = () => {
-		localStorage.removeItem('authToken');
-		setCurrentUser(null);
+		localStorage.removeItem("authToken");
+		setCurrentUser(GUEST_USER);
 	};
 
 	const checkUserSession = async () => {
@@ -141,7 +142,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			setLoading(false);
 		} catch (err) {
 			setLoading(false);
-			setCurrentUser(null);
+			setCurrentUser(GUEST_USER);
 		}
 	};
 
