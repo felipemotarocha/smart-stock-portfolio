@@ -6,7 +6,12 @@ import GoogleLogin, {
 } from "react-google-login";
 import { Button } from "antd";
 import { useHistory } from "react-router-dom";
-import { GoogleOutlined } from "@ant-design/icons";
+import {
+	GoogleOutlined,
+	LoginOutlined,
+	UserAddOutlined,
+	UserOutlined,
+} from "@ant-design/icons";
 
 import { Container, Content } from "./login.styles";
 import { UserContext } from "../../contexts/user.context";
@@ -20,13 +25,16 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { loginWithCredentials, loginWithGoogle, currentUser } = useContext(
-		UserContext
-	);
+	const {
+		loginWithCredentials,
+		loginWithGoogle,
+		loginAsGuest,
+		currentUser,
+	} = useContext(UserContext);
 	const history = useHistory();
 
 	useEffect(() => {
-		if (currentUser && !currentUser.guest) history.push("/");
+		if (currentUser) history.push("/");
 	}, [currentUser, history]);
 
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +55,10 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 		loginWithGoogle(response as GoogleLoginResponse);
 	};
 
+	const handleLoginAsGuest = () => {
+		loginAsGuest();
+	};
+
 	const handleCreateAnAccount = () => {
 		history.push("/register");
 	};
@@ -65,9 +77,20 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 					placeholder="Password"
 					onChange={handlePasswordChange}
 				/>
-				<Button type="primary" onClick={handleLoginWithCredentials}>
+				<Button
+					type="primary"
+					onClick={handleLoginWithCredentials}
+					icon={<LoginOutlined />}
+				>
 					Login
 				</Button>
+				<CustomButton
+					type="primary"
+					onClick={handleLoginAsGuest}
+					icon={<UserOutlined />}
+				>
+					Login as guest (without creating an account)
+				</CustomButton>
 				<GoogleLogin
 					clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
 					buttonText="Login"
@@ -79,10 +102,12 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
 						</Button>
 					)}
 				/>
+
 				<CustomButton
 					type="primary"
 					outlined={true}
 					onClick={handleCreateAnAccount}
+					icon={<UserAddOutlined />}
 				>
 					Create an account
 				</CustomButton>

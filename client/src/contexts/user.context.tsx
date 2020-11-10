@@ -3,20 +3,19 @@ import { message } from "antd";
 import * as React from "react";
 import { createContext, ReactNode, useState } from "react";
 import { GoogleLoginResponse } from "react-google-login";
-import { GUEST_USER, GuestUser } from "../constants/user.constants";
 
 import {
 	DELETE_GUEST_USER,
 	LOGIN_WITH_CREDENTIALS,
 	LOGIN_WITH_GOOGLE,
 	REGISTER,
-	REGISTER_GUEST,
+	LOGIN_GUEST,
 } from "../graphql/mutations/server-mutations";
 import { GET_USER_PROFILE } from "../graphql/queries/server-queries";
 import { User } from "../helpers/types/user.types";
 
 interface ContextProps {
-	currentUser: User | GuestUser;
+	currentUser: User | null;
 	loginWithCredentials: (
 		email: string,
 		password: string
@@ -29,6 +28,7 @@ interface ContextProps {
 		email: string,
 		password: string
 	) => Promise<void> | void;
+	loginAsGuest: () => Promise<void> | void;
 	logout: () => void;
 	deleteGuestUser: () => void;
 	checkUserSession: () => Promise<void> | void;
@@ -39,9 +39,10 @@ interface ContextProps {
 }
 
 export const UserContext = createContext<ContextProps>({
-	currentUser: GUEST_USER,
+	currentUser: null,
 	loginWithCredentials: () => {},
 	loginWithGoogle: () => {},
+	loginAsGuest: () => {},
 	register: () => {},
 	logout: () => {},
 	deleteGuestUser: () => {},
@@ -59,7 +60,7 @@ export interface UserContextProviderProps {
 const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = ({
 	children,
 }) => {
-	const [currentUser, setCurrentUser] = useState<User | GuestUser>(GUEST_USER);
+	const [currentUser, setCurrentUser] = useState<User | null>(null);
 	const [editableStocks, setEditableStocks] = useState(false);
 	const [loading, setLoading] = useState(true);
 
@@ -75,9 +76,11 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		onCompleted: ({ register: { user } }) =>
 			message.success(`Welcome, ${user.name}!`),
 	});
-	const [registerGuestMutation] = useMutation(REGISTER_GUEST);
+	const [loginGuestMutation] = useMutation(LOGIN_GUEST, {
+		onCompleted: () => message.success(`You successfully entered as a guest!`),
+	});
 	const [deleteGuestUserMutation] = useMutation(DELETE_GUEST_USER, {
-		variables: { guestId: currentUser._id },
+		variables: { guestId: currentUser?._id },
 	});
 	const { refetch } = useQuery(GET_USER_PROFILE);
 
@@ -118,6 +121,21 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		}
 	};
 
+	const loginAsGuest = async () => {
+		try {
+			const {
+				data: {
+					loginGuest: { user, authToken },
+				},
+			} = await loginGuestMutation();
+			setCurrentUser(user);
+
+			localStorage.setItem("authToken", authToken);
+		} catch (err) {
+			message.error(err.message);
+		}
+	};
+
 	const register = async (name: string, email: string, password: string) => {
 		try {
 			const {
@@ -135,9 +153,14 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		}
 	};
 
-	const logout = () => {
-		localStorage.removeItem("authToken");
-		setCurrentUser(GUEST_USER);
+	const logout = async () => {
+		try {
+			if (currentUser?.guest) await deleteGuestUserMutation();
+			localStorage.removeItem("authToken");
+			setCurrentUser(null);
+		} catch (err) {
+			message.error(err.message);
+		}
 	};
 
 	const checkUserSession = async () => {
@@ -147,19 +170,12 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 			const {
 				data: { me: user },
 			} = await refetch();
-			console.log(user);
-			if (user) setCurrentUser(user);
 
+			if (user) setCurrentUser(user);
 			setLoading(false);
 		} catch (err) {
-			const {
-				data: {
-					registerGuest: { user, authToken },
-				},
-			} = await registerGuestMutation();
-			setCurrentUser(user);
-			localStorage.setItem("authToken", authToken);
-
+			setCurrentUser(null);
+			localStorage.removeItem("authToken");
 			setLoading(false);
 		}
 	};
@@ -178,6 +194,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 				currentUser,
 				loginWithCredentials,
 				loginWithGoogle,
+				loginAsGuest,
 				register,
 				logout,
 				deleteGuestUser,

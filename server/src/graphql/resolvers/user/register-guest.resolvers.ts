@@ -9,9 +9,9 @@ import { generateAuthToken } from "../../../helpers/user.helpers";
 @Resolver()
 class RegisterGuestResolver {
 	@Mutation(() => LoginAndRegisterResponseTypes)
-	async registerGuest() {
+	async loginGuest() {
 		try {
-			const user = new User({ guest: true });
+			const user = new User({ name: "Guest", guest: true });
 			await user.save();
 
 			return {

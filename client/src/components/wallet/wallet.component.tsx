@@ -33,7 +33,7 @@ const Wallet: React.FunctionComponent<WalletProps> = () => {
 			<Content>
 				<Headline>My Wallet</Headline>
 				<Buttons>
-					{!currentUser.guest ? (
+					{currentUser ? (
 						<ButtonsContent>
 							<p>{currentUser.name}</p>
 							<Button type="primary" onClick={logout}>

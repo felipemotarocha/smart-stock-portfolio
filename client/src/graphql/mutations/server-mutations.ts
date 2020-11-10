@@ -5,6 +5,7 @@ export const LOGIN_WITH_CREDENTIALS = gql`
 		loginWithCredentials(email: $email, password: $password) {
 			user {
 				_id
+				guest
 				name
 				email
 				password
@@ -44,6 +45,7 @@ export const LOGIN_WITH_GOOGLE = gql`
 		loginWithGoogle(email: $email, name: $name, googleId: $googleId) {
 			user {
 				_id
+				guest
 				name
 				email
 				password
@@ -79,6 +81,7 @@ export const REGISTER = gql`
 		register(name: $name, email: $email, password: $password) {
 			user {
 				_id
+				guest
 				name
 				email
 				password
@@ -109,12 +112,13 @@ export const REGISTER = gql`
 	}
 `;
 
-export const REGISTER_GUEST = gql`
-	mutation RegisterGuest {
-		registerGuest {
+export const LOGIN_GUEST = gql`
+	mutation loginGuest {
+		loginGuest {
 			user {
 				_id
 				guest
+				name
 				investedBalance
 				availableBalance
 				totalBalance
@@ -145,10 +149,8 @@ export const REGISTER_GUEST = gql`
 export const DELETE_GUEST_USER = gql`
 	mutation DeleteGuestUser($guestId: String!) {
 		deleteGuestUser(guestId: $guestId) {
-			user {
-				_id
-				guest
-			}
+			_id
+			guest
 		}
 	}
 `;
@@ -163,6 +165,7 @@ export const CHANGE_USER_AVAILABLE_BALANCE = gql`
 			newAvailableBalance: $newAvailableBalance
 		) {
 			_id
+			guest
 			name
 			email
 			password
@@ -205,6 +208,7 @@ export const ADD_NEW_USER_STOCK = gql`
 			score: $score
 		) {
 			_id
+			guest
 			name
 			email
 			password
@@ -245,6 +249,7 @@ export const ADD_EXISTING_USER_STOCK = gql`
 			quantity: $quantity
 		) {
 			_id
+			guest
 			name
 			email
 			password
@@ -287,6 +292,7 @@ export const EDIT_USER_STOCK = gql`
 			quantity: $quantity
 		) {
 			_id
+			guest
 			name
 			email
 			investedBalance
@@ -318,6 +324,7 @@ export const DELETE_USER_STOCK = gql`
 	mutation deleteUserStock($userId: String!, $stockId: String!) {
 		deleteUserStock(userId: $userId, stockId: $stockId) {
 			_id
+			guest
 			name
 			email
 			investedBalance

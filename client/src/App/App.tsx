@@ -8,39 +8,16 @@ import LoginPage from "../pages/login/login.page";
 import RegisterPage from "../pages/register/register.component";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/user.context";
+import Authenticated from "../components/authenticated/authenticated.component";
 
 export interface AppProps {}
 
 const App: React.FunctionComponent<AppProps> = () => {
-	const { checkUserSession, currentUser, deleteGuestUser } = useContext(
-		UserContext
-	);
-
-	window.addEventListener("beforeunload", (ev) => {
-		ev.preventDefault();
-		console.log(currentUser);
-		if (currentUser.guest) {
-			deleteGuestUser();
-			localStorage.removeItem("authToken");
-		}
-	});
+	const { checkUserSession } = useContext(UserContext);
 
 	useEffect(() => {
 		checkUserSession();
-		console.log("running");
-		const updateGuestUser = () => {
-			if (currentUser.guest) {
-				deleteGuestUser();
-				localStorage.removeItem("authToken");
-			}
-		};
-
-		window.addEventListener("beforeunload", (ev) => {
-			ev.preventDefault();
-			updateGuestUser();
-		});
-
-		return () => window.removeEventListener("beforeunload", updateGuestUser);
+		// eslint-disable-next-line
 	}, []);
 
 	return (
@@ -54,7 +31,9 @@ const App: React.FunctionComponent<AppProps> = () => {
 				</Route>
 
 				<Route exact path="/">
-					<HomePage />
+					<Authenticated>
+						<HomePage />
+					</Authenticated>
 				</Route>
 			</Switch>
 		</Router>

@@ -8,6 +8,7 @@ import { Container, Content } from "./register.styles";
 
 import { CustomInput } from "../../components/custom-input/custom-input.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import { LoginOutlined, UserAddOutlined } from "@ant-design/icons";
 
 export interface RegisterPageProps {}
 
@@ -53,9 +54,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 	return (
 		<Container>
 			<Content>
-				<h1>
-					Register to create your portfolio. We will help you to balance it.
-				</h1>
+				<h1>Create your account and make your stock portfolio smart.</h1>
 				<CustomInput
 					placeholder="Name"
 					type="primary"
@@ -71,10 +70,19 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = () => {
 					placeholder="Password"
 					onChange={handlePasswordChange}
 				/>
-				<Button type="primary" onClick={handleSubmit}>
+				<Button
+					type="primary"
+					onClick={handleSubmit}
+					icon={<UserAddOutlined />}
+				>
 					Register
 				</Button>
-				<CustomButton type="primary" outlined onClick={handleLoginClick}>
+				<CustomButton
+					type="primary"
+					outlined
+					onClick={handleLoginClick}
+					icon={<LoginOutlined />}
+				>
 					I already have an account
 				</CustomButton>
 			</Content>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
 	height: 100vh;
@@ -26,6 +26,10 @@ export const Content = styled.div`
 	}
 
 	button:nth-child(5) {
+		margin-top: 1rem;
+	}
+
+	button:nth-child(6) {
 		margin: 1rem 0;
 	}
 `;
