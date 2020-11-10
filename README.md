@@ -1,4 +1,4 @@
-# Shares Rebalancing 💰
+# Smart Stock Portfolio 💰
 
 > Web application that balance your stock portfolio based on the score that you give for each one.
 
@@ -50,7 +50,7 @@ JWT_SECRET_KEY=YOUR_JWT_SECRET_KEY
 
 ## Getting Your MongoDB Database URL 🔑
 
-Go to the [MongoDB Atlas official website](https://www.mongodb.com/cloud/atlas 'MongoDB Atlas official website'), sign in to your account and create a new project:
+Go to the [MongoDB Atlas official website](https://www.mongodb.com/cloud/atlas "MongoDB Atlas official website"), sign in to your account and create a new project:
 
 ![MongoDB Website](https://imgur.com/6MBTnxM.png)
 
@@ -66,7 +66,7 @@ Now go to **"Chose a connection method"**, select the **"Connect your applicatio
 
 ## Getting Your HG Finance API Key 🔑
 
-Go to the [HG Finance official website](https://hgbrasil.com 'HG Finance official website') and sign in to your account. Go to the **"Keys"** section and choose the free plan.
+Go to the [HG Finance official website](https://hgbrasil.com "HG Finance official website") and sign in to your account. Go to the **"Keys"** section and choose the free plan.
 
 ![HG Finance Website](https://imgur.com/a7p6sQs.png)
 
@@ -101,11 +101,11 @@ REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 REACT_APP_GRAPHQL_API_URL=http://localhost:4000
 ```
 
-You can change the `REACT_APP_GRAPHQL_API_URL` if your API URL is different or if you want to deploy the application. By default, the Shares Rebalancing API is under the port 4000.
+You can change the `REACT_APP_GRAPHQL_API_URL` if your API URL is different or if you want to deploy the application. By default, the Smart Stock Portfolio API is under the port 4000.
 
 ## How To Get Your Google Client ID 🔑
 
-Read the official Google OAuth Documentation clicking [here](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid 'Google OAuth Documentation') to know how you can get yours. Don't forget to add the URL of the application (i.e http://localhost:3000) to the **Authorized JavaScript origins**.
+Read the official Google OAuth Documentation clicking [here](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid "Google OAuth Documentation") to know how you can get yours. Don't forget to add the URL of the application (i.e http://localhost:3000) to the **Authorized JavaScript origins**.
 
 ## Running the server 🚀
 
@@ -117,7 +117,7 @@ yarn start
 
 ## Author
 
-Felipe Rocha [@dicasparadevs](https://instagram.com/dicasparadevs 'dicasparadevs Instagram').
+Felipe Rocha [@dicasparadevs](https://instagram.com/dicasparadevs "dicasparadevs Instagram").
 
 ## Version
 
