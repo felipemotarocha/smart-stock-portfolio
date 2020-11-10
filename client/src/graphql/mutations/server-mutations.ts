@@ -146,9 +146,9 @@ export const LOGIN_GUEST = gql`
 	}
 `;
 
-export const DELETE_GUEST_USER = gql`
+export const DELETE_GUEST = gql`
 	mutation DeleteGuestUser($guestId: String!) {
-		deleteGuestUser(guestId: $guestId) {
+		deleteGuest(guestId: $guestId) {
 			_id
 			guest
 		}

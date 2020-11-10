@@ -5,7 +5,7 @@ import { createContext, ReactNode, useState } from "react";
 import { GoogleLoginResponse } from "react-google-login";
 
 import {
-	DELETE_GUEST_USER,
+	DELETE_GUEST,
 	LOGIN_WITH_CREDENTIALS,
 	LOGIN_WITH_GOOGLE,
 	REGISTER,
@@ -30,7 +30,7 @@ interface ContextProps {
 	) => Promise<void> | void;
 	loginAsGuest: () => Promise<void> | void;
 	logout: () => void;
-	deleteGuestUser: () => void;
+	deleteGuest: () => void;
 	checkUserSession: () => Promise<void> | void;
 	updateCurrentUser: (user: User) => Promise<void> | void;
 	editableStocks: boolean;
@@ -45,7 +45,7 @@ export const UserContext = createContext<ContextProps>({
 	loginAsGuest: () => {},
 	register: () => {},
 	logout: () => {},
-	deleteGuestUser: () => {},
+	deleteGuest: () => {},
 	checkUserSession: () => {},
 	updateCurrentUser: () => {},
 	editableStocks: false,
@@ -79,7 +79,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	const [loginGuestMutation] = useMutation(LOGIN_GUEST, {
 		onCompleted: () => message.success(`You successfully entered as a guest!`),
 	});
-	const [deleteGuestUserMutation] = useMutation(DELETE_GUEST_USER, {
+	const [deleteGuestMutation] = useMutation(DELETE_GUEST, {
 		variables: { guestId: currentUser?._id },
 	});
 	const { refetch } = useQuery(GET_USER_PROFILE);
@@ -155,7 +155,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 
 	const logout = async () => {
 		try {
-			if (currentUser?.guest) await deleteGuestUserMutation();
+			if (currentUser?.guest) await deleteGuestMutation();
 			localStorage.removeItem("authToken");
 			setCurrentUser(null);
 		} catch (err) {
@@ -180,8 +180,8 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 		}
 	};
 
-	const deleteGuestUser = () => {
-		deleteGuestUserMutation();
+	const deleteGuest = () => {
+		deleteGuestMutation();
 	};
 
 	const updateCurrentUser = async (user: User) => {
@@ -197,7 +197,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 				loginAsGuest,
 				register,
 				logout,
-				deleteGuestUser,
+				deleteGuest,
 				checkUserSession,
 				updateCurrentUser,
 				editableStocks,

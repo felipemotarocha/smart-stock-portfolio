@@ -8,7 +8,7 @@ import UserType from "../../../graphql/types/user.types";
 @Resolver()
 class DeleteGuestUserResolver {
 	@Mutation(() => UserType)
-	async deleteGuestUser(@Arg("guestId") guestId: string) {
+	async deleteGuest(@Arg("guestId") guestId: string) {
 		try {
 			const user = await User.findByIdAndDelete(guestId);
 
