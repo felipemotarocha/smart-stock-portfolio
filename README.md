@@ -1,4 +1,4 @@
-# Smart Stock Portfolio 💰
+# 💵 Smart Stock Portfolio 💵
 
 > Web application that balance your stock portfolio based on the score that you give for each one.
 
