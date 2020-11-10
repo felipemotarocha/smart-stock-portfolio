@@ -6,9 +6,11 @@ import { GoogleLoginResponse } from "react-google-login";
 import { GUEST_USER, GuestUser } from "../constants/user.constants";
 
 import {
+	DELETE_GUEST_USER,
 	LOGIN_WITH_CREDENTIALS,
 	LOGIN_WITH_GOOGLE,
 	REGISTER,
+	REGISTER_GUEST,
 } from "../graphql/mutations/server-mutations";
 import { GET_USER_PROFILE } from "../graphql/queries/server-queries";
 import { User } from "../helpers/types/user.types";
@@ -28,6 +30,7 @@ interface ContextProps {
 		password: string
 	) => Promise<void> | void;
 	logout: () => void;
+	deleteGuestUser: () => void;
 	checkUserSession: () => Promise<void> | void;
 	updateCurrentUser: (user: User) => Promise<void> | void;
 	editableStocks: boolean;
@@ -41,6 +44,7 @@ export const UserContext = createContext<ContextProps>({
 	loginWithGoogle: () => {},
 	register: () => {},
 	logout: () => {},
+	deleteGuestUser: () => {},
 	checkUserSession: () => {},
 	updateCurrentUser: () => {},
 	editableStocks: false,
@@ -70,6 +74,10 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	const [registerMutation] = useMutation(REGISTER, {
 		onCompleted: ({ register: { user } }) =>
 			message.success(`Welcome, ${user.name}!`),
+	});
+	const [registerGuestMutation] = useMutation(REGISTER_GUEST);
+	const [deleteGuestUserMutation] = useMutation(DELETE_GUEST_USER, {
+		variables: { guestId: currentUser._id },
 	});
 	const { refetch } = useQuery(GET_USER_PROFILE);
 
@@ -135,15 +143,29 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 	const checkUserSession = async () => {
 		try {
 			setLoading(true);
+
 			const {
 				data: { me: user },
 			} = await refetch();
+			console.log(user);
 			if (user) setCurrentUser(user);
+
 			setLoading(false);
 		} catch (err) {
+			const {
+				data: {
+					registerGuest: { user, authToken },
+				},
+			} = await registerGuestMutation();
+			setCurrentUser(user);
+			localStorage.setItem("authToken", authToken);
+
 			setLoading(false);
-			setCurrentUser(GUEST_USER);
 		}
+	};
+
+	const deleteGuestUser = () => {
+		deleteGuestUserMutation();
 	};
 
 	const updateCurrentUser = async (user: User) => {
@@ -158,6 +180,7 @@ const UserContextProvider: React.FunctionComponent<UserContextProviderProps> = (
 				loginWithGoogle,
 				register,
 				logout,
+				deleteGuestUser,
 				checkUserSession,
 				updateCurrentUser,
 				editableStocks,

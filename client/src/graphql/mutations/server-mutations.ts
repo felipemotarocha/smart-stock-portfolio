@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_WITH_CREDENTIALS = gql`
 	mutation LoginUser($email: String!, $password: String!) {
@@ -105,6 +105,50 @@ export const REGISTER = gql`
 				}
 			}
 			authToken
+		}
+	}
+`;
+
+export const REGISTER_GUEST = gql`
+	mutation RegisterGuest {
+		registerGuest {
+			user {
+				_id
+				guest
+				investedBalance
+				availableBalance
+				totalBalance
+				stocks(sortBy: "totalInvestedAdjustment") {
+					_id
+					name
+					symbol
+					price
+					quantity
+					changePercent
+					percentageOfThePortfolio
+					totalInvested
+					updatedAt
+					score
+					idealPercentageOfThePortfolio
+					idealTotalInvested
+					idealQuantity
+					quantityAdjustment
+					totalInvestedAdjustment
+					status
+				}
+			}
+			authToken
+		}
+	}
+`;
+
+export const DELETE_GUEST_USER = gql`
+	mutation DeleteGuestUser($guestId: String!) {
+		deleteGuestUser(guestId: $guestId) {
+			user {
+				_id
+				guest
+			}
 		}
 	}
 `;

@@ -1,6 +1,6 @@
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID } from "type-graphql";
 
-import Stock from './stock.types';
+import Stock from "./stock.types";
 
 @ObjectType()
 class UserType {
@@ -8,9 +8,12 @@ class UserType {
 	_id: string;
 
 	@Field()
+	guest: boolean;
+
+	@Field({ nullable: true })
 	name: string;
 
-	@Field()
+	@Field({ nullable: true })
 	email: string;
 
 	@Field({ nullable: true })

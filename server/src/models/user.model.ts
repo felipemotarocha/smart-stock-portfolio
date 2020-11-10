@@ -1,9 +1,10 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model } from "mongoose";
 
 export interface IUser extends Document {
 	_id: string;
-	name: string;
-	email: string;
+	guest: boolean;
+	name?: string;
+	email?: string;
 	password?: string;
 	googleId?: string;
 	availableBalance: number;
@@ -26,24 +27,26 @@ export interface IUser extends Document {
 		idealQuantity?: number;
 		quantityAdjustment?: number;
 		totalInvestedAdjustment?: number;
-		status?: 'Wait' | 'Buy';
+		status?: "Wait" | "Buy";
 	}[];
 }
 
 export interface IRegisterUserInput {
-	name: IUser['name'];
-	email: IUser['email'];
-	password: IUser['password'];
+	name: IUser["name"];
+	email: IUser["email"];
+	password: IUser["password"];
 }
 
 const userSchema: Schema = new Schema({
+	guest: {
+		type: Boolean,
+		default: false,
+	},
 	name: {
 		type: String,
-		required: true,
 	},
 	email: {
 		type: String,
-		required: true,
 	},
 	password: {
 		type: String,
@@ -117,6 +120,6 @@ const userSchema: Schema = new Schema({
 	],
 });
 
-const User = model<IUser>('User', userSchema);
+const User = model<IUser>("User", userSchema);
 
 export default User;
