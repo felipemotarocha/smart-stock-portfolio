@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
 	width: 100%;
@@ -31,4 +31,15 @@ export const Content = styled.div`
 	display: flex;
 	flex-flow: wrap;
 	justify-content: space-between;
+`;
+
+export const NoStocksContainer = styled.div`
+	h2 {
+		color: #eee;
+		margin: 0;
+	}
+
+	span {
+		color: ${({ theme }) => theme.primaryBlue};
+	}
 `;
