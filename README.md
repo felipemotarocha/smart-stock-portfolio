@@ -1,8 +1,8 @@
 # 💵 Smart Stock Portfolio 💵
 
-> Web application that balance your stock portfolio based on the score that you give for each one.
+> Smart Stock Portfolio is a web application that balance your stock portfolio based on the score that you give for each one.
 
-I built this application because the task of balance my stock portfolio was, sometimes, pretty tough. With this app you just need to set a score for your stocks and it will do the rest for you. Stocks with higher scores will occupy more space in your portfolio and the stocks with lower scores will occupy less space.
+I built this application because the task of balance your stock portfolio can be, sometimes, pretty tough. With this app you just need to set a score for your stocks and it will do the rest for you. Stocks with higher scores will occupy more space in your portfolio and the stocks with lower scores will occupy less space.
 
 ![Home Page](https://imgur.com/Mf2Nv2t.png)
 _The **"Status"** field will tell you if you need to buy more of one stock or wait to buy it._
