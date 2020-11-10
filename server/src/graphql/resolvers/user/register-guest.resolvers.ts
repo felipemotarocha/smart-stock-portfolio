@@ -19,7 +19,6 @@ class RegisterGuestResolver {
 				authToken: generateAuthToken(user),
 			};
 		} catch (err) {
-			console.log(err.message);
 			return new ApolloError("Something went wrong.");
 		}
 	}

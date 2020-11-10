@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { useMutation } from '@apollo/client';
-import { message } from 'antd';
+import * as React from "react";
+import { useMutation } from "@apollo/client";
+import { message } from "antd";
 
-import { UserContext } from '../../contexts/user.context';
+import { UserContext } from "../../contexts/user.context";
 import {
 	EDIT_USER_STOCK,
 	DELETE_USER_STOCK,
-} from '../../graphql/mutations/server-mutations';
-import { Stock } from '../../helpers/types/stock.types';
+} from "../../graphql/mutations/server-mutations";
+import { Stock } from "../../helpers/types/stock.types";
 
-import StockEdit from './stock-edit.component';
+import StockEdit from "./stock-edit.component";
 
 export interface StockEditContainerProps {
 	stock: Stock;
@@ -32,13 +32,12 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 		},
 		onCompleted: ({ editUserStock: user }) => {
 			updateCurrentUser(user);
-			message.success('The changes were successfully saved.');
+			message.success("The changes were successfully saved.");
 		},
 	});
 	const [deleteUserStock] = useMutation(DELETE_USER_STOCK, {
 		variables: { userId: currentUser?._id, stockId: stock._id },
 		onCompleted: ({ deleteUserStock: user }) => {
-			console.log(user);
 			updateCurrentUser(user);
 		},
 	});
@@ -59,7 +58,7 @@ const StockEditContainer: React.FunctionComponent<StockEditContainerProps> = ({
 
 	const handleConfirmDelete = () => {
 		deleteUserStock();
-		message.success('The stock was successfully deleted.');
+		message.success("The stock was successfully deleted.");
 	};
 
 	const handleSaveChanges = () => {

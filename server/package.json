@@ -8,9 +8,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "nodemon --watch src/ --exec \"ts-node src/index.ts\" -e ts",
-		"test": "env-cmd -f ./test.env jest --watch",
 		"start": "node dist/index.js",
-		"postinstall": "tsc && mv -i -v build dist/ && mv -i -v .env dist/"
+		"postinstall": "tsc && mv -i -v build dist/"
 	},
 	"jest": {
 		"testEnvironment": "node"
