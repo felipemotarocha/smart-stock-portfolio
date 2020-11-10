@@ -11,10 +11,10 @@ _The **"Status"** field will tell you if you need to buy more of one stock or wa
 _You can edit your stocks anyway you want._
 
 ![Add a new stock](https://imgur.com/07bLq6Y.png)
-_You can add stocks that you already have, instead of use your available balance to buy them._
+_You can add stocks that you already have._
 
 ![Login Page](https://imgur.com/fv3ZB9t.png)
-\_You can either login using your Google account or as guest, using none account at all.
+_You can either login using your Google account or as guest, using none account at all._
 
 ![Register Page](https://imgur.com/sYLEEyx.png)
 
