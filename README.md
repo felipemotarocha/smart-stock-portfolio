@@ -13,10 +13,10 @@ _You can edit your stocks anyway you want._
 ![Add a new stock](https://imgur.com/07bLq6Y.png)
 _You can add stocks that you already have, instead of use your available balance to buy them._
 
-![Login Page](https://imgur.com/cRUqeWP.png)
-_You can also login using your Google account if you want to._
+![Login Page](https://imgur.com/fv3ZB9t.png)
+\_You can either login using your Google account or as guest, using none account at all.
 
-![Register Page](https://imgur.com/XizwrAO.png)
+![Register Page](https://imgur.com/sYLEEyx.png)
 
 # Technologies/Stack Used ⚙️
 
@@ -29,7 +29,7 @@ _You can also login using your Google account if you want to._
 Clone the project:
 
 ```bash
-git clone https://github.com/felipemotarocha/fullstack-graphql-shares-rebalancing
+git clone https://github.com/felipemotarocha/smart-stock-portfolio
 ```
 
 # Setting Up The Server Side 💻
