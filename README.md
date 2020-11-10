@@ -18,6 +18,12 @@ _You can also login using your Google account if you want to._
 
 ![Register Page](https://imgur.com/XizwrAO.png)
 
+# Technologies/Stack Used ⚙️
+
+**Front end:** React, TypeScript, Apollo Client, Context API, Hooks.
+
+**Back end:** Node, Express, TypeScript, GraphQL, TypeGraphQL, Apollo Server.
+
 # Quick Start 🚀
 
 Clone the project:
